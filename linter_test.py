@@ -6,4 +6,5 @@ def linter_does_it_work(test: str) -> int:
     :param test: A dummy variable.
     :return: The number 1.
     """
+    print(test)
     return 1
