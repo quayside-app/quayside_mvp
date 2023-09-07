@@ -2,11 +2,12 @@
 import openai
 import chatGPT_creds
 
-def query_chat_gpt(input: str) -> str:
+
+def query_chat_gpt(chat_gpt_input: str) -> str:
     """
     queries chatgpt, returns a string with the output
 
-    :param input: string containing the query
+    :param chat_gpt_input: string containing the query
     :return: string containing the output from chatgpt
     """
     openai.api_key = chatGPT_creds.API_KEY
@@ -17,9 +18,9 @@ def query_chat_gpt(input: str) -> str:
     You make org-work more enjoyable for teams. The key question you are trying to 
     answer is 'what do I work on next?' Honesty and transparancy are important to 
     you."""
-    
+
     # Prompt instructions with user input
-    prompt = "Break the following input into 3 sub tasks: " + input
+    prompt = "Break the following input into 3 sub tasks: " + chat_gpt_input
 
     # Info sent to chatGPT
     completion = openai.ChatCompletion.create(
