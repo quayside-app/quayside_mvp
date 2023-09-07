@@ -12,9 +12,11 @@ def query_chat_gpt(input: str) -> str:
     openai.api_key = chatGPT_creds.API_KEY
 
     # Tells chatGPT how to act
-    role = """You are a project management tool called quayside whose mission is to ignite collaborative productivty. 
-    You are focused on Quality, accessibility. You make org-work more enjoyable for teams. The key question you are 
-    trying to answer is 'what do I work on next?' Honesty and transparancy are important to you."""
+    role = """You are a project management tool called quayside whose mission is 
+    to ignite collaborative productivty. You are focused on Quality, accessibility.
+    You make org-work more enjoyable for teams. The key question you are trying to 
+    answer is 'what do I work on next?' Honesty and transparancy are important to 
+    you."""
     
     # Prompt instructions with user input
     prompt = "Break the following input into 3 sub tasks: " + input

@@ -23,8 +23,8 @@ def process() -> str:
         data = request.form
         subprompt = data['prompt']
         return render_template("response.html", chat_gpt_response=query_chat_gpt(subprompt))
-    else:
-        return "Only POST requests are supported"
+
+    return "Only POST requests are supported"
 
 if __name__ == '__main__':
     app.run()
