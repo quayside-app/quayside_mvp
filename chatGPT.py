@@ -1,7 +1,14 @@
+"""Module that includes chatgpt interface"""
 import openai
 import chatGPT_creds
 
-def query_chat_gpt(input):
+def query_chat_gpt(input: str) -> str:
+    """
+    queries chatgpt, returns a string with the output
+
+    :param input: string containing the query
+    :return: string containing the output from chatgpt
+    """
     openai.api_key = chatGPT_creds.API_KEY
 
     # Tells chatGPT how to act
