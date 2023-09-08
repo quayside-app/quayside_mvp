@@ -1,4 +1,6 @@
 """Module for linter test"""
+
+
 def linter_does_it_work(test: str) -> int:
     """
     This function returns the number 1.
@@ -13,4 +15,5 @@ def linter_does_it_work(test: str) -> int:
 
 
 if __name__ == "__main__":
-    print(linter_does_it_work("test!"))
+    print(x := linter_does_it_work("test!"))
+    print(x)
