@@ -9,7 +9,6 @@ export const metadata = {
   title: 'quayside',
   description: 'What is next?',
 }
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

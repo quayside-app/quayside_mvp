@@ -1,5 +1,6 @@
 "use client";
 
+import RootLayout from './layout';
 import Image from 'next/image'
 import { useState } from 'react';
 
@@ -8,6 +9,7 @@ export default function Home() {
   const [choices, setChoices] = useState([]); // for rendering API response
 
   return (
+    <RootLayout>
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p>It's our MVP!</p>
@@ -37,5 +39,6 @@ export default function Home() {
         })}
       </div>
     </main>
+    </RootLayout>
   );
 }
