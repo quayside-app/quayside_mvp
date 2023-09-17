@@ -16,7 +16,9 @@ const LeftSidebar = () => {
                 <li> <span className="ml-3 flex justify-center py-5">Directory</span> </li>
                 <li> <Dropdown label = "New Project" image_path={plusIcon}/> </li>
                 <li> <Dropdown label = "Task" image_path={plusIcon}/> </li>
+
                 <li><div class="pt-4 my-10 space-y-2 font-medium border-t border-gray-200"></div></li>
+                
                 <li> <Dropdown label = "Starred" image_path={starIcon}/> </li>
                 <li> <Dropdown label = "Projects" image_path={tableIcon}/> </li>
                 <li> <Dropdown label = "Team" image_path={teamIcon}/> </li>

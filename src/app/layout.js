@@ -15,8 +15,10 @@ export default function RootLayout({ children }) {
       <Navbar />
       
       <body className={inter.className}>
-        <LeftSidebar />
-        {children}
+        <div className="flex flex-wrap">
+          <LeftSidebar />
+          <div className="flex flex-wrap w-5"> {children} </div>
+        </div>
       </body>
 
     </html>
