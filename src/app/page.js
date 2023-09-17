@@ -8,9 +8,9 @@ export default function Home() {
   const [choices, setChoices] = useState([]); // for rendering API response
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p>It's our MVP!</p>
+    <main className="flex flex-wrap flex-col items-center">
+      <div className="flex flex-wrap items-center">
+        <div>It's our MVP! </div>
 
         <button
           onClick={async () => {
