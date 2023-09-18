@@ -9,7 +9,6 @@ import targetIcon from "../../public/svg/target.svg";
 
 const LeftSidebar = () => {
   return (
-
         <div className="flex w-1/6 bg-gray-50 dark:bg-gray-800 justify-center rounded-md py-5 ">
             <div className="flex flex-wrap">
               <ul className="font-medium">
@@ -26,8 +25,6 @@ const LeftSidebar = () => {
               </ul>
             </div>
         </div>
-
-
   );
 };
 

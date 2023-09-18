@@ -1,7 +1,9 @@
 import './globals.css'
 import LeftSidebar from '../components/LeftSidebar';
 import Navbar from '../components/Navbar';
+import NewProjectModal from '../components/NewProjectModal';
 import { Inter } from 'next/font/google'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,6 +17,7 @@ export default function RootLayout({ children }) {
       
       
       <body className={inter.className}>
+        <NewProjectModal />
         <Navbar />
         <div className="flex min-h-screen m-5">
           <LeftSidebar />
