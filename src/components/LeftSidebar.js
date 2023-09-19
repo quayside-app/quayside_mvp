@@ -24,7 +24,7 @@ export default function LeftSidebar() {
               <ul className="font-medium">
                 <li> <span className="ml-3 flex justify-center py-5">Directory</span> </li>
 
-                <li> <Dropdown clickAction ={() => {setIsOpen(true); console.log("Here")}} label = "New Project"  image_path={plusIcon}/> </li>
+                <li> <Dropdown clickAction ={() => {setIsOpen(true)}} label = "New Project"  image_path={plusIcon}/> </li>
                 <li> <Dropdown label = "Task" image_path={plusIcon}/> </li>
 
                 <li><div className="pt-4 my-10 space-y-2 font-medium border-t  border-gray-200"></div></li>
@@ -41,4 +41,3 @@ export default function LeftSidebar() {
   );
 };
 
-//export default LeftSidebar;

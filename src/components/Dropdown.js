@@ -11,6 +11,7 @@ const Dropdown = ({label, clickAction, image_path}) => {
             <Image priority src={image_path} alt={label}/>
             <span className="flex-1 ml-3 text-left whitespace-nowrap">{label}</span>
             <Image priority src={dropdownIcon} alt="Dropdown Icon"/>
+            
         </button>
     );
 };
