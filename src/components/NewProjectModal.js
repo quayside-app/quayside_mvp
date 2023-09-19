@@ -13,7 +13,7 @@ const NewProjectModal = ({isOpen, handleClose }) => {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 ">
-            <div id="authentication-modal" tabindex="-1"  className="fixed w-full p-4 ">
+            <div id="authentication-modal" tabIndex="-1"  className="fixed w-full p-4 ">
             
                     <div className="relative rounded-lg shadow bg-gray-900">
                         <button type="button" onClick={handleClose} className="absolute top-3 right-3 rounded-lg  w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600" data-modal-hide="authentication-modal">

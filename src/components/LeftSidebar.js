@@ -23,11 +23,6 @@ export default function LeftSidebar() {
               <ul className="font-medium">
                 <li> <span className="ml-3 flex justify-center py-5">Directory</span> </li>
                 
-                {/* <button onClick={() => {console.log("hello")}} className="flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700">
-                    <Image priority src={plusIcon} alt={"Temp"}/>
-                    <span className="flex-1 ml-3 text-left whitespace-nowrap">New Proj</span>
-   
-                </button> */}
 
                 <li> <Dropdown label = "New Project" clickAction={() => {setIsOpen(true); console.log("Here")} } image_path={plusIcon}/> </li>
                 <li> <Dropdown label = "Task" image_path={plusIcon}/> </li>
