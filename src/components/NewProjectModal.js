@@ -1,6 +1,7 @@
 "use client"; 
 import React from "react";
 import {useState} from "react"
+import cookieCutter from 'cookie-cutter'
 
 import Input from '../components/Input';
 import xIcon from "../../public/svg/x.svg";
@@ -9,7 +10,7 @@ import Image from "next/image";
 
 
 const NewProjectModal = ({isOpen, handleClose}) => {
-
+    
     const [formData, setFormData] = useState({
         apiKey: "",
         description: "",
@@ -25,16 +26,28 @@ const NewProjectModal = ({isOpen, handleClose}) => {
             [fieldName]: fieldValue
         }));
     }
+
     const submitForm = (e) => {
         e.preventDefault()  // Prevents page from refreshing
     
         // Print out form data in console
         Object.entries(formData).forEach(([key, value]) => {
+            //cookies().set(key, value)
+            cookieCutter.set(key, value)
+
             console.log(key, value);
         })
 
-          handleClose();
-      }
+        handleClose()
+    }
+
+    // async function setCookie(key, value) {
+    //     "use server"
+    //     cookies().set(key, value)
+    //   }
+
+    
+    
     
     if (!isOpen) return null;
     return (

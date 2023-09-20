@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react';
+import cookieCutter from 'cookie-cutter'
 
 export default function Home() {
 
@@ -10,7 +11,7 @@ export default function Home() {
   return (
     <main className="flex flex-wrap flex-col items-center">
       <div className="flex flex-wrap items-center">
-        <div>It's our MVP! </div>
+        <div>{cookieCutter.get('description')} </div>
 
         <button
           onClick={async () => {
