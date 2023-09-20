@@ -48,6 +48,7 @@ function TreeGraph() {
       }
     });
 
+    // Tailwind's bg-gray-200 #E5E7EB
     const cy = cytoscape({
       container: containerRef.current,
       elements: elements,
@@ -55,41 +56,42 @@ function TreeGraph() {
         {
           selector: 'node',
           style: {
-            shape: 'ellipse',
-            width: 'label',  // Adjusts width based on label
-            height: 50,  // Set a fixed height
-            'background-color': '#E5E7EB',  // Tailwind's bg-gray-200
+            shape: 'circle',
+            width: '1000',  // Adjusts width based on label
+            height: '800',  // Set a fixed height
+            'background-color': 'black',  
             'text-valign': 'center',
             label: 'data(label)',
             'text-wrap': 'wrap',
-            'text-max-width': 150,
-            padding: '10px',
-            color: '#1F2937',  // Tailwind's text-gray-900
-            'font-size': 12,
-            'border-width': 1,
-            'border-color': '#D1D5DB'  // Tailwind's border-gray-300
+            'text-max-width': 500,
+            padding: '30px',
+            color: 'white',  // Tailwind's text-gray-900
+            'font-size': 100,
+            'border-width': 10,
+            'border-color': '#FFFFFF'  
           }
         },
         {
           selector: 'edge',
           style: {
             curveStyle: 'bezier',
-            'line-color': '#D1D5DB',  // Tailwind's border-gray-300
-            width: 1,
+            'line-color': 'white',  // Tailwind's border-gray-300 #D1D5DB
+            width: 10,
             targetArrowShape: 'triangle',
-            'target-arrow-color': '#D1D5DB'  // Tailwind's border-gray-300
+            'target-arrow-color': 'white'  // Tailwind's border-gray-300
           }
         }
     ],
       layout: {
         name: 'breadthfirst',
-        fit: true,
+        spacingFactor: 1.3,
+        padding: 4,
         directed: true
       }
     });
   }, []);
 
-  return <div ref={containerRef} style={{ width: '100%', height: '400px' }}></div>;
+  return <div ref={containerRef} style={{ width: '100%', height: '1000px' }}></div>;
 }
 
 export default TreeGraph;
