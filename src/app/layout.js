@@ -18,11 +18,13 @@ export default function RootLayout({ children }) {
       
       
       <body className={inter.className}>
-        <NewProjectModal />
-        <Navbar />
-        <div className="flex min-h-screen m-5">
-          <LeftSidebar />
-          <div className="flex w-5/6 ml-5"> {children} </div>
+        <div className="mt-5">
+          <NewProjectModal />
+          <Navbar />
+          <div className="flex min-h-screen m-5">
+            <LeftSidebar />
+            <div className="flex w-5/6 ml-5"> {children} </div>
+          </div>
         </div>
       </body>
 
