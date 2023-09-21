@@ -30,7 +30,7 @@ export default function LeftSidebar() {
   ];
 
   return (
-    <div className="flex w-1/6 bg-gray-800 text-white justify-center rounded-md py-5">
+    <div className="flex w-1/6 bg-neutral-800 text-white justify-center rounded-md py-5">
       {/* New Project Modal */}
       <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
 
