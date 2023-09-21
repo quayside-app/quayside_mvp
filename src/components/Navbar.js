@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="px-5">
         <nav className="rounded-md bg-neutral-800 p-2 text-white w-full">
 
-          <div className="flex flex-wrap"> {/* Stack elements on mobile, grid on larger screens */}
+          <div className="flex"> {/* Stack elements on mobile, grid on larger screens */}
             
             <div className="flex w-2/12 lg:w-1/12 justify-start mx-1">
               {/* Hamburger */}
