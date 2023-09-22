@@ -6,10 +6,10 @@ import logo from "../../static/Quayside-Logo.png";
 const Navbar = () => {
     return (
 
-      <div className="px-5">
-        <nav className="rounded-md bg-neutral-800 p-2 text-white w-full">
+      <div className="drop-shadow-2xl">
+        <nav className=" bg-neutral-800 p-2 text-white w-full drop-shadow-2xl">
 
-          <div className="flex"> {/* Stack elements on mobile, grid on larger screens */}
+          <div className="flex">
             
             <div className="flex w-2/12 lg:w-1/12 justify-start mx-1">
               {/* Hamburger */}
