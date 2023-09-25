@@ -7,7 +7,7 @@
 import TreeGraph from '../components/Graph'
 export default function Home () {
   // const [choices, setChoices] = useState([]) // for rendering API response // 'choices' is assigned a value but never used. (no-unused-vars)
-
+}
 
 import TreeGraph from '../components/Graph'
 export default function Home () {

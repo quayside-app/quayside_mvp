@@ -10,7 +10,7 @@ import Image from 'next/image'
 const NewProjectModal = ({ isOpen, handleClose }) => {
   const [formData, setFormData] = useState({
     apiKey: '',
-    prompt: ''
+    prompt: '',
     description: '',
     question1: '',
     question2: '',
