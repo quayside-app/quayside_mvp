@@ -31,7 +31,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
   const submitForm = (e) => {
     e.preventDefault() // Prevents page from refreshing
 
-
     fetch('/api/chat-gpt', {
       method: 'POST',
       headers: {
