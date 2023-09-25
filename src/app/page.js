@@ -1,19 +1,18 @@
-"use client";
+'use client'
 
 import Image from 'next/image'
-import { useState } from 'react';
+import { useState } from 'react'
 import cookieCutter from 'cookie-cutter'
-import TreeGraph from '../components/Graph';
-import ChatGPT from '../components/ChatGPT';
-export default function Home() {
-
-  const [choices, setChoices] = useState([]); // for rendering API response
+import TreeGraph from '../components/Graph'
+import ChatGPT from '../components/ChatGPT'
+export default function Home () {
+  const [choices, setChoices] = useState([]) // for rendering API response
 
   return (
-    <main className="flex flex-wrap w-full flex-col items-center">
-      <div className="flex w-full flex-wrap items-center">
+    <main className='flex flex-wrap w-full flex-col items-center'>
+      <div className='flex w-full flex-wrap items-center'>
         {/* <div>{cookieCutter.get('description')} </div> */}
-        <div className='w-full'><TreeGraph/></div>
+        <div className='w-full'><TreeGraph /></div>
         {/* <div className='w-full'><ChatGPT/></div> */}
 
         {/* <button
@@ -41,5 +40,5 @@ export default function Home() {
         })} */}
       </div>
     </main>
-  );
+  )
 }
