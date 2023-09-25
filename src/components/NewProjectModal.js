@@ -13,7 +13,7 @@ const NewProjectModal = ({isOpen, handleClose}) => {
     
     const [formData, setFormData] = useState({
         apiKey: "",
-        description: "",
+        prompt: "",
     });
 
     // Updates variables every time they are changed
@@ -30,6 +30,23 @@ const NewProjectModal = ({isOpen, handleClose}) => {
     const submitForm = (e) => {
         e.preventDefault()  // Prevents page from refreshing
     
+
+        const response = fetch("/api/chat-gpt", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            //magically sending formData to route.js where the API call is handled
+            body: JSON.stringify({
+                prompt: formData.prompt,
+                apiKey: formData.apiKey,
+            }),
+            }).then(async (response) => {
+            console.log("TEST RESPONSE", response)
+            const result =  await response.json();
+            });
+
+
         // Print out form data in console
         Object.entries(formData).forEach(([key, value]) => {
             //cookies().set(key, value)
@@ -40,6 +57,7 @@ const NewProjectModal = ({isOpen, handleClose}) => {
 
         handleClose()
     }
+
 
     // async function setCookie(key, value) {
     //     "use server"
@@ -62,7 +80,7 @@ const NewProjectModal = ({isOpen, handleClose}) => {
                                 <h3 className="mb-4 text-xl font-medium text-white">New Project</h3>
                                 <form className="space-y-6"  onSubmit={submitForm}>
                                     <Input name="apiKey" value={formData.apiKey} changeAction={handleInput} label="ChatGPT API Key" placeholder="••••••••"/>
-                                    <Input name="description" value={formData.description} changeAction={handleInput} placeholder="I want to bake a cake!"/>
+                                    <Input name="prompt" value={formData.prompt} changeAction={handleInput} placeholder="I want to bake a cake!"/>
 
                                     <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                         Create
@@ -74,5 +92,6 @@ const NewProjectModal = ({isOpen, handleClose}) => {
             </div>        
     );
 };
+
 
 export default NewProjectModal;

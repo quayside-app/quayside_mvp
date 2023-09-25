@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react';
 import cookieCutter from 'cookie-cutter'
 import TreeGraph from '../components/Graph';
+import ChatGPT from '../components/ChatGPT';
 export default function Home() {
 
   const [choices, setChoices] = useState([]); // for rendering API response
@@ -13,6 +14,7 @@ export default function Home() {
       <div className="flex w-full flex-wrap items-center">
         {/* <div>{cookieCutter.get('description')} </div> */}
         <div className='w-full'><TreeGraph/></div>
+        {/* <div className='w-full'><ChatGPT/></div> */}
 
         {/* <button
           onClick={async () => {
@@ -27,7 +29,7 @@ export default function Home() {
             });
             console.log("RESPONSE", response)
             const result = await response.json();
-            setChoices(result.choices)
+            setChoices(result.choices) //then display choice.message.content on the screen for each choice in choices by choice index
           }}
         >
           API BUTTON!

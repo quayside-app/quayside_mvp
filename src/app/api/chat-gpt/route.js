@@ -1,13 +1,23 @@
 import {NextResponse} from "next/server";
 import OpenAI from "openai";
+import NewProjectModal from '../../../components/NewProjectModal'
 
 export async function POST(request) {
-    const openai = new OpenAI({
-        // for now, made a .env file under quayside_mvp and added OPENAI_API_KEY = "<KEY>"
-        apiKey: process.env.OPENAI_API_KEY 
-    })
 
+    console.log(process.env.QUAYSIDE_API_KEY) //remove later
+
+    //magically getting the user form data from NewProjectModal form
     const params = await request.json();
+    const userAPIKey = params.apiKey;
+    const userPrompt = params.prompt || "How to do handstands";
+
+    if (!userAPIKey) {
+        return NextResponse.json({ error: "API key is required" }, { status: 400 });
+    }
+
+    const openai = new OpenAI({
+        apiKey: userAPIKey,
+    });
 
     const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
@@ -18,9 +28,9 @@ export async function POST(request) {
                 content: "break this task down into 3 subtasks"
             },
             {
-                // here is where the frontend passes the question to
+                // here is where the user prompt gets used
                 role: "user",
-                content: "raising a frog" // temporarily hardcoded
+                content: userPrompt
             }
         ],
         temperature: 0,
@@ -29,7 +39,6 @@ export async function POST(request) {
         frequency_penalty: 0,
         presence_penalty: 0,
     })
-    
     
     return NextResponse.json(response);
 
