@@ -1,6 +1,8 @@
 'use client'
 import React, { useState } from 'react'
 
+// import Image from 'next/image' //'Image' is defined but never used. (no-unused-vars)
+
 import Dropdown from '../components/Dropdown'
 import NewProjectModal from '../components/NewProjectModal'
 
@@ -14,42 +16,33 @@ import targetIcon from '../../public/svg/target.svg'
  * Represents the left sidebar component.
  * @returns {JSX.Element} The rendered component.
  */
-export default function LeftSidebar () {
+
+export default function LeftSidebar ({ className }) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const dropdownItems = [
-    { label: 'New Project', imagePath: plusIcon },
-    { label: 'Task', imagePath: plusIcon },
-    { label: 'Starred', imagePath: starIcon },
-    { label: 'Projects', imagePath: tableIcon },
-    { label: 'Team', imagePath: teamIcon },
-    { label: 'Objectives', imagePath: targetIcon }
-  ]
-
   return (
-    <div className='flex w-1/6 bg-gray-800 text-white justify-center rounded-md py-5'>
-      {/* New Project Modal */}
-      <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
+    <div className={className}>
+      <div className='flex  bg-neutral-800 text-white justify-center py-5'>
+        {/* New Project Modal */}
+        <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
 
-      <div className='flex flex-wrap'>
-        <ul className='font-medium'>
-          {/* Directory */}
-          <li>
-            <span className='ml-3 flex justify-center py-5'>Directory</span>
-          </li>
+        <div className='flex flex-wrap mx-4'>
+          <ul className='font-medium'>
+            <li> <span className='ml-3 flex justify-center py-5'>Directory</span> </li>
 
-          {/* Dropdown items */}
-          {dropdownItems.map((item, index) => (
-            <li key={index}>
-              <Dropdown
-                label={item.label}
-                imagePath={item.imagePath}
-                clickAction={() => setIsOpen(item.label === 'New Project')}
-              />
-            </li>
-          ))}
-        </ul>
-        <div className='pt-4 my-10 space-y-2 font-medium border-t border-gray-200' />
+            <li> <Dropdown clickAction={() => { setIsOpen(true); console.log('Here') }} label='New Project' imagePath={plusIcon} /> </li>
+            <li> <Dropdown label='Task' imagePath={plusIcon} /> </li>
+
+            <li><div className='my-10 space-y-2 font-medium border-t  border-gray-200' /></li>
+
+            <li> <Dropdown label='Starred' imagePath={starIcon} /> </li>
+            <li> <Dropdown label='Projects' imagePath={tableIcon} /> </li>
+            <li> <Dropdown label='Team' imagePath={teamIcon} /> </li>
+            <li> <Dropdown label='Objectives' imagePath={targetIcon} /> </li>
+          </ul>
+
+          <div className='pt-4 my-10 space-y-2 font-medium border-t border-gray-200' />
+        </div>
       </div>
     </div>
   )

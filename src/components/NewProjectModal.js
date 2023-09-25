@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-
 import cookieCutter from 'cookie-cutter'
 
 import Input from '../components/Input'
@@ -12,6 +11,10 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
   const [formData, setFormData] = useState({
     apiKey: '',
     prompt: ''
+    description: '',
+    question1: '',
+    question2: '',
+    question3: ''
   })
 
   // Updates variables every time they are changed
@@ -27,6 +30,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
   const submitForm = (e) => {
     e.preventDefault() // Prevents page from refreshing
+
 
     fetch('/api/chat-gpt', {
       method: 'POST',
@@ -74,6 +78,12 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
             <form className='space-y-6' onSubmit={submitForm}>
               <Input name='apiKey' value={formData.apiKey} changeAction={handleInput} label='ChatGPT API Key' placeholder='••••••••' />
               <Input name='prompt' value={formData.prompt} changeAction={handleInput} placeholder='I want to bake a cake!' />
+
+              <Input name='description' value={formData.description} changeAction={handleInput} label='What is your project about?' placeholder='I want to bake a cake!' />
+
+              <Input name='question1' value={formData.question1} changeAction={handleInput} label='When should the project be completed?' placeholder='Feb 30, 2041' />
+              <Input name='question2' value={formData.question2} changeAction={handleInput} label='What is the budget allocated for this project?' placeholder='One Billion Dollars and 1 cent' />
+              <Input name='question3' value={formData.question3} changeAction={handleInput} label='Who are the key stakeholders involved in this project?' placeholder='my boss' />
 
               <button type='submit' className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
                 Create
