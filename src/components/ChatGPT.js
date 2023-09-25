@@ -2,9 +2,6 @@
    needs to somehow output the chatgpt response
 */
 
-import React, { useState } from 'react'
-
-
 const ChatGPT = () => {
 //   const [choices] = useState([]) // variable choices and setter setChoices
 

@@ -40,7 +40,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       })
     }).then(async (response) => {
       console.log('TEST RESPONSE', response)
-      //const result = await response.json()
+      // const result = await response.json()
       await response.json()
     })
 

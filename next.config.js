@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-//npconst nextConfig = {}
+// npconst nextConfig = {}
 
 module.exports = {
   output: 'standalone'
