@@ -1,18 +1,17 @@
-"use client";
+'use client'
 
-import Image from 'next/image'
-import { useState } from 'react';
-import cookieCutter from 'cookie-cutter'
-import TreeGraph from '../components/Graph';
-export default function Home() {
-
-  const [choices, setChoices] = useState([]); // for rendering API response
+// import Image from 'next/image' //'Image' is defined but never used. (no-unused-vars)
+// import { useState } from 'react' //'useState' is defined but never used. (no-unused-vars)
+// import cookieCutter from 'cookie-cutter' //'cookieCutter' is defined but never used. (no-unused-vars)
+import TreeGraph from '../components/Graph'
+export default function Home () {
+  // const [choices, setChoices] = useState([]) // for rendering API response // 'choices' is assigned a value but never used. (no-unused-vars)
 
   return (
-    <main className="flex flex-wrap w-full flex-col items-center">
-      <div className="flex w-full flex-wrap items-center">
+    <main className='flex flex-wrap w-full flex-col items-center'>
+      <div className='flex w-full flex-wrap items-center'>
         {/* <div>{cookieCutter.get('description')} </div> */}
-        <div className='w-full'><TreeGraph/></div>
+        <div className='w-full'><TreeGraph /></div>
 
         {/* <button
           onClick={async () => {
@@ -39,5 +38,5 @@ export default function Home() {
         })} */}
       </div>
     </main>
-  );
+  )
 }
