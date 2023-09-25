@@ -1,12 +1,9 @@
 'use client'
 
-import Image from 'next/image'
+
 import { useState } from 'react'
-import cookieCutter from 'cookie-cutter'
 import TreeGraph from '../components/Graph'
-import ChatGPT from '../components/ChatGPT'
 export default function Home () {
-  const [choices, setChoices] = useState([]) // for rendering API response
 
   return (
     <main className='flex flex-wrap w-full flex-col items-center'>

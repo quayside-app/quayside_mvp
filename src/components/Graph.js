@@ -49,7 +49,7 @@ function TreeGraph () {
     })
 
     // Tailwind's bg-gray-200 #E5E7EB
-    const cy = cytoscape({
+    cytoscape({
       container: containerRef.current,
       elements,
       style: [

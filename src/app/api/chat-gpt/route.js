@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
-import NewProjectModal from '../../../components/NewProjectModal'
 
 export async function POST (request) {
   console.log(process.env.QUAYSIDE_API_KEY) // remove later

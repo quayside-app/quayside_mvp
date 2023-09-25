@@ -28,7 +28,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
   const submitForm = (e) => {
     e.preventDefault() // Prevents page from refreshing
 
-    const response = fetch('/api/chat-gpt', {
+    fetch('/api/chat-gpt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -40,7 +40,8 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       })
     }).then(async (response) => {
       console.log('TEST RESPONSE', response)
-      const result = await response.json()
+      //const result = await response.json()
+      await response.json()
     })
 
     // Print out form data in console

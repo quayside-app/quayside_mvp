@@ -1,8 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 
-import Image from 'next/image'
-
 import Dropdown from '../components/Dropdown'
 import NewProjectModal from '../components/NewProjectModal'
 
