@@ -18,12 +18,12 @@ export default function LeftSidebar () {
   const [isOpen, setIsOpen] = useState(false)
 
   const dropdownItems = [
-    { label: 'New Project', image_path: plusIcon },
-    { label: 'Task', image_path: plusIcon },
-    { label: 'Starred', image_path: starIcon },
-    { label: 'Projects', image_path: tableIcon },
-    { label: 'Team', image_path: teamIcon },
-    { label: 'Objectives', image_path: targetIcon }
+    { label: 'New Project', imagePath: plusIcon },
+    { label: 'Task', imagePath: plusIcon },
+    { label: 'Starred', imagePath: starIcon },
+    { label: 'Projects', imagePath: tableIcon },
+    { label: 'Team', imagePath: teamIcon },
+    { label: 'Objectives', imagePath: targetIcon }
   ]
 
   return (
@@ -43,7 +43,7 @@ export default function LeftSidebar () {
             <li key={index}>
               <Dropdown
                 label={item.label}
-                image_path={item.image_path}
+                imagePath={item.imagePath}
                 clickAction={() => setIsOpen(item.label === 'New Project')}
               />
             </li>

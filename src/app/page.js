@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import TreeGraph from '../components/Graph'
 export default function Home () {
   return (
