@@ -46,7 +46,7 @@ const Navbar = () => {
                 className='flex  px-3 text-xs  bg-neutral-600 text-white md:text-base'
               />
               <button className='px-4  flex items-center justify-center'>
-                <Image priority src={searchIcon} alt="Search" height='15' width='15' className='md:h-15 md:w-15'/>
+                <Image priority src={searchIcon} alt='Search' height='15' width='15' className='md:h-15 md:w-15' />
               </button>
             </div>
           </div>
