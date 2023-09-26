@@ -57,7 +57,6 @@ function TreeGraph () {
         {
           selector: 'node',
           style: {
-            shape: 'circle',
             width: '1000', // Adjusts width based on label
             height: '800', // Set a fixed height
             'background-color': 'black',
