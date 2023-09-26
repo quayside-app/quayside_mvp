@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import NavbarSvg from '../../static/svg/navbarsvg'
-import logo from '../../static/Quayside-Logo.png'
+import searchIcon from '../../public/svg/search.svg'
+import logo from '../../public/quaysideLogo.png'
 
 const Navbar = () => {
   return (
@@ -31,7 +31,7 @@ const Navbar = () => {
           <div className='flex w-4/12 justify-star mx-1'>
             <div className='flex bg-neutral-600 px-4 rounded-3xl overflow-hidden'>
               <input
-                type='text' minWidth='0' className='bg-neutral-600  text-xs'
+                type='text' className='bg-neutral-600  text-xs'
                 defaultValue='/quayside/Your-App'
               />
             </div>
@@ -46,7 +46,7 @@ const Navbar = () => {
                 className='flex  px-3 text-xs  bg-neutral-600 text-white md:text-base'
               />
               <button className='px-4  flex items-center justify-center'>
-                <NavbarSvg height='12px' width='12' color='#FFFFFF' className='md:h-15 md:w-15' /> {/* Smaller icon on mobile */}
+                <Image priority src={searchIcon} alt='Search' height='15' width='15' className='md:h-15 md:w-15' />
               </button>
             </div>
           </div>

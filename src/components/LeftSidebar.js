@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+
 // import Image from 'next/image' //'Image' is defined but never used. (no-unused-vars)
 
 import Dropdown from '../components/Dropdown'
@@ -15,6 +16,7 @@ import targetIcon from '../../public/svg/target.svg'
  * Represents the left sidebar component.
  * @returns {JSX.Element} The rendered component.
  */
+
 export default function LeftSidebar ({ className }) {
   const [isOpen, setIsOpen] = useState(false)
 

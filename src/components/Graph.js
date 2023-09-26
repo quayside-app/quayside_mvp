@@ -49,15 +49,14 @@ function TreeGraph () {
     })
 
     // Tailwind's bg-gray-200 #E5E7EB
-    // eslint-disable-next-line
-    const cy = cytoscape({
+    cytoscape({
+
       container: containerRef.current,
       elements,
       style: [
         {
           selector: 'node',
           style: {
-            shape: 'circle',
             width: '1000', // Adjusts width based on label
             height: '800', // Set a fixed height
             'background-color': 'black',
