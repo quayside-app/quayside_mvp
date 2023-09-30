@@ -30,10 +30,7 @@ const Navbar = () => {
           {/* Current Directory */}
           <div className='flex w-4/12 justify-star mx-1'>
             <div className='flex bg-neutral-600 px-4 rounded-3xl overflow-hidden'>
-              <input
-                type='text' minWidth='0' className='bg-neutral-600  text-xs'
-                defaultValue='/quayside/Your-App'
-              />
+            <input type='text' style={{ minWidth: '0' }} className='bg-neutral-600 text-xs' defaultValue='/quayside/Your-App' />
             </div>
           </div>
 
