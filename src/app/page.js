@@ -5,8 +5,6 @@
 // import cookieCutter from 'cookie-cutter' //'cookieCutter' is defined but never used. (no-unused-vars)
 import TreeGraph from '../components/Graph'
 export default function Home () {
-  // const [choices, setChoices] = useState([]) // for rendering API response // 'choices' is assigned a value but never used. (no-unused-vars)
-
   return (
     <main className='flex flex-wrap w-full flex-col items-center'>
       <div className='flex w-full flex-wrap items-center'>
@@ -26,7 +24,7 @@ export default function Home () {
             });
             console.log("RESPONSE", response)
             const result = await response.json();
-            setChoices(result.choices)
+            setChoices(result.choices) //then display choice.message.content on the screen for each choice in choices by choice index
           }}
         >
           API BUTTON!
