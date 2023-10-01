@@ -10,7 +10,7 @@ import Image from 'next/image'
 const NewProjectModal = ({ isOpen, handleClose }) => {
   const [formData, setFormData] = useState({
     apiKey: '',
-    description: '',
+    prompt: '',
     question1: '',
     question2: '',
     question3: ''
@@ -29,6 +29,22 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
   const submitForm = (e) => {
     e.preventDefault() // Prevents page from refreshing
+
+    fetch('/api/chat-gpt', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // magically sending formData to route.js where the API call is handled
+      body: JSON.stringify({
+        prompt: formData.prompt,
+        apiKey: formData.apiKey
+      })
+    }).then(async (response) => {
+      console.log('TEST RESPONSE', response)
+      // const result = await response.json()
+      await response.json()
+    })
 
     // Print out form data in console
     Object.entries(formData).forEach(([key, value]) => {
@@ -59,8 +75,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
             <h3 className='mb-4 text-xl font-medium text-white'>New Project</h3>
             <form className='space-y-6' onSubmit={submitForm}>
               <Input name='apiKey' value={formData.apiKey} changeAction={handleInput} label='ChatGPT API Key' placeholder='••••••••' />
-              <Input name='description' value={formData.description} changeAction={handleInput} label='What is your project about?' placeholder='I want to bake a cake!' />
-
+              <Input name='prompt' value={formData.prompt} changeAction={handleInput} label='What is your project about?' placeholder='I want to bake a cake!' />
               <Input name='question1' value={formData.question1} changeAction={handleInput} label='When should the project be completed?' placeholder='Feb 30, 2041' />
               <Input name='question2' value={formData.question2} changeAction={handleInput} label='What is the budget allocated for this project?' placeholder='One Billion Dollars and 1 cent' />
               <Input name='question3' value={formData.question3} changeAction={handleInput} label='Who are the key stakeholders involved in this project?' placeholder='my boss' />
