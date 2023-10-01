@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import Dropdown from '../components/Dropdown'
 import NewProjectModal from '../components/NewProjectModal'
-import ContactUsModal from '../components/ContactUsModal';
+import ContactUsModal from '../components/ContactUsModal'
 
 import plusIcon from '../../public/svg/plus.svg'
 import starIcon from '../../public/svg/star.svg'
@@ -18,19 +18,19 @@ import targetIcon from '../../public/svg/target.svg'
  */
 export default function LeftSidebar ({ className }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [isContactModalOpen, setContactModalOpen] = useState(false);
+  const [isContactModalOpen, setContactModalOpen] = useState(false)
 
   const handleContactClick = () => {
-    setContactModalOpen(true);
-    console.log('Contact Us clicked');
-  };
+    setContactModalOpen(true)
+    console.log('Contact Us clicked')
+  }
 
   return (
     <div className={`${className} flex flex-col h-screen flex-shrink-0 flex-grow-0 w-48`}>
       <ContactUsModal isOpen={isContactModalOpen} handleClose={() => setContactModalOpen(false)} />
       <div className='flex-grow flex bg-neutral-800 text-white justify-center py-5 overflow-y-auto'>
-      
-{/* New Project Modal */}
+
+        {/* New Project Modal */}
         <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
         <div className='flex flex-wrap mx-4'>
           <ul className='font-medium'>
@@ -52,14 +52,14 @@ export default function LeftSidebar ({ className }) {
       </div>
       {/* Contact Us Button */}
       <div className='sticky bottom-0 flex-shrink-0 p-2'>
-        <button 
+        <button
           type='button'
-          className='flex justify-center items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700' 
+          className='flex justify-center items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700'
           onClick={handleContactClick}
         >
           <span className='flex my-auto ml-3 text-left whitespace-nowrap text-xs xl:text-lg'>Contact Us</span>
         </button>
       </div>
     </div>
-  );
-  }
+  )
+}
