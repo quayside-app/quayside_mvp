@@ -6,7 +6,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const fileContents = fs.readFile( 'data.json', 'utf8');
 const username = fileContents["username"]
 const password = fileContents["password"]
-const uri = "mongodb+srv://<${username}>:<${password}>@quayside.ywsaohz.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://<${username}>:<${password}>@quayside.ywsaohz.mongodb.net/?retryWrites=true&w=majority`;
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
