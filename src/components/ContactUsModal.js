@@ -6,9 +6,9 @@ import Input from '../components/Input'
 
 /**
  * @description This compenent opens, initializes, and closes the Contact Us modal.
- * @param {boolean} isOpen - If handleClose is not pressed then 
+ * @param {boolean} isOpen - If handleClose is not pressed then
  * @param {Function} props.handleClose - "Function" to close the modal when clicked
- * @returns {JSX.Element|null} The JSX Code for the Contact Us modal, or null if not open. 
+ * @returns {JSX.Element|null} The JSX Code for the Contact Us modal, or null if not open.
  */
 
 export default function ContactUsModal ({ isOpen, handleClose }) {
@@ -39,7 +39,7 @@ export default function ContactUsModal ({ isOpen, handleClose }) {
     }))
   }
 
-/**
+  /**
    * @function submitForm
    * @description Submits the form data to the server.
    * @param {Event} e - The event object.
