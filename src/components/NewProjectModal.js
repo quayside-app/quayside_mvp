@@ -17,7 +17,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     question3: ''
   })
 
-  const { setApiResponse } = useApiResponse();
+  const { setApiResponse } = useApiResponse()
 
   // Updates variables every time they are changed
   const handleInput = (e) => {

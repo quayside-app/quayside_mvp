@@ -7,7 +7,7 @@ export async function POST (request) {
   // magically getting the user form data from NewProjectModal form
   const params = await request.json()
   const userAPIKey = params.apiKey
-  const userPrompt = params.prompt 
+  const userPrompt = params.prompt
 
   if (!userAPIKey) {
     return NextResponse.json({ error: 'API key is required' }, { status: 400 })
@@ -23,7 +23,7 @@ export async function POST (request) {
       {
         // set the tone of the response you get back
         role: 'system',
-        content: 'Given the user prompt, list its subtasks and subtask\'s subtasks, etc... in a tree structure starting from 1, and going deeper with 1.1, 1.1.1, 1.2, 1.2.2, etc.' +   
+        content: 'Given the user prompt, list its subtasks and subtask\'s subtasks, etc... in a tree structure starting from 1, and going deeper with 1.1, 1.1.1, 1.2, 1.2.2, etc.' +
                  'Ensure every task and subtask has 5 or less children tasks. Keep the subtasks directly related to the user input task.'
       },
       {

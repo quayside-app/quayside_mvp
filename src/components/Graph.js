@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react'
-import cytoscape from 'cytoscape'
+// import cytoscape from 'cytoscape'
 import { useApiResponse } from '@/app/ApiResponseContext'
 
 function TreeGraph () {
   const containerRef = useRef(null)
-  const { apiResponse } = useApiResponse();
+  const { apiResponse } = useApiResponse()
 
   useEffect(() => {
-    if (!apiResponse) return;
+    if (!apiResponse) return
     if (apiResponse) {
       console.log('help')
       console.log(apiResponse[0].message.content)
