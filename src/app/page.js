@@ -5,6 +5,9 @@
 // import { useState } from 'react' //'useState' is defined but never used. (no-unused-vars)
 // import cookieCutter from 'cookie-cutter' //'cookieCutter' is defined but never used. (no-unused-vars)
 import TreeGraph from '../components/Graph'
+import DataDisplay from '../components/User'
+
+
 export default function Home () {
   return (
     <main className='flex flex-wrap w-full flex-col items-center'>
@@ -36,6 +39,7 @@ export default function Home () {
           )
         })} */}
       </div>
+      <DataDisplay/>
     </main>
   )
 }

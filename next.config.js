@@ -7,5 +7,5 @@ module.exports = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true
   },
-  output: 'standalone'
+  output: 'standalone',
 }
