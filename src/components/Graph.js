@@ -10,7 +10,7 @@ function TreeGraph () {
     if (!apiResponse) return;
     if (apiResponse) {
       console.log('help')
-      console.log(apiResponse)
+      console.log(apiResponse[0].message.content)
     }
     // Convert the apiResponse into tasks or use it as needed.
 
