@@ -6,4 +6,4 @@ const userSchema = new mongoose.Schema({
     lastName: String,
 });
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema, 'User');

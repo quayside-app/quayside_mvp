@@ -6,19 +6,17 @@ async function getData() {
     const username = process.env.MONGO_USERNAME;
     const password = process.env.MONGO_PASSWORD;
 
-    const uri = `mongodb+srv://${username}:${password}@quayside-cluster.ry3otj1.mongodb.net/?retryWrites=true&w=majority`;
-
-    await mongoose.connect(uri);
-
-    const data = await User.findOne({firstName: 'Fred'});
-
-    await mongoose.disconnect();
-
-    
-    //const data = await db.collection('User').findOne({});
-  
-    //return JSON.parse(JSON.stringify(data));
-    return data;
+    const uri = `mongodb+srv://${username}:${password}@quayside-cluster.ry3otj1.mongodb.net/quayside?retryWrites=true&w=majority`;
+    try {
+      await mongoose.connect(uri);
+      const data = await User.findOne({firstName: 'Fred'}).exec();
+      await mongoose.disconnect();
+      console.log(data)
+      return data;
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+  }
 }
 
 
