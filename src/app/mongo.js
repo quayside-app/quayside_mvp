@@ -1,33 +1,33 @@
-import { MongoClient } from 'mongodb';
+// import { MongoClient } from 'mongodb';
 
-const username = process.env.MONGO_USERNAME;
-const password = process.env.MONGO_PASSWORD;
+// const username = process.env.MONGO_USERNAME;
+// const password = process.env.MONGO_PASSWORD;
 
-const uri = `mongodb+srv://${username}:${password}@quayside.dezgvql.mongodb.net/?retryWrites=true&w=majority`;
-const dbName = 'quayside';
+// const uri = `mongodb+srv://${username}:${password}@quayside.dezgvql.mongodb.net/?retryWrites=true&w=majority`;
+// const dbName = 'quayside';
 
-let cachedClient = null;
-let cachedDb = null;
+// let cachedClient = null;
+// let cachedDb = null;
 
-export async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb };
-  }
+// export async function connectToDatabase() {
+//   if (cachedClient && cachedDb) {
+//     return { client: cachedClient, db: cachedDb };
+//   }
 
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+//   const client = await MongoClient.connect(uri, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
 
-  const db = client.db(dbName);
+//   const db = client.db(dbName);
 
-  cachedClient = client;
-  cachedDb = db;
+//   cachedClient = client;
+//   cachedDb = db;
 
-  return { client, db };
-}
+//   return { client, db };
+// }
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+//Create a MongoClient with a MongoClientOptions object to set the Stable API version
 // const client = new MongoClient(uri, {
 //   serverApi: {
 //     version: ServerApiVersion.v1,

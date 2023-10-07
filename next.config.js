@@ -8,4 +8,5 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   output: 'standalone',
+
 }

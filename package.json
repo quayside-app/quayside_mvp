@@ -18,6 +18,7 @@
     "dotenv": "^16.3.1",
     "eslint-config-next": "13.4.19",
     "mongodb": "^6.1.0",
+    "mongoose": "^7.5.4",
     "next": "13.4.19",
     "openai": "^4.6.0",
     "postcss": "8.4.29",
@@ -28,5 +29,5 @@
   "devDependencies": {
     "eslint": "^8.50.0",
     "eslint-plugin-react": "^7.33.2"
-  },
+  }
 }

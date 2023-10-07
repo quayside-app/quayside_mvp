@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useRef } from 'react'
 import cytoscape from 'cytoscape'
 
@@ -91,7 +92,7 @@ function TreeGraph () {
     })
   }, [])
 
-  return <div ref={containerRef} style={{ width: '100%', height: '1000px' }} />
+  return <div ref={containerRef} style={{ width: '100%', height: '800px' }} />
 }
 
 export default TreeGraph
