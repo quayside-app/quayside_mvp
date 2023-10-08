@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 import {User} from '../api/mongoModels';
+import {URI} from '../api/mongoData.js';
 
-async function getData() {
-    const username = process.env.MONGO_USERNAME;
-    const password = process.env.MONGO_PASSWORD;
-
-    const uri = `mongodb+srv://${username}:${password}@quayside-cluster.ry3otj1.mongodb.net/quayside?retryWrites=true&w=majority`;
+async function getName() {
     try {
-      await mongoose.connect(uri);
-      const data = await User.findOne({firstName: 'Fred'});
+      await mongoose.connect(URI);
+      let data = await User.findOne({firstName: 'Fred'});
       await mongoose.disconnect();
+      if (data) {
+        data = data.firstName + ' ' + data.lastName
+      }
       return data;
   } catch (error) {
       console.error('Error fetching data:', error);
@@ -18,12 +18,11 @@ async function getData() {
 }
 
 export default async function DataDisplay() {
-    const data = await getData()
+    const name = await getName()
    
     return (
         <div>
-          <h1>Dis User:</h1>
-          <div>{JSON.stringify(data, null, 2)}</div>
+          <div>User: {name}</div>
         </div>
       );
 }
