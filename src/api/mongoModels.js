@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
 });
-export const User = mongoose.model('User', userSchema, 'User');
+
+// The mongoose.models.User prevents errors on refresh when editing 
+export const User = mongoose.models.User || mongoose.model('User', userSchema, 'User');
 
 const projectSchema = new mongoose.Schema({
     _id: ObjectId,
@@ -34,5 +36,6 @@ const projectSchema = new mongoose.Schema({
     teams: [ObjectId],
 
 });
-export const Project = mongoose.model('Project', projectSchema, 'Project');
+// The mongoose.models.Project prevents errors on refresh when editing 
+export const Project = mongoose.models.Project || mongoose.model('Project', projectSchema, 'Project');
 

@@ -2,6 +2,7 @@
 import NewProjectButton from '../components/NewProjectButton'
 
 import Dropdown from '../components/Dropdown'
+import Button from '../components/Button'
 
 import plusIcon from '../../public/svg/plus.svg'
 import starIcon from '../../public/svg/star.svg'
@@ -30,7 +31,7 @@ async function getProjects() {
           <div>
             <ul>
               {projects.map((project, index) => (
-                <li key={index}>{project.name}</li>
+                <li key={index} className=" font-light text-sm"> <Button label={project.name}/></li>
               ))}
             </ul>
           </div>
@@ -57,12 +58,11 @@ export default async function LeftSidebar ({ className }) {
     <div className={className}>
       <div className='flex  bg-neutral-800 text-white justify-center py-5'>
 
-
         <div className='flex flex-wrap mx-4'>
           <ul className='font-medium'>
             <li> <span className='ml-3 flex justify-center py-5'>Directory</span> </li>
             <NewProjectButton/>
-            <li> <Dropdown label='Task' imagePath={plusIcon} /> </li>
+            <li> <Button label='Task' imagePath={plusIcon} /> </li>
 
             <li><div className='my-10 space-y-2 font-medium border-t  border-gray-200' /></li>
 
