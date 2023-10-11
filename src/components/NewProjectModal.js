@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import { useApiResponse } from '@/app/ApiResponseContext'
 import cookieCutter from 'cookie-cutter'
 
 import Input from '../components/Input'
@@ -15,6 +16,8 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     question2: '',
     question3: ''
   })
+
+  const { setApiResponse } = useApiResponse()
 
   // Updates variables every time they are changed
   const handleInput = (e) => {
@@ -43,7 +46,8 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     }).then(async (response) => {
       console.log('TEST RESPONSE', response)
       // const result = await response.json()
-      await response.json()
+      const data = await response.json()
+      setApiResponse(data.choices)
     })
 
     // Print out form data in console
