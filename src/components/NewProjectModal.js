@@ -64,7 +64,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
   if (!isOpen) return null
   return (
-    <div className='fixed inset-0 bg-gray-500 bg-opacity-75'>
+    <div className='fixed inset-0 bg-gray-500 bg-opacity-75 z-50'>
       <div id='authentication-modal' tabIndex='-1' className='fixed w-full p-4 '>
 
         <div className='relative rounded-lg shadow bg-gray-900'>
