@@ -47,6 +47,7 @@ async function getProjects() {
   }
 }
 
+
 /**
  * Represents the left sidebar component.
  * @returns {JSX.Element} The rendered component.
