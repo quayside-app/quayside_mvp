@@ -4,9 +4,11 @@ import {URI} from '../api/mongoData.js';
 
 async function getName() {
     try {
-      await mongoose.connect(URI);
-      let data = await User.findOne({firstName: 'Fred'});
-      await mongoose.disconnect();
+      // Connect if not connected already
+      if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+      
+      let data = await User.findOne({firstName: 'Mya'});
+      //await mongoose.disconnect();
       if (data) {
         data = data.firstName + ' ' + data.lastName
       }
