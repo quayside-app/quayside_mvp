@@ -20,24 +20,26 @@ async function getProjects() {
       if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
 
       let user = await User.findOne({firstName: 'Mya'});
-      let projects= "None";
 
       if (user) {
         let userID = user._id;
 
+        let projects = await Project.find({ userIDs: userID });
 
-        projects = await Project.findOne({ userIDs: userID });
-        console.log(projects)
-
-        // if (projects) {
-        //   projects = projects.name; //TEST
-        //   //return projectIDs;
-        // }
+        return (
+          <div>
+            <ul>
+              {projects.map((project, index) => (
+                <li key={index}>{project.name}</li>
+              ))}
+            </ul>
+          </div>
+        );
       }
+  
+      // If no data return empty
+      return (<div></div>);
 
-
-      return projects.name;
-      
   } catch (error) {
       console.error('Error fetching data:', error);
       return "Error";

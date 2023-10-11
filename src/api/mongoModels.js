@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    _id: Number,
+    _id: ObjectId,
     firstName: String,
     lastName: String,
 });
