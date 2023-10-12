@@ -1,12 +1,14 @@
 'use client'
 import React, { useState } from 'react'
 import { useApiResponse } from '@/app/ApiResponseContext'
+
 import cookieCutter from 'cookie-cutter'
 
 import Input from '../components/Input'
 import xIcon from '../../public/svg/x.svg'
 
 import Image from 'next/image'
+
 
 const NewProjectModal = ({ isOpen, handleClose }) => {
   const [formData, setFormData] = useState({
@@ -30,10 +32,31 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     }))
   }
 
-  const submitForm = (e) => {
+  async function submitForm(e) {
     e.preventDefault() // Prevents page from refreshing
 
-    fetch('/api/chat-gpt', {
+    // Send data to DB
+    try {
+      const response = await fetch('/api/createProject', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+  
+      // TODO handle response
+      // const data = await response.json();
+      
+      if (data.success) {
+        // Handle success (e.g., show a success message, redirect, etc.)
+      } else {
+        // Handle error from the server
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+
+    // Get ChatGPT input
+    await fetch('/api/chat-gpt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
