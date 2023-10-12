@@ -1,8 +1,29 @@
+/**
+ * Dropdown Component
+ *
+ * This component renders a dropdown button with an image, a label, and a dropdown icon.
+ *
+ *
+ *
+ * Usage:
+ * <Dropdown label="Example" clickAction={someFunction} imagePath="/path/to/image.png" />
+ *
+ */
 'use client'
 import React from 'react'
 import Image from 'next/image'
 
 import dropdownIcon from '../../public/svg/dropdown.svg'
+
+/**
+ * Generates the function comment for the given function body.
+ *
+ * @param {Object} props - The props object containing the function parameters.
+ * @param {string} props.label - The label for the dropdown button.
+ * @param {function} props.clickAction - The click action function for the dropdown button.
+ * @param {string} props.imagePath - The path to the image for the dropdown button.
+ * @return {JSX.Element} - The JSX element representing the dropdown button.
+ */
 
 const Dropdown = ({ label, clickAction, imagePath }) => {
   return (

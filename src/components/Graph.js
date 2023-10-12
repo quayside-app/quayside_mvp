@@ -1,5 +1,24 @@
+/**
+ * Graph Component
+ *
+ * This component uses the cytoscape library to implement a graph that will be rendered
+ * inside of our webapp. To learn more about cytoscape https://cytoscape.org/
+ * This will eventually need to dynamically generate the graph based
+ * off of the API response
+ *
+ *
+ * Usage:
+ * <div><TreeGraph /></div>
+ *
+ */
 import React, { useEffect, useRef } from 'react'
 import cytoscape from 'cytoscape'
+
+/**
+ * Renders a tree graph using the Cytoscape library.
+ *
+ * @return {JSX.Element} The rendered tree graph.
+ */
 
 function TreeGraph () {
   const containerRef = useRef(null)
