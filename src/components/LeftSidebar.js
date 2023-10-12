@@ -3,6 +3,7 @@ import NewProjectButton from '../components/NewProjectButton'
 
 import Dropdown from '../components/Dropdown'
 import Button from '../components/Button'
+import ContactUsModal from '../components/ContactUsModal'
 
 import plusIcon from '../../public/svg/plus.svg'
 import starIcon from '../../public/svg/star.svg'
@@ -54,10 +55,17 @@ async function getProjects() {
  */
 
 export default async function LeftSidebar ({ className }) {
-  const projects = await getProjects();
+  const projects = await getProjects();  const [isContactModalOpen, setContactModalOpen] = useState(false)
+
+  const handleContactClick = () => {
+    setContactModalOpen(true)
+    console.log('Contact Us clicked')
+  }
+
   return (
-    <div className={className}>
-      <div className='flex  bg-neutral-800 text-white justify-center py-5'>
+    <div className={`${className} flex flex-col h-screen flex-shrink-0 flex-grow-0 w-48`}>
+      <ContactUsModal isOpen={isContactModalOpen} handleClose={() => setContactModalOpen(false)} />
+      <div className='flex-grow flex bg-neutral-800 text-white justify-center py-5 overflow-y-auto'>
 
         <div className='flex flex-wrap mx-4'>
           <ul className='font-medium'>
@@ -76,6 +84,16 @@ export default async function LeftSidebar ({ className }) {
 
           <div className='pt-4 my-10 space-y-2 font-medium border-t border-gray-200' />
         </div>
+      </div>
+      {/* Contact Us Button */}
+      <div className='sticky bottom-0 flex-shrink-0 p-2'>
+        <button
+          type='button'
+          className='flex justify-center items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700'
+          onClick={handleContactClick}
+        >
+          <span className='flex my-auto ml-3 text-left whitespace-nowrap text-xs xl:text-lg'>Contact Us</span>
+        </button>
       </div>
     </div>
   )
