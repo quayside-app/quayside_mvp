@@ -1,10 +1,10 @@
 /**
  * Dropdown Component
- * 
+ *
  * This component takes allows us to use the same input style while chaning what it does in its action
  * We should think about reformatting this to allow us to change the type also if we so desire
- * 
- * 
+ *
+ *
  * Usage:
  * <Input name="apiKey" value={formData.apiKey} changeAction={handleInput} label="API Key" placeholder="Enter API Key" />
  */

@@ -1,13 +1,13 @@
 /**
  * Dropdown Component
- * 
- * This component renders a dropdown button with an image, a label, and a dropdown icon. 
- * 
- * 
- * 
+ *
+ * This component renders a dropdown button with an image, a label, and a dropdown icon.
+ *
+ *
+ *
  * Usage:
  * <Dropdown label="Example" clickAction={someFunction} imagePath="/path/to/image.png" />
- * 
+ *
  */
 'use client'
 import React from 'react'
