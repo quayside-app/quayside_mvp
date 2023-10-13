@@ -2,7 +2,6 @@ import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-
     firstName: String,
     lastName: String,
 });
@@ -33,7 +32,6 @@ const projectSchema = new mongoose.Schema({
     informationLinks: [String],
     completionStatus: String,
     teams: [ObjectId],
-
 });
 // The mongoose.models.Project prevents errors on refresh when editing 
 export const Project = mongoose.models.Project || mongoose.model('Project', projectSchema, 'Project');

@@ -37,26 +37,31 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
     // Send data to DB
     try {
-      const response = await fetch('/api/createProject', {
+      const response = await fetch('/api/mongoDB/storeProject', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        //body: JSON.stringify(formData),
+        body: JSON.stringify({
+          prompt: formData.prompt,
+          apiKey: formData.apiKey,
+          endDate: formData.question1,
+          budget: formData.question2,
+          stakeholders: formData.question3,
+        })
       });
   
-      // TODO handle response
-      // const data = await response.json();
-      
-      if (data.success) {
-        // Handle success (e.g., show a success message, redirect, etc.)
-      } else {
-        // Handle error from the server
-      }
+      // const data = response.json();
+
+      // // TODO handle error
+      // if (data.status) {
+      //   console.error('Error getting data:', data.message);
+      // }
     } catch (error) {
       console.error('Error submitting form:', error);
     }
 
     // Get ChatGPT input
-    await fetch('/api/chat-gpt', {
+    fetch('/api/chat-gpt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

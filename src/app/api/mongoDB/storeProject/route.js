@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-import {Project} from '../api/mongoModels';
-import {URI} from '../api/mongoData.js';
+import { NextResponse } from "next/server";
+import {Project} from '../mongoModels';
+import {URI} from '../mongoData.js';
 
 // Save Project Data
 export async function POST(request) {
@@ -11,18 +12,19 @@ export async function POST(request) {
   try {
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
 
-    const { name, endDate, budget, stakeholders } = request.body;
+    const params = await request.json();
 
     const project = await Project.create({ 
-      name,
-      endDate,
-      budget,
-      stakeholders,
+      name: params.prompt,
+      endDate: params.endDate,
+      budget: params.budget,
+      stakeholders: params.stakeholders,
     });
 
-    return res.status(200).json({ success: true, data: project });
+    return NextResponse.json({ message: "Project stored successfully" }, { status: 200 });
+    
   } catch (error) {
     console.error('Error storing data:', error);
-    return res.status(500).json({ success: false, message: 'Error storing data' });
+    return NextResponse.json({ message: 'Error storing data ' + error }, { status: 500 });
   }
 }
