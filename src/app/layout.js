@@ -21,9 +21,9 @@ function RootLayout ({ children }) {
           <div className=''>
             <NewProjectModal />
             <Navbar />
-            <div className='flex min-h-screen h-screen'>
-              <LeftSidebar className='flex w-1/2 lg:w-1/6 resize-x h-screen' />
-              <div className='flex w-1/2 lg:w-5/6  ml-5'> {children} </div>
+            <div className='flex h-screen'>
+              <LeftSidebar className='flex w-1/3 md:w-60' />
+              <div className='flex w-2/3 md:w-max  ml-5'> {children} </div>
             </div>
           </div>
         </body>

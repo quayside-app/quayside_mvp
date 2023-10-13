@@ -5,7 +5,6 @@ import ContactUsButton from '../components/ContactUsButton'
 import Dropdown from '../components/Dropdown'
 import Button from '../components/Button'
 
-
 import plusIcon from '../../public/svg/plus.svg'
 import starIcon from '../../public/svg/star.svg'
 import tableIcon from '../../public/svg/table.svg'
@@ -56,14 +55,12 @@ async function getProjects() {
  */
 
 export default async function LeftSidebar ({ className }) {
-  const projects = await getProjects();  
-
+  const projects = await getProjects();
   return (
-    <div className={`${className} flex flex-col h-screen flex-shrink-0 flex-grow-0 w-48`}>
-      
-      <div className='flex-grow flex bg-neutral-800 text-white justify-center py-5 overflow-y-auto'>
+    <div className={className}>
+      <div className='flex flex-wrap bg-neutral-800 text-white justify-center py-5 h-full w-full'>
 
-        <div className='flex flex-wrap mx-4'>
+        <div className='mx-4 w-full'>
           <ul className='font-medium'>
             <li> <span className='ml-3 flex justify-center py-5'>Directory</span> </li>
             <NewProjectButton/>
@@ -77,13 +74,12 @@ export default async function LeftSidebar ({ className }) {
             <li> <Dropdown label='Team' imagePath={teamIcon} /> </li>
             <li> <Dropdown label='Objectives' imagePath={targetIcon} /> </li>
           </ul>
+        </div>
 
-          <div className='pt-4 my-10 space-y-2 font-medium border-t border-gray-200' />
+        <div className='mt-auto sticky bottom-0 bg-neutral-700 w-full'>
+            <ContactUsButton/>
         </div>
       </div>
-      {/* Contact Us Button */}
-      <ContactUsButton/>
-
     </div>
   )
 }
