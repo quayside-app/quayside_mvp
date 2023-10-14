@@ -40,7 +40,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       const response = await fetch('/api/mongoDB/createProject', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        //body: JSON.stringify(formData),
         body: JSON.stringify({
           name: formData.prompt,
           apiKey: formData.apiKey,
@@ -50,16 +49,24 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
           //stakeholders: formData.question3,
         })
       });
-  
-      const data = response.json();
-      console.log(data.message);
 
-      // // TODO handle error
-      // if (data.status) {
-      //   console.error('Error getting data:', data.message);
-      // }
+      if (!response.ok) {
+        // Not a 2xx response, handle error
+        const body = await response.json();
+        switch (response.status) {
+          case 400:
+            console.error('Input Error:', body.message);
+            break;
+          default:
+            console.error('Error:', body.message);
+        }
+      return;
+      }
+      
+      
     } catch (error) {
       console.error('Error submitting form:', error);
+      return;
     }
 
     // Get ChatGPT input
