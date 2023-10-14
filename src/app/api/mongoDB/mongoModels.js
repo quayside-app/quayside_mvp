@@ -23,7 +23,7 @@ const projectSchema = new mongoose.Schema({
     risks: [String], 
     userIDs: [ObjectId], 
     projectManagerIDs: [ObjectId], 
-    sponsorIDs: [ObjectId], 
+    sponsors: [String], 
     contributorIDs: [ObjectId], 
     completionRequirements: [String], 
     qualityAssurance: [String], 

@@ -37,20 +37,22 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
     // Send data to DB
     try {
-      const response = await fetch('/api/mongoDB/storeProject', {
+      const response = await fetch('/api/mongoDB/createProject', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         //body: JSON.stringify(formData),
         body: JSON.stringify({
-          prompt: formData.prompt,
+          name: formData.prompt,
           apiKey: formData.apiKey,
           endDate: formData.question1,
           budget: formData.question2,
-          stakeholders: formData.question3,
+          userIDs:['6521d8581bcf69b7d260608b'], // TODO: change this
+          //stakeholders: formData.question3,
         })
       });
   
-      // const data = response.json();
+      const data = response.json();
+      console.log(data.message);
 
       // // TODO handle error
       // if (data.status) {
