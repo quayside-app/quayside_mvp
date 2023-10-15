@@ -13,7 +13,7 @@ import Image from 'next/image';
 
 
 const NewProjectModal = ({ isOpen, handleClose }) => {
-  const [errorMessage, setMessage] = useState(null)
+  const [errorMessage, setMessage] = useState(null);
   const [formData, setFormData] = useState({
     apiKey: '',
     prompt: '',

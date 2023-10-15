@@ -36,3 +36,22 @@ const projectSchema = new mongoose.Schema({
 // The mongoose.models.Project prevents errors on refresh when editing 
 export const Project = mongoose.models.Project || mongoose.model('Project', projectSchema, 'Project');
 
+const taskSchema = new mongoose.Schema({
+    parentTaskID: ObjectId,
+    name: String,
+    description: String,
+    objectives: [String],
+    startDate: Date,
+    endDate: Date,
+    budget: String,
+    scopesIncluded: [String], 
+    scopesExcluded: [String], 
+    contributorIDs: [ObjectId],
+    otherProjectDependencies: [ObjectId],
+    otherProjectTaskDependencies: [ObjectId],
+    completionStatus: String,
+    projectID: ObjectId,
+});
+// The mongoose.models.Task prevents errors on refresh when editing 
+export const Task = mongoose.models.Task || mongoose.model('Task', taskSchema, 'Task');
+

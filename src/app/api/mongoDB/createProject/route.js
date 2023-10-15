@@ -63,7 +63,6 @@ export async function POST(request) {
     return NextResponse.json({ message: "Project stored successfully" }, { status: 200 });
     
   } catch (error) {
-    console.error('Error storing data:', error);
     return NextResponse.json({ message: 'Error storing data ' + error }, { status: 500 });
   }
 }

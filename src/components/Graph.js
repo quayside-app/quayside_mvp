@@ -12,7 +12,7 @@
  *
  */
 'use client';
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import cytoscape from 'cytoscape'
 import { useApiResponse } from '@/app/ApiResponseContext'
 /**
@@ -21,16 +21,43 @@ import { useApiResponse } from '@/app/ApiResponseContext'
  * @return {JSX.Element} The rendered tree graph.
  */
 
+
+
 function TreeGraph () {
+  // Fetch Tree data
+  const [tasks, setTasks] = useState(null);
+
+
   const containerRef = useRef(null)
   const { apiResponse } = useApiResponse()
 
   useEffect(() => {
+    
+    // Fetch Tree data
+    fetch('/api/mongoDB/getTasks', {
+      method: 'POST', //TODO-switch to GET?
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        projectID: '65256c7adec443373f9bf10e',  // TODO don't hard-code
+      })
+    }).then(async (response) => {
+        let body = await response.json();
+        if (!response.ok) {
+          console.error(body.message);
+        }else {
+          setTasks(body);
+        }
+  
+    }).catch(error => {
+        console.error(error);
+    });
+
     if (!apiResponse) return
     if (apiResponse) {
       console.log('help')
       console.log(apiResponse[0].message.content)
     }
+
     // Convert the apiResponse into tasks or use it as needed.
 
     const tasks = [
@@ -119,7 +146,14 @@ function TreeGraph () {
     })
   }, [apiResponse])
 
-  return <div ref={containerRef} style={{ width: '100%', height: '800px' }} />
+  return (
+  <div>
+    <div>{JSON.stringify(tasks)}</div>
+  
+    <div ref={containerRef} style={{ width: '100%', height: '800px' }} />
+  </div>
+  );
+  
 }
 
 export default TreeGraph
