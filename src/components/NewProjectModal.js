@@ -1,23 +1,26 @@
-'use client'
-import React, { useState } from 'react'
-import { useApiResponse } from '@/app/ApiResponseContext'
+'use client';
+import React, { useState } from 'react';
+import { useApiResponse } from '@/app/ApiResponseContext';
 
-import cookieCutter from 'cookie-cutter'
+import cookieCutter from 'cookie-cutter';
 
-import Input from '../components/Input'
-import xIcon from '../../public/svg/x.svg'
+import Input from '../components/Input';
+import Alert from '../components/Alert';
+import xIcon from '../../public/svg/x.svg';
 
-import Image from 'next/image'
+
+import Image from 'next/image';
 
 
 const NewProjectModal = ({ isOpen, handleClose }) => {
+  const [errorMessage, setMessage] = useState(null)
   const [formData, setFormData] = useState({
     apiKey: '',
     prompt: '',
     question1: '',
     question2: '',
     question3: ''
-  })
+  });
 
   const { setApiResponse } = useApiResponse()
 
@@ -29,11 +32,11 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     setFormData((prevState) => ({
       ...prevState, // Keeps previous values of other variables
       [fieldName]: fieldValue
-    }))
+    }));
   }
 
   async function submitForm(e) {
-    e.preventDefault() // Prevents page from refreshing
+    e.preventDefault(); // Prevents page from refreshing
 
     // Send data to DB
     try {
@@ -53,19 +56,15 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       if (!response.ok) {
         // Not a 2xx response, handle error
         const body = await response.json();
-        switch (response.status) {
-          case 400:
-            console.error('Input Error:', body.message);
-            break;
-          default:
-            console.error('Error:', body.message);
-        }
-      return;
+ 
+        console.error(body.message);
+        setMessage(body.message)
+        return;
       }
-      
-      
+
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error(body.message);
+      setMessage(body.message);
       return;
     }
 
@@ -89,7 +88,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
     // Print out form data in console
     Object.entries(formData).forEach(([key, value]) => {
-      // cookies().set(key, value)
+
       cookieCutter.set(key, value)
 
       console.log(key, value)
@@ -98,17 +97,17 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     handleClose()
   }
 
-  // async function setCookie(key, value) {
-  //     "use server"
-  //     cookies().set(key, value)
-  //   }
+
 
   if (!isOpen) return null
   return (
     <div className='fixed inset-0 bg-gray-500 bg-opacity-75 z-50'>
+      {errorMessage && <Alert heading="Error" content={errorMessage} />}
+
+      
       <div id='authentication-modal' tabIndex='-1' className='fixed w-full p-4 '>
 
-        <div className='relative rounded-lg shadow bg-gray-900'>
+        <div className='relative rounded-lg shadow bg-black'>
           <button type='button' onClick={handleClose} className='absolute top-3 right-3 rounded-lg  w-8 h-8 inline-flex justify-center items-center hover:bg-gray-600'>
             <Image src={xIcon} alt='exit' width='10' height='10' />
           </button>
@@ -121,7 +120,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
               <Input name='question2' value={formData.question2} changeAction={handleInput} label='What is the budget allocated for this project?' placeholder='One Billion Dollars and 1 cent' />
               <Input name='question3' value={formData.question3} changeAction={handleInput} label='Who are the key stakeholders involved in this project?' placeholder='my boss' />
 
-              <button type='submit' className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
+              <button type='submit' className='w-full text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
                 Create
               </button>
             </form>

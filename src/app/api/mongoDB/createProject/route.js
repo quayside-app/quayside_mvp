@@ -28,7 +28,7 @@ export async function POST(request) {
       }
     }
 
-
+    // TODO: handle errors in any of the below
     await Project.create({ 
       name: params.name,   // Required
       userIDs: params.userIDs,  // Required
