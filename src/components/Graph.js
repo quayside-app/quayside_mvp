@@ -33,13 +33,11 @@ function TreeGraph () {
 
   useEffect(() => {
     
+    const projectID = '65256c7adec443373f9bf10e';
     // Fetch Tree data
-    fetch('/api/mongoDB/getTasks', {
-      method: 'POST', //TODO-switch to GET?
+    fetch(`/api/mongoDB/getTasks?projectID=${projectID}`, {
+      method: 'GET', //TODO-switch to GET?
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        projectID: '65256c7adec443373f9bf10e',  // TODO don't hard-code
-      })
     }).then(async (response) => {
         let body = await response.json();
         if (!response.ok) {
