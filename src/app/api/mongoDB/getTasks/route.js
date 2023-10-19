@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import {Task} from '../mongoModels';
 import {URI} from '../mongoData.js';
 
+
 /**
  * An asynchronous function to handle GET requests to retrieve tasks based on either a project ID or a task ID.
  * If neither projectID nor taskID is provided, a 400 Bad Request response is returned.
@@ -29,7 +30,6 @@ import {URI} from '../mongoData.js';
  */
 export async function GET(request) {
     try {
-        // const { projectID, taskID } = await request.query;
         const params = await request.nextUrl.searchParams;
         const projectID = params.get("projectID");
         const taskID = params.get("taskID");
@@ -41,13 +41,12 @@ export async function GET(request) {
 
         if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
 
-        let tasks = "";
+        let tasks = null;
         if (taskID) {
             tasks = await Task.find({ _id: taskID});
         }else if (projectID) {
             tasks = await Task.find({ projectID: projectID});
         }
-        console.log(tasks);
         return NextResponse.json({tasks}, {status:200});
         
     } catch (error) {
