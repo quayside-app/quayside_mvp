@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 //import Credentials from 'next-auth/providers/credentials'
 
 export const options: NextAuthOptions = {
@@ -10,6 +11,11 @@ export const options: NextAuthOptions = {
             clientId: process.env.GITHUB_ID as string,
             clientSecret: process.env.GITHUB_SECRET as string,
         }),
+        //google nextauth docs: https://next-auth.js.org/providers/google
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+          }),
         /* setup our own signin for MongoDB
         CredentialsProvider({
             name: "Credentials",
