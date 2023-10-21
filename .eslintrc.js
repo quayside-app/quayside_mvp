@@ -8,8 +8,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'next/core-web-vitals'
-    };
-    
   ],
   overrides: [
     {
