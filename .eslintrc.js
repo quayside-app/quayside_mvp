@@ -45,6 +45,7 @@ module.exports = {
     semi: [
       'error',
       'never'
-    ]
+    ],
+    complexity: ['warn', 10]
   }
 }
