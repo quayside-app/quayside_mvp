@@ -6,7 +6,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:react/recommended'
+    'plugin:react/recommended',
+    'next/core-web-vitals'
   ],
   overrides: [
     {
@@ -44,6 +45,7 @@ module.exports = {
     semi: [
       'error',
       'never'
-    ]
+    ],
+    complexity: ['warn', 10]
   }
 }
