@@ -1,17 +1,39 @@
+'use client';
+import {useState, useEffect} from 'react';
+
+
 import React from 'react'
 import Image from 'next/image'
 import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
 
 const Navbar = () => {
+
+  const [name, setName] = useState(null);
+  useEffect(() => {
+    fetch('/api/mongoDB/getUsers?firstName=Mya&lastName=Schroder', {
+      method: 'GET',
+      headers: {},
+    }).then(async (response) => {
+        let body = await response.json();
+        if (!response.ok) {
+          console.error(body.message);
+        }else {
+          setName(body['users'][0]['firstName'] + ' ' + body['users'][0]['lastName'])
+        }
+  
+    }).catch(error => {
+        console.error(error);
+    });
+  });
   return (
 
     <div className='drop-shadow-2xl'>
       <nav className=' bg-neutral-800 p-2 text-white w-full drop-shadow-2xl'>
 
-        <div className='flex'>
+        <div className='flex w-full'>
 
-          <div className='flex w-2/12 lg:w-1/12 justify-start mx-1'>
+          <div className='flex w-2/12  justify-start mx-1'>
             {/* Hamburger */}
             <div className='flex'>
               <div className=''>
@@ -28,7 +50,7 @@ const Navbar = () => {
           </div>
 
           {/* Current Directory */}
-          <div className='flex w-4/12 justify-star mx-1'>
+          <div className='flex w-4/12 justify-start mx-1'>
             <div className='flex bg-neutral-600 px-4 rounded-3xl overflow-hidden'>
               <input
                 type='text' className='bg-neutral-600  text-xs'
@@ -38,18 +60,21 @@ const Navbar = () => {
           </div>
 
           {/* Search Bar */}
-          <div className='flex w-5/12 justify-end mx-1'>
+          <div className='flex w-4/12 lg:w-5/12 justify-end px-1'>
             <div className='flex overflow-hidden  bg-neutral-600 rounded-3xl'>
               <input
                 type='search'
                 placeholder='Search...'
                 className='flex  px-3 text-xs  bg-neutral-600 text-white md:text-base'
               />
-              <button className='px-4  flex items-center justify-center'>
+              <button className='px-4 items-center justify-center '>
                 <Image priority src={searchIcon} alt='Search' height='15' width='15' className='md:h-15 md:w-15' />
               </button>
             </div>
           </div>
+
+          {/* User */}
+          <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
 
         </div>
       </nav>
