@@ -1,19 +1,19 @@
-import mongoose from 'mongoose';
-import { NextResponse } from "next/server";
-import {Project, User} from '../mongoModels';
-import {URI} from '../mongoData.js';
+import mongoose from 'mongoose'
+import { NextResponse } from 'next/server'
+import { Project, User } from '../mongoModels'
+import { URI } from '../mongoData.js'
 
 /**
  * Handles a POST request to create and store a new project in the database.
- * 
+ *
  * @param {Object} request - The request object containing the project details.
  * @returns {Object} - A response object with a status code and a message.
  *
  * @throws Will throw an error if any of the required fields are missing or if there's an issue connecting to the database.
- * 
+ *
  * @example
  * fetch(`/api/mongoDB/createProject`, {
- *     method: 'POST', 
+ *     method: 'POST',
  *     headers: { 'Content-Type': 'application/json' },
  *     body: JSON.stringify({
  *         name: 'New Project',
@@ -29,7 +29,7 @@ import {URI} from '../mongoData.js';
  *         console.log(body);
  *     }
  * }).catch(error => console.error(error));
- * 
+ *
  * @property {string} request.body.name - The name of the project. (Required)
  * @property {Array.<string>} request.body.userIDs - An array of user IDs associated with the project. (Required)
  * @property {Array.<string>} [request.body.objectives=[]] - An array of objectives for the project.
@@ -53,63 +53,61 @@ import {URI} from '../mongoData.js';
  * @property {Array.<Object>} [request.body.teams=[]] - An array of teams working on the project.
  */
 
-export async function POST(request) {
+export async function POST (request) {
   try {
-    const params = await request.json();
+    const params = await request.json()
 
     if (!params.name) {
-      return NextResponse.json({ message: "Project name required." }, { status: 400 });
+      return NextResponse.json({ message: 'Project name required.' }, { status: 400 })
     }
 
     if (!Array.isArray(params.userIDs)) {
-      return NextResponse.json({ message: "Project users required" }, { status: 400 });
+      return NextResponse.json({ message: 'Project users required' }, { status: 400 })
     }
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
+    for (const i in params.userIDs) {
+      const userExists = await User.exists({ _id: params.userIDs[i] })
 
-    for (let i in params.userIDs) {
-      const userExists = await User.exists({_id: params.userIDs[i]}); 
-
-      if (! userExists) {
-        return NextResponse.json({ message: `User ${params.userIDs[i]} doe not exist.` }, { status: 400 });
+      if (!userExists) {
+        return NextResponse.json({ message: `User ${params.userIDs[i]} doe not exist.` }, { status: 400 })
       }
     }
 
-    await Project.create({ 
-      name: params.name,   // Required
-      userIDs: params.userIDs,  // Required
+    await Project.create({
+      name: params.name, // Required
+      userIDs: params.userIDs, // Required
 
-      objectives: params.objectives || [],  
-      types: params.types || [],  
+      objectives: params.objectives || [],
+      types: params.types || [],
 
       startDate: params.startDate || null,
       endDate: params.endDate || null,
 
       budget: params.budget || null,
       assumptions: params.assumptions || [],
-      scopesIncluded: params.scopesIncluded || [], 
+      scopesIncluded: params.scopesIncluded || [],
       scopesExcluded: params.scopesExcluded || [],
-      risks: params.risks || [], 
+      risks: params.risks || [],
 
-      projectManagerIDs: params.projectManagerIDs || [], 
-      sponsors: params.sponsors || [], 
-      contributorIDs: params.contributorIDs || [], 
+      projectManagerIDs: params.projectManagerIDs || [],
+      sponsors: params.sponsors || [],
+      contributorIDs: params.contributorIDs || [],
 
-      completionRequirements: params.completionRequirements || [], 
-      qualityAssurance: params.qualityAssurance || [], 
-      KPIs: params.KPIs || [], 
+      completionRequirements: params.completionRequirements || [],
+      qualityAssurance: params.qualityAssurance || [],
+      KPIs: params.KPIs || [],
 
-      otherProjectDependencies: params.otherProjectDependencies || [], 
+      otherProjectDependencies: params.otherProjectDependencies || [],
       informationLinks: params.informationLinks || [],
-      completionStatus: params.completionStatus || "",
-      
-      teams: params.teams || [],
-    });
+      completionStatus: params.completionStatus || '',
 
-    return NextResponse.json({ message: "Project stored successfully" }, { status: 200 });
-    
+      teams: params.teams || []
+    })
+
+    return NextResponse.json({ message: 'Project stored successfully' }, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ message: 'Error storing data ' + error }, { status: 500 });
+    return NextResponse.json({ message: 'Error storing data ' + error }, { status: 500 })
   }
 }

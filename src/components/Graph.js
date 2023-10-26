@@ -1,6 +1,5 @@
-
-'use client';
-import React, { useEffect, useRef, useState} from 'react'
+'use client'
+import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import { useApiResponse } from '@/app/ApiResponseContext'
 
@@ -8,7 +7,7 @@ import { useApiResponse } from '@/app/ApiResponseContext'
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
  *
  * @returns {React.Element} The rendered tree graph within a div element.
- * 
+ *
  * @example
  * // Importing the component
  * import TreeGraph from './TreeGraph';
@@ -18,28 +17,26 @@ import { useApiResponse } from '@/app/ApiResponseContext'
  */
 function TreeGraph () {
   // Fetch Tree data
-  const [tasks, setTasks] = useState(null);
+  const [tasks, setTasks] = useState(null)
 
   const containerRef = useRef(null)
   const { apiResponse } = useApiResponse()
 
   useEffect(() => {
-    
-    const projectID = '65256c7adec443373f9bf10e'; // TODO
+    const projectID = '65256c7adec443373f9bf10e' // TODO
     // Fetch Tree data
     fetch(`/api/mongoDB/getTasks?projectID=${projectID}`, {
-      method: 'GET', 
+      method: 'GET'
     }).then(async (response) => {
-        let body = await response.json();
-        if (!response.ok) {
-          console.error(body.message);
-        }else {
-          setTasks(body.tasks || []);
-        }
-  
+      const body = await response.json()
+      if (!response.ok) {
+        console.error(body.message)
+      } else {
+        setTasks(body.tasks || [])
+      }
     }).catch(error => {
-        console.error(error);
-    });
+      console.error('Error getting Tree Task data:', error)
+    })
 
     if (!apiResponse) return
     if (apiResponse) {
@@ -47,30 +44,30 @@ function TreeGraph () {
       console.log(apiResponse[0].message.content)
     }
   }, [apiResponse])
-    // Convert the apiResponse into tasks or use it as needed.
+  // Convert the apiResponse into tasks or use it as needed.
 
-useEffect(() => {
-  if (!tasks) return;  // Ensure tasks is not null before proceeding
+  useEffect(() => {
+    if (!tasks) return // Ensure tasks is not null before proceeding
 
-  let elements = [];
+    const elements = []
 
-  tasks.forEach(task => {
-    console.log(task._id)
-    console.log(task.parentTaskID)
+    tasks.forEach(task => {
+      console.log(task._id)
+      console.log(task.parentTaskID)
       // Assume task has id, name, and parent fields
       elements.push({
-          data: { id: task._id, label: task.name }
-      });
+        data: { id: task._id, label: task.name }
+      })
 
       // If the task has a parent, create an edge
       if (task.parentTaskID) {
-          elements.push({
-              data: { id: task._id + '-' + task.parent, source: task.parentTaskID, target: task._id }
-          });
+        elements.push({
+          data: { id: task._id + '-' + task.parent, source: task.parentTaskID, target: task._id }
+        })
       }
-  });
+    })
 
-  //console.log(elements);
+    // console.log(elements);
 
     // Tailwind's bg-gray-200 #E5E7EB
     cytoscape({
@@ -116,11 +113,10 @@ useEffect(() => {
   }, [tasks])
 
   return (
-  <div style={{ width: '800px', height: '800px' }}>
-    <div ref={containerRef} style={{ width: '100%', height: '800px' }} />
-  </div>
-  );
-  
+    <div style={{ width: '800px', height: '800px' }}>
+      <div ref={containerRef} style={{ width: '100%', height: '800px' }} />
+    </div>
+  )
 }
 
 export default TreeGraph

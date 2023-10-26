@@ -1,9 +1,8 @@
-
 import React from 'react'
 
 /**
  * An Input component that renders a text input field with an associated label.
- * 
+ *
  * @param {Object} props - The properties passed to the component.
  * @param {string} props.name - The name attribute of the input element.
  * @param {string} props.value - The current value of the input element.

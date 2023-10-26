@@ -1,17 +1,15 @@
-'use client';
-import {useState, useEffect} from 'react';
+'use client'
+import React, { useState, useEffect } from 'react'
 
-
-import React from 'react'
 import Image from 'next/image'
 import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
 
 /**
  * A Navbar component that fetches a user's name from a specified API and displays a navigation bar with several interactive elements.
- * 
+ *
  * @returns {React.Element} The rendered navigation bar with a hamburger icon, logo, current directory input field, search bar, and a display of the fetched user's name.
- * 
+ *
  * @example
  * // Importing the component
  * import Navbar from './Navbar';
@@ -20,29 +18,27 @@ import logo from '../../public/quaysideLogo.png'
  * <Navbar />
  */
 const Navbar = () => {
-
-  const [name, setName] = useState(null);
+  const [name, setName] = useState(null)
 
   /**
-   * Fetches user data from a specified API when the component mounts. 
+   * Fetches user data from a specified API when the component mounts.
    * It constructs a full name from the fetched first name and last name and sets this full name in the local state.
    */
   useEffect(() => {
     fetch('/api/mongoDB/getUsers?firstName=Mya&lastName=Schroder', {
       method: 'GET',
-      headers: {},
+      headers: {}
     }).then(async (response) => {
-        let body = await response.json();
-        if (!response.ok) {
-          console.error(body.message);
-        }else {
-          setName(body['users'][0]['firstName'] + ' ' + body['users'][0]['lastName'])
-        }
-  
+      const body = await response.json()
+      if (!response.ok) {
+        console.error(body.message)
+      } else {
+        setName(body.users[0].firstName + ' ' + body.users[0].lastName)
+      }
     }).catch(error => {
-        console.error(error);
-    });
-  });
+      console.error(error)
+    })
+  })
   return (
 
     <div className='drop-shadow-2xl'>
@@ -100,4 +96,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default Navbar

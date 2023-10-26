@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react'
 import Image from 'next/image'
@@ -6,9 +5,9 @@ import Image from 'next/image'
 import dropdownIcon from '../../public/svg/dropdown.svg'
 
 /**
- * A Dropdown component which renders a button with an image, label, and a dropdown icon. 
+ * A Dropdown component which renders a button with an image, label, and a dropdown icon.
  * When clicked, it triggers the provided click action.
- * 
+ *
  * @param {Object} props - The properties passed to the component.
  * @param {string} props.label - The label text to be displayed next to the image on the button.
  * @param {Function} props.clickAction - The action to be performed when the button is clicked.

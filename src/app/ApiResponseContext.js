@@ -5,12 +5,12 @@ import React, { createContext, useContext, useState } from 'react'
 /**
  * Context specifically for storing and accessing the API response data.
  */
-const ApiResponseContext = createContext();
+const ApiResponseContext = createContext()
 
 /**
  * Context specifically for storing and accessing the user ID.
  */
-const UserIdContext = createContext();
+const UserIdContext = createContext()
 
 /**
  * Hook that provides a shortcut for accessing the API response context.
@@ -18,7 +18,7 @@ const UserIdContext = createContext();
  * @returns {Object} Context object containing `apiResponse` data and its setter `setApiResponse`.
  */
 export const useApiResponse = () => {
-  return useContext(ApiResponseContext);
+  return useContext(ApiResponseContext)
 }
 
 /**
@@ -27,7 +27,7 @@ export const useApiResponse = () => {
  * @returns {Object} Context object containing `userId` data and its setter `setUserId`.
  */
 export const useUserId = () => {
-  return useContext(UserIdContext);
+  return useContext(UserIdContext)
 }
 
 /**

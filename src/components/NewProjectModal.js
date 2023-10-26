@@ -1,15 +1,14 @@
-'use client';
-import React, { useState } from 'react';
-import { useApiResponse } from '@/app/ApiResponseContext';
+'use client'
+import React, { useState } from 'react'
+import { useApiResponse } from '@/app/ApiResponseContext'
 
-import cookieCutter from 'cookie-cutter';
+import cookieCutter from 'cookie-cutter'
 
-import Input from '../components/Input';
-import Alert from '../components/Alert';
-import xIcon from '../../public/svg/x.svg';
+import Input from '../components/Input'
+import Alert from '../components/Alert'
+import xIcon from '../../public/svg/x.svg'
 
-
-import Image from 'next/image';
+import Image from 'next/image'
 
 /**
  * A modal component for creating a new project. It provides a form to collect details about the project such as the ChatGPT API Key, project description, completion date, budget, and stakeholders.
@@ -18,9 +17,9 @@ import Image from 'next/image';
  * @param {Object} props - The properties passed to the component.
  * @param {boolean} props.isOpen - A boolean indicating whether the modal is open or not.
  * @param {Function} props.handleClose - A function to be called to close the modal.
- * 
+ *
  * @returns {React.Element} The rendered modal element with a form for creating a new project. The modal is displayed only when `isOpen` prop is `true`.
- * 
+ *
  * @example
  * // Importing the component
  * import NewProjectModal from './NewProjectModal';
@@ -29,14 +28,14 @@ import Image from 'next/image';
  * <NewProjectModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
  */
 const NewProjectModal = ({ isOpen, handleClose }) => {
-  const [errorMessage, setMessage] = useState(null);
+  const [errorMessage, setMessage] = useState(null)
   const [formData, setFormData] = useState({
     apiKey: '',
     prompt: '',
     question1: '',
     question2: '',
     question3: ''
-  });
+  })
 
   const { setApiResponse } = useApiResponse()
 
@@ -48,11 +47,11 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     setFormData((prevState) => ({
       ...prevState, // Keeps previous values of other variables
       [fieldName]: fieldValue
-    }));
+    }))
   }
 
-  async function submitForm(e) {
-    e.preventDefault(); // Prevents page from refreshing
+  async function submitForm (e) {
+    e.preventDefault() // Prevents page from refreshing
 
     // Send data to DB
     try {
@@ -64,24 +63,22 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
           apiKey: formData.apiKey,
           endDate: formData.question1,
           budget: formData.question2,
-          userIDs:['6521d8581bcf69b7d260608b'], // TODO: change this
-          //stakeholders: formData.question3,
+          userIDs: ['6521d8581bcf69b7d260608b'] // TODO: change this
+          // stakeholders: formData.question3,
         })
-      });
+      })
 
       if (!response.ok) {
         // Not a 2xx response, handle error
-        const body = await response.json();
- 
-        console.error(body.message);
-        setMessage(body.message)
-        return;
-      }
+        const body = await response.json()
 
+        console.error(body.message)
+        setMessage(body.message)
+        return
+      }
     } catch (error) {
-      console.error(body.message);
-      setMessage(body.message);
-      return;
+      console.error('Error setting new project.')
+      return
     }
 
     // Get ChatGPT input
@@ -104,7 +101,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
     // Print out form data in console
     Object.entries(formData).forEach(([key, value]) => {
-
       cookieCutter.set(key, value)
 
       console.log(key, value)
@@ -116,9 +112,8 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
   if (!isOpen) return null
   return (
     <div className='fixed inset-0 bg-gray-500 bg-opacity-75 z-50'>
-      {errorMessage && <Alert heading="Error" content={errorMessage} />}
+      {errorMessage && <Alert heading='Error' content={errorMessage} />}
 
-      
       <div id='authentication-modal' tabIndex='-1' className='fixed w-full p-4 '>
 
         <div className='relative rounded-lg shadow bg-black'>

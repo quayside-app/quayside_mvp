@@ -1,5 +1,5 @@
-'use client';
-import React, { useEffect, useState} from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import NewProjectButton from '../components/NewProjectButton'
 import ContactUsButton from '../components/ContactUsButton'
 
@@ -11,7 +11,6 @@ import starIcon from '../../public/svg/star.svg'
 import tableIcon from '../../public/svg/table.svg'
 import teamIcon from '../../public/svg/team.svg'
 import targetIcon from '../../public/svg/target.svg'
-
 
 /**
  * A LeftSidebar component that fetches project data associated with a specified user ID and renders a list of project names as buttons.
@@ -31,37 +30,32 @@ import targetIcon from '../../public/svg/target.svg'
  * @property {string} userID - The user ID whose projects are to be retrieved and displayed. Currently hardcoded, to be replaced with dynamic data.
  */
 export default function LeftSidebar ({ className }) {
-
-  const [projectsDiv, setProjectsDiv] = useState(<div></div>);
+  const [projectsDiv, setProjectsDiv] = useState(<div />)
 
   useEffect(() => {
-    
-    const userID = '6521d8581bcf69b7d260608b'; // TODO
+    const userID = '6521d8581bcf69b7d260608b' // TODO
     // Fetch project data
     fetch(`/api/mongoDB/getProjects?userID=${userID}`, {
-      method: 'GET', 
+      method: 'GET'
     }).then(async (response) => {
-        let body = await response.json();
-        if (!response.ok) {
-          console.error(body.message);
-        }else {
-
-          setProjectsDiv(         
-            <div>
-              <ul>
-                {body.projects.map((project, index) => (
-                  <li key={index} className=" font-light text-sm"> <Button label={project.name}/></li>
-                ))}
-              </ul>
+      const body = await response.json()
+      if (!response.ok) {
+        console.error(body.message)
+      } else {
+        setProjectsDiv(
+          <div>
+            <ul>
+              {body.projects.map((project, index) => (
+                <li key={index} className=' font-light text-sm'> <Button label={project.name} /></li>
+              ))}
+            </ul>
           </div>
-          )
-        }
-  
+        )
+      }
     }).catch(error => {
-        console.error(error);
-    });
-  });
-
+      console.error('Left sidebar Project warning:', error)
+    })
+  })
 
   return (
     <div className={className}>
@@ -70,7 +64,7 @@ export default function LeftSidebar ({ className }) {
         <div className='mx-4 w-full'>
           <ul className='font-medium'>
             <li> <span className='ml-3 flex justify-center py-5'>Directory</span> </li>
-            <NewProjectButton/>
+            <NewProjectButton />
             <li> <Button label='Task' imagePath={plusIcon} /> </li>
 
             <li><div className='my-10 space-y-2 font-medium border-t  border-gray-200' /></li>
@@ -84,7 +78,7 @@ export default function LeftSidebar ({ className }) {
         </div>
 
         <div className='mt-auto sticky bottom-0 bg-neutral-700 w-full'>
-            <ContactUsButton/>
+          <ContactUsButton />
         </div>
       </div>
     </div>

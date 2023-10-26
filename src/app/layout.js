@@ -2,10 +2,7 @@ import './globals.css'
 import LeftSidebar from '../components/LeftSidebar'
 import Navbar from '../components/Navbar'
 import NewProjectModal from '../components/NewProjectModal'
-import { Inter } from 'next/font/google'
 import { ApiResponseProvider } from './ApiResponseContext'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'quayside',
@@ -16,7 +13,7 @@ function RootLayout ({ children }) {
     <ApiResponseProvider>
       <html lang='en'>
 
-        <body className={inter.className}>
+        <body className=''>
 
           <div className=''>
             <NewProjectModal />

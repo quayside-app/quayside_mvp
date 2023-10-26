@@ -1,13 +1,12 @@
-'use client';
+'use client'
 import React, { useState } from 'react'
 
 import NewProjectModal from '../components/NewProjectModal'
 import plusIcon from '../../public/svg/plus.svg'
 import Button from '../components/Button'
 
-
 /**
- * A component that renders a button for creating a new project. 
+ * A component that renders a button for creating a new project.
  * When clicked, a modal for creating a new project is displayed.
  *
  * @returns {React.Element} The rendered button and modal elements. When the button is clicked, the modal will open, providing a form or interface for creating a new project.
@@ -20,13 +19,12 @@ import Button from '../components/Button'
  * <NewProjectButton />
  */
 export default function NewProjectButton () {
-  
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div>
-        <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
-        <li> <Button clickAction={() => { setIsOpen(true); console.log('Here') }} label='New Project' imagePath={plusIcon} /> </li>
+      <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
+      <li> <Button clickAction={() => { setIsOpen(true); console.log('Here') }} label='New Project' imagePath={plusIcon} /> </li>
     </div>
   )
 }

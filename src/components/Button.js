@@ -2,7 +2,6 @@
 import React from 'react'
 import Image from 'next/image'
 
-
 const Button = ({ label, clickAction, imagePath }) => {
   return (
 
@@ -19,4 +18,4 @@ const Button = ({ label, clickAction, imagePath }) => {
   )
 }
 
-export default Button;
+export default Button
