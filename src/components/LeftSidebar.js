@@ -1,4 +1,5 @@
-
+'use client';
+import React, { useEffect, useState} from 'react'
 import NewProjectButton from '../components/NewProjectButton'
 import ContactUsButton from '../components/ContactUsButton'
 
@@ -11,51 +12,57 @@ import tableIcon from '../../public/svg/table.svg'
 import teamIcon from '../../public/svg/team.svg'
 import targetIcon from '../../public/svg/target.svg'
 
-import mongoose from 'mongoose';
-import {User, Project} from '../api/mongoModels';
-import {URI} from '../api/mongoData.js';
-
-async function getProjects() {
-    try {
-
-      // Connect if not connected already
-      if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
-
-      let user = await User.findOne({firstName: 'Mya'});
-
-      if (user) {
-        let userID = user._id;
-
-        let projects = await Project.find({ userIDs: userID });
-
-        return (
-          <div>
-            <ul>
-              {projects.map((project, index) => (
-                <li key={index} className=" font-light text-sm"> <Button label={project.name}/></li>
-              ))}
-            </ul>
-          </div>
-        );
-      }
-  
-      // If no data return empty
-      return (<div></div>);
-
-  } catch (error) {
-      console.error('Error fetching data:', error);
-      return "Error";
-  }
-}
-
 
 /**
- * Represents the left sidebar component.
- * @returns {JSX.Element} The rendered component.
+ * A LeftSidebar component that fetches project data associated with a specified user ID and renders a list of project names as buttons.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.className - A string of class names to be applied to the component.
+ *
+ * @returns {React.Element} - The rendered sidebar element containing a list of project names as buttons.
+ *
+ * @example
+ * // Importing the component
+ * import LeftSidebar from './LeftSidebar';
+ *
+ * // Using the component
+ * <LeftSidebar className="custom-class" />
+ *
+ * @property {string} userID - The user ID whose projects are to be retrieved and displayed. Currently hardcoded, to be replaced with dynamic data.
  */
+export default function LeftSidebar ({ className }) {
 
-export default async function LeftSidebar ({ className }) {
-  const projects = await getProjects();
+  const [projectsDiv, setProjectsDiv] = useState(<div></div>);
+
+  useEffect(() => {
+    
+    const userID = '6521d8581bcf69b7d260608b'; // TODO
+    // Fetch project data
+    fetch(`/api/mongoDB/getProjects?userID=${userID}`, {
+      method: 'GET', 
+    }).then(async (response) => {
+        let body = await response.json();
+        if (!response.ok) {
+          console.error(body.message);
+        }else {
+
+          setProjectsDiv(         
+            <div>
+              <ul>
+                {body.projects.map((project, index) => (
+                  <li key={index} className=" font-light text-sm"> <Button label={project.name}/></li>
+                ))}
+              </ul>
+          </div>
+          )
+        }
+  
+    }).catch(error => {
+        console.error(error);
+    });
+  });
+
+
   return (
     <div className={className}>
       <div className='flex flex-wrap bg-neutral-800 text-white justify-center py-5 h-full w-full'>
@@ -70,7 +77,7 @@ export default async function LeftSidebar ({ className }) {
 
             <li> <Dropdown label='Starred' imagePath={starIcon} /> </li>
             <li> <Dropdown label='Projects' imagePath={tableIcon} /> </li>
-            <li> {projects}</li>
+            <li> {projectsDiv}</li>
             <li> <Dropdown label='Team' imagePath={teamIcon} /> </li>
             <li> <Dropdown label='Objectives' imagePath={targetIcon} /> </li>
           </ul>
