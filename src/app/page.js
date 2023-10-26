@@ -4,6 +4,9 @@
 // import { useState } from 'react' //'useState' is defined but never used. (no-unused-vars)
 // import cookieCutter from 'cookie-cutter' //'cookieCutter' is defined but never used. (no-unused-vars)
 import TreeGraph from '../components/Graph'
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
+
 export default function Home () {
   return (
     <main className='flex flex-wrap w-full flex-col items-center'>
