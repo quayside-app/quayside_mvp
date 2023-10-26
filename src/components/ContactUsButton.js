@@ -2,13 +2,25 @@
 import React, { useState } from 'react'
 
 import ContactUsModal from '../components/ContactUsModal'
-import NewProjectModal from '../components/NewProjectModal'
-import plusIcon from '../../public/svg/plus.svg'
-import Button from '../components/Button'
 
-
-
+/**
+ * A button component for triggering a Contact Us modal.
+ * When clicked, a modal for contacting will appear.
+ *
+ * @example
+ * // Importing the component
+ * import ContactUsButton from './ContactUsButton';
+ *
+ * // Using the component
+ * <ContactUsButton />
+ *
+ * @returns {React.Element} The rendered button and modal elements. 
+ */
 export default function ContactUsButton () {
+
+    /**
+     * Handles the click event for the Contact Us button
+     */
     const handleContactClick = () => {
         setContactModalOpen(true)
         console.log('Contact Us clicked')

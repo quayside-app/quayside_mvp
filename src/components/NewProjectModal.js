@@ -11,7 +11,23 @@ import xIcon from '../../public/svg/x.svg';
 
 import Image from 'next/image';
 
-
+/**
+ * A modal component for creating a new project. It provides a form to collect details about the project such as the ChatGPT API Key, project description, completion date, budget, and stakeholders.
+ * On form submission, it sends the collected data to specified API endpoints to create a new project and fetch ChatGPT input.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {boolean} props.isOpen - A boolean indicating whether the modal is open or not.
+ * @param {Function} props.handleClose - A function to be called to close the modal.
+ * 
+ * @returns {React.Element} The rendered modal element with a form for creating a new project. The modal is displayed only when `isOpen` prop is `true`.
+ * 
+ * @example
+ * // Importing the component
+ * import NewProjectModal from './NewProjectModal';
+ *
+ * // Using the component
+ * <NewProjectModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
+ */
 const NewProjectModal = ({ isOpen, handleClose }) => {
   const [errorMessage, setMessage] = useState(null);
   const [formData, setFormData] = useState({
@@ -96,8 +112,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
     handleClose()
   }
-
-
 
   if (!isOpen) return null
   return (

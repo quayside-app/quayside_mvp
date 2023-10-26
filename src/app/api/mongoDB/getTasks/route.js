@@ -5,21 +5,19 @@ import {URI} from '../mongoData.js';
 
 
 /**
- * An asynchronous function to handle GET requests to retrieve tasks based on either a project ID or a task ID.
- * If neither projectID nor taskID is provided, a 400 Bad Request response is returned.
- * In case of a database or other error, a 500 Internal Server Error response is returned.
+ * Handles a GET request to retrieve tasks based on the provided project ID or task ID.
+ * 
+ * @param {Object} request - The request object containing query parameters.
+ * @returns {Object} - A response object with a status code and the retrieved tasks or an error message.
  *
- * @async
- * @function
- * @param {Object} NextRequest[request] - The HTTP request object.
- * @returns {Object} - Returns a list of JSON tasks if successful, or an JSON object with an error message if unsuccessful. The HTTP status code is also returned.
- *
+ * @throws Will throw an error if both project ID and task ID are missing or if there's an issue connecting to the database.
+ * 
  * @example
  * // Example usage:
- *  fetch(`/api/mongoDB/getTasks?projectID=1234`, {
+ * fetch(`/api/mongoDB/getTasks?projectID=1234`, {
  *     method: 'GET', 
  *     headers: { 'Content-Type': 'application/json' },
- *  }).then(async (response) => {
+ * }).then(async (response) => {
  *     let body = await response.json();
  *     if (!response.ok) {
  *         console.error(body.message);
@@ -27,7 +25,11 @@ import {URI} from '../mongoData.js';
  *         console.log(body);
  *     }
  * }).catch(error => console.error(error));
+ * 
+ * @property {string} request.nextUrl.searchParams.projectID - The ID of the project whose tasks are to be retrieved.
+ * @property {string} request.nextUrl.searchParams.taskID - The ID of the individual task to be retrieved.
  */
+
 export async function GET(request) {
     try {
         const params = await request.nextUrl.searchParams;

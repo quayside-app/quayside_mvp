@@ -1,9 +1,3 @@
-
-
-
-// import Image from 'next/image' //'Image' is defined but never used. (no-unused-vars)
-// import { useState } from 'react' //'useState' is defined but never used. (no-unused-vars)
-// import cookieCutter from 'cookie-cutter' //'cookieCutter' is defined but never used. (no-unused-vars)
 import TreeGraph from '../components/Graph'
 
 

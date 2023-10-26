@@ -7,9 +7,26 @@ import Image from 'next/image'
 import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
 
+/**
+ * A Navbar component that fetches a user's name from a specified API and displays a navigation bar with several interactive elements.
+ * 
+ * @returns {React.Element} The rendered navigation bar with a hamburger icon, logo, current directory input field, search bar, and a display of the fetched user's name.
+ * 
+ * @example
+ * // Importing the component
+ * import Navbar from './Navbar';
+ *
+ * // Using the component
+ * <Navbar />
+ */
 const Navbar = () => {
 
   const [name, setName] = useState(null);
+
+  /**
+   * Fetches user data from a specified API when the component mounts. 
+   * It constructs a full name from the fetched first name and last name and sets this full name in the local state.
+   */
   useEffect(() => {
     fetch('/api/mongoDB/getUsers?firstName=Mya&lastName=Schroder', {
       method: 'GET',
@@ -83,4 +100,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;

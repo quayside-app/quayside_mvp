@@ -5,7 +5,7 @@ import xIcon from '../../public/svg/x.svg'
 import Input from '../components/Input'
 
 /**
- * @description This compenent opens, initializes, and closes the Contact Us modal.
+ * This component opens, initializes, and closes the Contact Us modal.
  * @param {boolean} isOpen - If handleClose is not pressed then
  * @param {Function} props.handleClose - "Function" to close the modal when clicked
  * @returns {JSX.Element|null} The JSX Code for the Contact Us modal, or null if not open.
@@ -24,8 +24,7 @@ export default function ContactUsModal ({ isOpen, handleClose }) {
   const [formSuccessMessage, setFormSuccessMessage] = useState('')
 
   /**
-   * @function handleInput
-   * @description Handles input changes for form elements.
+   * Handles input changes for form elements.
    * @param {Event} e - The event object.
    */
 
@@ -40,8 +39,7 @@ export default function ContactUsModal ({ isOpen, handleClose }) {
   }
 
   /**
-   * @function submitForm
-   * @description Submits the form data to the server.
+   * Submits the form data to the server.
    * @param {Event} e - The event object.
    */
 
@@ -72,8 +70,7 @@ export default function ContactUsModal ({ isOpen, handleClose }) {
   }
 
   /**
-   * @function renderFormOrSuccess
-   * @description Renders the form errors or a success message, based on form submission state.
+   * Renders the form errors or a success message, based on form submission state.
    * @returns {JSX.Element} The JSX code for either the form or the success message.
    */
 

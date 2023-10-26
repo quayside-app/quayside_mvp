@@ -1,27 +1,24 @@
-/**
- * Dropdown Component
- *
- * This component takes allows us to use the same input style while chaning what it does in its action
- * We should think about reformatting this to allow us to change the type also if we so desire
- *
- *
- * Usage:
- * <Input name="apiKey" value={formData.apiKey} changeAction={handleInput} label="API Key" placeholder="Enter API Key" />
- */
 
 import React from 'react'
 
 /**
- * Generates a comment for the given function body.
+ * An Input component that renders a text input field with an associated label.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.name - The name attribute of the input element.
+ * @param {string} props.value - The current value of the input element.
+ * @param {Function} props.changeAction - The function to be called when the value of the input element changes.
+ * @param {string} props.label - The text to be used as the label for the input element.
+ * @param {string} props.placeholder - The placeholder text for the input element.
+ * @example
+ * // Importing the component
+ * import Input from './Input';
  *
- * @param {string} name - The name of the input element.
- * @param {string} value - The value of the input element.
- * @param {function} changeAction - The action to be performed when the input value changes.
- * @param {string} label - The label for the input element.
- * @param {string} placeholder - The placeholder text for the input element.
- * @return {JSX.Element} - The JSX element representing the input component.
+ * // Using the component
+ * <Input name="username" value={username} changeAction={handleUsernameChange} label="Username" placeholder="Enter your username" />
+ *
+ * @returns {React.Element} The rendered input and label elements.
  */
-
 const Input = ({ name, value, changeAction, label, placeholder }) => {
   return (
 
