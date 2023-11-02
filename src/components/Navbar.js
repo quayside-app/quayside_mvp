@@ -23,6 +23,7 @@ const Navbar = () => {
   /**
    * Fetches user data from a specified API when the component mounts.
    * It constructs a full name from the fetched first name and last name and sets this full name in the local state.
+   * TODO use user creds
    */
   useEffect(() => {
     fetch('/api/mongoDB/getUsers?firstName=Mya&lastName=Schroder', {
@@ -57,7 +58,7 @@ const Navbar = () => {
             {/* Logo */}
             <div className='flex mx-2'>
               <div className='my-auto'>
-                <Image src={logo} height={30} width={30} className='' />
+                <Image src={logo} alt="quayside logo" height={30} width={30} className='' />
               </div>
             </div>
           </div>
