@@ -1,15 +1,15 @@
-import type { NextAuthOptions } from 'next-auth';
+//import type { NextAuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 //import Credentials from 'next-auth/providers/credentials'
 
-export const options: NextAuthOptions = {
+export const options = {
     //configure one or more authentication providers
     providers: [
         //github nextauth docs: https://next-auth.js.org/providers/github
         GitHubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string,
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET,
         }),
         //google nextauth docs: https://next-auth.js.org/providers/google
         GoogleProvider({
