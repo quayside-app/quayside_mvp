@@ -91,16 +91,16 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
         apiKey: formData.apiKey
       })
     }).then(async (response) => {
-      console.log('TEST RESPONSE', response);
-      const body = await response.json();
+      console.log('TEST RESPONSE', response)
+      const body = await response.json()
       if (!response.ok) {
-        setMessage(body.message);
-        return;
+        setMessage(body.message)
+        return
       }
-      setApiResponse(body.choices);
-      handleClose();
+      setApiResponse(body.choices)
+      handleClose()
     }).catch(error => {
-      throw new Error('Error sending ChatGPT model POST: ' + error);
+      throw new Error('Error sending ChatGPT model POST: ' + error)
     })
 
     // Print out form data in console
@@ -108,8 +108,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       cookieCutter.set(key, value)
       console.log(key, value)
     })
-
-
   }
 
   if (!isOpen) return null

@@ -39,7 +39,5 @@ export async function POST (request) {
     presence_penalty: 0
   })
 
-
-
   return NextResponse.json(response)
 }

@@ -58,7 +58,7 @@ const Navbar = () => {
             {/* Logo */}
             <div className='flex mx-2'>
               <div className='my-auto'>
-                <Image src={logo} alt="quayside logo" height={30} width={30} className='' />
+                <Image src={logo} alt='quayside logo' height={30} width={30} className='' />
               </div>
             </div>
           </div>
