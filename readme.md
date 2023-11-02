@@ -3,12 +3,13 @@ Welcome to our Quayside MVP. The tech stack for this is the MERN framework (Mong
 ## Setup
 You need to install npm (you can do this by installing [node.js](https://nodejs.org/en/download)). Once that is done, run `npm install` in this directory to install all the requirements.
 
-For accessing the mongo database locally, you will need the following Atlas creds in an `.env.local` file:
+For accessing the mongo database locally, you will need the following generated database Atlas creds in an `.env.local` file (fyi, these creds are different than your creds to login to Mongo Atlas):
 
 ```
 MONGO_USERNAME=<your username>
 MONGO_PASSWORD=<your password>
 ```
+
 
 ## Usage
 
