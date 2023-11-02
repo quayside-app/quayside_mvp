@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar'
 import NewProjectModal from '../components/NewProjectModal'
 import { ApiResponseProvider } from './ApiResponseContext'
 
-
 export const metadata = {
   title: 'quayside',
   description: 'What is next?'
