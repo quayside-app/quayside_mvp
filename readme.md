@@ -1,11 +1,14 @@
+## Quayside
+
 Welcome to our Quayside MVP. The tech stack for this is the MERN framework (Mongo DB, Express.js, React Next.js, and Node.js). This will be hosted on Google Cloud Services.
 
 ## Setup
-You need to install npm (you can do this by installing [node.js](https://nodejs.org/en/download)). Once that is done, run `npm install` in this directory to install all the requirements.
+You need to install npm (you can do this by installing [Node.js](https://nodejs.org/en/download)). Once that is done, run `npm install` in this directory to install all the requirements.
 
-For accessing the mongo database locally, you will need the following generated database Atlas creds in an `.env.local` file (fyi, these creds are different than your creds to login to Mongo Atlas). In the same file you will also ned your oath creds(for google and github as examples). Here is the forma:
+For accessing the mongo database locally, you will need the following generated database Atlas creds in an `.env.local` file (fyi, these creds are different than your creds to login to Mongo Atlas). In the same file you will also ned your oath creds(for Google and GitHub as examples). Here is the forma:
 
-```
+```bash
+
 MONGO_USERNAME=<your username>
 MONGO_PASSWORD=<your password>
 
