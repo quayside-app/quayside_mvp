@@ -7,7 +7,7 @@ export const options: NextAuthOptions = {
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB.SECRET as string,
+            clientSecret: process.env.GITHUB_SECRET as string,
         }),
         /* setup our own signin for MongoDB
         CredentialsProvider({
