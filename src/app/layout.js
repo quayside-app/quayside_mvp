@@ -3,6 +3,8 @@ import LeftSidebar from '../components/LeftSidebar'
 import Navbar from '../components/Navbar'
 import NewProjectModal from '../components/NewProjectModal'
 import { ApiResponseProvider } from './ApiResponseContext'
+import AuthProvider from '../context/AuthProvider'
+
 
 export const metadata = {
   title: 'quayside',
