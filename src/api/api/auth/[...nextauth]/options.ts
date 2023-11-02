@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
-
+/**This is a options config  */
 export const options: NextAuthOptions = {
     //configure one or more authentication providers
     providers: [
@@ -43,11 +43,12 @@ export const options: NextAuthOptions = {
             }
         }) */
     ],
-    /*
-    You can add custom sign in pages here if 
-    we don't want to use the default. refer to NextAuth
-    documentation here: 
-    https://next-auth.js.org/configuration/options#pages
+    /** 
+     * You can add custom sign in pages here if 
+     * we don't want to use the default. refer to NextAuth
+     * documentation here: 
+     * https://next-auth.js.org/configuration/options#pages
     */
+    
     
 }

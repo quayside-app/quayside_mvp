@@ -16,7 +16,6 @@ export default function RootLayout ({ children }) {
     <html lang='en'>
 
       <body className={inter.className}>
-        <AuthProvider>
         <div className=''>
           <NewProjectModal />
           <Navbar />
@@ -25,7 +24,6 @@ export default function RootLayout ({ children }) {
             <div className='flex w-1/2 lg:w-5/6  ml-5'> {children} </div>
           </div>
         </div>
-        </AuthProvider>
       </body>
 
     </html>
