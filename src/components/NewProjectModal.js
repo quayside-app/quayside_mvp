@@ -67,11 +67,9 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
           // stakeholders: formData.question3,
         })
       })
-
+      const body = await response.json()
       if (!response.ok) {
         // Not a 2xx response, handle error
-        const body = await response.json()
-
         console.error(body.message)
         setMessage(body.message)
         return
@@ -93,20 +91,25 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
         apiKey: formData.apiKey
       })
     }).then(async (response) => {
-      console.log('TEST RESPONSE', response)
-      // const result = await response.json()
-      const data = await response.json()
-      setApiResponse(data.choices)
+      console.log('TEST RESPONSE', response);
+      const body = await response.json();
+      if (!response.ok) {
+        setMessage(body.message);
+        return;
+      }
+      setApiResponse(body.choices);
+      handleClose();
+    }).catch(error => {
+      throw new Error('Error sending ChatGPT model POST: ' + error);
     })
 
     // Print out form data in console
     Object.entries(formData).forEach(([key, value]) => {
       cookieCutter.set(key, value)
-
       console.log(key, value)
     })
 
-    handleClose()
+
   }
 
   if (!isOpen) return null

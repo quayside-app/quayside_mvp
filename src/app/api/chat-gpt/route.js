@@ -10,7 +10,7 @@ export async function POST (request) {
   const userPrompt = params.prompt
 
   if (!userAPIKey) {
-    return NextResponse.json({ error: 'API key is required' }, { status: 400 })
+    return NextResponse.json({ message: 'API key is required' }, { status: 400 })
   }
 
   const openai = new OpenAI({
@@ -38,6 +38,8 @@ export async function POST (request) {
     frequency_penalty: 0,
     presence_penalty: 0
   })
+
+
 
   return NextResponse.json(response)
 }
