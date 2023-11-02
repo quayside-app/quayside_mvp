@@ -3,7 +3,6 @@ import LeftSidebar from '../components/LeftSidebar'
 import Navbar from '../components/Navbar'
 import NewProjectModal from '../components/NewProjectModal'
 import { Inter } from 'next/font/google'
-import AuthProvider from '../context/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
