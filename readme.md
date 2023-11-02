@@ -3,6 +3,18 @@ Welcome to our Quayside MVP. The tech stack for this is the MERN framework (Mong
 ## Setup
 You need to install npm (you can do this by installing [node.js](https://nodejs.org/en/download)). Once that is done, run `npm install` in this directory to install all the requirements.
 
+for adding the oauth creds (for google and github as examples) use the following format
+```
+#for the authentication JWT
+NEXTAUTH_SECRET=<secret>
+#Github secret for OAuth (setup through http://github.com/settings/apps)
+#need to chnage to domain name after testing is good
+GITHUB_SECRET=<github secret>
+GITHUB_ID=<github ID>
+
+GOOGLE_CLIENT_SECRET=<google secret>
+GOOGLE_CLIENT_ID=<google client ID>
+```
 ## Usage
 
 First, run the development server
