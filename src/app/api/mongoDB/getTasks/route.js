@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { NextResponse } from 'next/server'
-import { options } from "../../auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
+import { options } from '../../auth/[...nextauth]/options'
+import { getServerSession } from 'next-auth/next'
 
 import { Task } from '../mongoModels'
 import { URI } from '../mongoData.js'
@@ -35,9 +35,9 @@ import { URI } from '../mongoData.js'
 
 export async function GET (request) {
   try {
-    const session = await getServerSession(options);
+    const session = await getServerSession(options)
     if (!session) {
-      return NextResponse.json({success: false, message: 'authentication failed'}, {status: 401});
+      return NextResponse.json({ success: false, message: 'authentication failed' }, { status: 401 })
     }
 
     const params = await request.nextUrl.searchParams

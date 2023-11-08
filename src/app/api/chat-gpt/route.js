@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server'
-import { options } from "../auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
+import { options } from '../auth/[...nextauth]/options'
+import { getServerSession } from 'next-auth/next'
 
 import OpenAI from 'openai'
 
 export async function POST (request) {
   // Authenticates user
-  const session = await getServerSession(options);
+  const session = await getServerSession(options)
   if (!session) {
-    return NextResponse.json({success: false, message: 'authentication failed'}, {status: 401});
+    return NextResponse.json({ success: false, message: 'authentication failed' }, { status: 401 })
   }
   console.log(process.env.QUAYSIDE_API_KEY) // remove later
 
