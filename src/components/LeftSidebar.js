@@ -55,7 +55,7 @@ export default function LeftSidebar ({ className }) {
     }).catch(error => {
       console.error('Left sidebar Project warning:', error)
     })
-  })
+  }, []) // Empty dependency array prevents bajilliion api calls
 
   return (
     <div className={className}>
