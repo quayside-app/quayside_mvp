@@ -1,5 +1,8 @@
 import mongoose from 'mongoose'
 import { NextResponse } from 'next/server'
+import { options } from "../../auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
+
 import { Task } from '../mongoModels'
 import { URI } from '../mongoData.js'
 
@@ -9,7 +12,8 @@ import { URI } from '../mongoData.js'
  * @param {Object} request - The request object containing query parameters.
  * @returns {Object} - A response object with a status code and the retrieved tasks or an error message.
  *
- * @throws Will throw an error if both project ID and task ID are missing or if there's an issue connecting to the database.
+ * @throws Will throw an error if both project ID and task ID are missing, if there's an issue connecting to the database, or if th
+ * user is not authenticated.
  *
  * @example
  * // Example usage:
@@ -31,6 +35,11 @@ import { URI } from '../mongoData.js'
 
 export async function GET (request) {
   try {
+    const session = await getServerSession(options);
+    if (!session) {
+      return NextResponse.json({success: false, message: 'authentication failed'}, {status: 401});
+    }
+
     const params = await request.nextUrl.searchParams
     const projectID = params.get('projectID')
     const taskID = params.get('taskID')
