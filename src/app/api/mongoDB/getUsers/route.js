@@ -42,17 +42,24 @@ export async function GET (request) {
     }
 
     const params = await request.nextUrl.searchParams
-    const firstName = params.get('firstName')
-    const lastName = params.get('lastName')
+
+    const id = params.get('id')
+    const email = params.get('email')
 
     // Require firstName and lastName
-    if (!firstName || !lastName) {
-      return NextResponse.json({ message: 'User first name and last name required.' }, { status: 400 })
+    if (!id && !email) {
+      return NextResponse.json({ message: 'User id or email required.' }, { status: 400 })
     }
 
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
-    const users = await User.find({ firstName, lastName })
+    let users = null;
+    if (id) {
+      users = await User.find({ _id:id})
+    }else {
+      users = await User.find({ email:email })
+    }
+    
     return NextResponse.json({ users }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: 'Error getting data ' + error }, { status: 500 })
