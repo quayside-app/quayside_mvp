@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { NextResponse } from 'next/server'
-import { Project, User } from '../mongoModels'
+import { Project, User, Task} from '../mongoModels'
 import { URI } from '../mongoData.js'
 
 /**
@@ -65,6 +65,23 @@ export async function POST (request) {
       return NextResponse.json({ message: 'Project users required' }, { status: 400 })
     }
 
+    // Get ChatGPT tasks
+
+    try {
+      const chatGptAPIResponse = await fetch('/api/chat-gpt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt: formData.prompt
+        })
+      })
+    } catch (error) {
+      return NextResponse.json({ message: 'Error producing ChatGPT tasks' + error }, { status: 500 })
+    }
+
+
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
     for (const i in params.userIDs) {
@@ -75,7 +92,7 @@ export async function POST (request) {
       }
     }
 
-    await Project.create({
+    const projectDocument = await Project.create({
       name: params.name, // Required
       userIDs: params.userIDs, // Required
 
@@ -106,8 +123,31 @@ export async function POST (request) {
       teams: params.teams || []
     })
 
-    return NextResponse.json({ message: 'Project stored successfully' }, { status: 200 })
+    // Parse and create projects
+    const projectId = projectDocument._id
+    const tasks = chatGptAPIResponse.tasks;
+
+    async function parseTask(task, parentId, projectId) {
+      //TODO: create new route for this?
+      const taskDocument = await Task.create({
+        parentTaskID: parentId,
+        name: task.name,
+        projectID: projectID
+      })
+      for (let task of task.subtask) {
+        parseTask(task, taskDocument._id, projectId);
+      }
+    }
+
+    for (let task of tasks) {
+      parseTask(task, null, projectId);
+    }
+
+
+    return NextResponse.json({ message: 'Project and tasks created successfully' }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: 'Error storing data ' + error }, { status: 500 })
   }
+
+  
 }
