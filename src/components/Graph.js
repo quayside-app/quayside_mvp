@@ -38,7 +38,7 @@ function TreeGraph () {
       console.error('Error getting Tree Task data:', error)
     })
 
-    // ChatGPT stuff
+    // CHATGPT STUFF, NEEDS TO GO TO ROUTE
     // if there is no API response, just return
     if (!apiResponse) return
 
@@ -93,7 +93,7 @@ function TreeGraph () {
     setTasks(newTasks)
     console.log('Full dictionary:', newTasks)
   }, [apiResponse]) // having apiResponse there means that this component gets activated only when apiResponse changes
-
+  //END OF CHATGPT STUFF
 
   useEffect(() => {
     if (!tasks) return // Ensure tasks is not null before proceeding

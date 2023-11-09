@@ -77,7 +77,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       return
     }
 
-    // Get ChatGPT input
+    // CHATGPT STUFF, NEEDS TO GO TO ROUTES
     fetch('/api/chat-gpt', {
       method: 'POST',
       headers: {
@@ -106,6 +106,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       console.log(key, value)
     })
   }
+  // END OF CHATGPT STUFF
 
   if (!isOpen) return null
   return (
