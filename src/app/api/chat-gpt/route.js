@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 
-export async function POST (request) {
 
-  // magically getting the user form data from NewProjectModal form
-  const params = await request.json()
-  const userAPIKey = process.env.QUAYSIDE_API_KEY
-  const userPrompt = params.prompt
-
+export async function getData(userPrompt) {
+  const userAPIKey = process.env.QUAYSIDE_API_KEY;
   if (!userAPIKey) {
     return NextResponse.json({ message: 'API key is required' }, { status: 400 })
   }
@@ -87,10 +83,22 @@ export async function POST (request) {
         }
       }
     }
-
     console.log('Full dictionary:', newTasks)
+    return newTasks;
 
-  return NextResponse.json(newTasks)
+}
+
+export async function POST (request) {
+  try {
+    const params = await request.json()
+    const userPrompt = params.prompt
+
+    const newTasks = getData(userPrompt);
+
+    return NextResponse.json({newTasks}, { status: 500 })
+  } catch (error) {
+    return NextResponse.json({ message: 'Error calling ChatGPT:' + error }, { status: 500 })
+  }
 
 }
 

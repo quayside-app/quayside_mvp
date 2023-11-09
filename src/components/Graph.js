@@ -20,10 +20,10 @@ function TreeGraph () {
   const [tasks, setTasks] = useState(null)
 
   const containerRef = useRef(null)
-  const { apiResponse } = useApiResponse()
+
 
   useEffect(() => {
-    const projectID = '65256c7adec443373f9bf10e' // TODO
+    const projectID = '654c9aed9374236f838dd8be' // TODO
     // Fetch Tree data
     fetch(`/api/mongoDB/getTasks?projectID=${projectID}`, {
       method: 'GET'
@@ -37,63 +37,8 @@ function TreeGraph () {
     }).catch(error => {
       console.error('Error getting Tree Task data:', error)
     })
+  }, [])
 
-    // CHATGPT STUFF, NEEDS TO GO TO ROUTE
-    // if there is no API response, just return
-    if (!apiResponse) return
-
-    // parse the result
-    const responseString = apiResponse[0].message.content
-    console.log('Response String:', responseString)
-    const newTasks = []
-
-    // Split the input string into an array of lines. ATTENTION! THIS REQUIRES THE CHATGPT RESPONSE TO PRINT ONE LINE PER TASK/SUBTASK
-    const lines = responseString.split('\n')
-
-    let currentTaskId = null
-    // Loop through the lines and extract tasks
-    for (let i = 0; i < lines.length; i++) {
-      // for every line,
-      const line = lines[i]
-      const primaryMatch = line.match(/^(\d+)\.\s(.+)/) // this checks for this structure: 1. <tasktext>
-      const subtaskMatch = line.match(/^\s+(\d+\.\d+\.?)\s(.+)/) // this checks for this structure: 1.2 <subtasktext> or 1.2. <subtasktext>
-
-      if (primaryMatch) {
-        const taskNumber = primaryMatch[1]
-        const taskText = primaryMatch[2]
-        currentTaskId = taskNumber
-
-        // making the 1st layer deep of tasks into a dictionary
-        newTasks.push({
-          id: taskNumber,
-          name: taskText,
-          parent: 'root', // this should be replaced by the user prompt
-          subtasks: []
-
-        })
-        console.log('Parsed task', taskNumber, ':', taskText)
-      } else if (subtaskMatch) {
-        const subtaskNumber = subtaskMatch[1]// .replace('.', '_'); // Convert 1.1 to 1_1
-        const subtaskText = subtaskMatch[2]
-
-        // Find the parent task
-        const parentTask = newTasks.find(task => task.id === currentTaskId)
-
-        // If the parent task is found, push the subtask into its subtasks array
-        if (parentTask) {
-          parentTask.subtasks.push({
-            id: subtaskNumber,
-            name: subtaskText,
-            parent: currentTaskId
-          })
-          console.log('Parsed subtask', subtaskNumber, ':', subtaskText)
-        }
-      }
-    }
-    setTasks(newTasks)
-    console.log('Full dictionary:', newTasks)
-  }, [apiResponse]) // having apiResponse there means that this component gets activated only when apiResponse changes
-  //END OF CHATGPT STUFF
 
   useEffect(() => {
     if (!tasks) return // Ensure tasks is not null before proceeding

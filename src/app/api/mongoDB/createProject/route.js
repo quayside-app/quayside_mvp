@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { NextResponse } from 'next/server'
 import { Project, User, Task} from '../mongoModels'
 import { URI } from '../mongoData.js'
+import {getData} from '../../chat-gpt/route'
 
 /**
  * Handles a POST request to create and store a new project in the database.
@@ -65,19 +66,13 @@ export async function POST (request) {
       return NextResponse.json({ message: 'Project users required' }, { status: 400 })
     }
 
-    // Get ChatGPT tasks
-    // TODO: url needs to be swapped for production
-    const chatGptAPIResponse = await fetch('http://localhost:3000/api/chat-gpt', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        prompt: params.name
-      })
-    })
+
+    const chatGptResponse = await getData(params.name);
+
+    console.log("----", chatGptResponse);
+
   
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
+    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
 
     for (const i in params.userIDs) {
       const userExists = await User.exists({ _id: params.userIDs[i] })
@@ -119,24 +114,24 @@ export async function POST (request) {
     })
 
     // Parse and create projects
-    const projectId = projectDocument._id
-    const tasks = chatGptAPIResponse.tasks;
-
+    const projectId = projectDocument._id;
     async function parseTask(task, parentId, projectId) {
       //TODO: create new route for this?
       const taskDocument = await Task.create({
         parentTaskID: parentId,
         name: task.name,
-        projectID: projectID
+        projectID: projectId
       })
-      for (let task of task.subtask) {
-        parseTask(task, taskDocument._id, projectId);
+
+      if (task.subtasks) {
+        for (let subtask of task.subtasks) {
+          parseTask(subtask, taskDocument._id, projectId);
+        }
       }
     }
 
-    for (let task of tasks) {
-      parseTask(task, null, projectId);
-    }
+    parseTask(chatGptResponse[0], null, projectId);
+
 
 
     return NextResponse.json({ message: 'Project and tasks created successfully' }, { status: 200 })
