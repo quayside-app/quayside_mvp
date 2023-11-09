@@ -88,7 +88,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
         prompt: formData.prompt
       })
     }).then(async (response) => {
-      console.log('TEST RESPONSE', response)
+      // console.log('TEST RESPONSE', response)
       const body = await response.json()
       if (!response.ok) {
         setMessage(body.message)
@@ -99,14 +99,19 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     }).catch(error => {
       throw new Error('Error sending ChatGPT model POST: ' + error)
     })
+    // END OF CHATGPT STUFF
 
     // Print out form data in console
-    Object.entries(formData).forEach(([key, value]) => {
-      cookieCutter.set(key, value)
-      console.log(key, value)
-    })
+    // Object.entries(formData).forEach(([key, value]) => {
+    //   cookieCutter.set(key, value)
+    //   console.log(key, value)
+    // })
+    
   }
-  // END OF CHATGPT STUFF
+
+
+  
+  
 
   if (!isOpen) return null
   return (
