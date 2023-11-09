@@ -17,7 +17,7 @@
     "cytoscape": "^3.26.0",
     "dotenv": "^16.3.1",
     "eslint-config-next": "13.4.19",
-    "mongodb": "^6.1.0",
+    "mongodb": "^6.2.0",
     "mongoose": "^7.5.4",
     "next": "^13.5.6",
     "next-auth": "^4.24.3",

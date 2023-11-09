@@ -3,7 +3,10 @@ import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
   firstName: String,
-  lastName: String
+  lastName: String,
+  email: {type: String, unique: true},
+  username: String,
+  teamIDs: [ObjectId]
 })
 
 // The mongoose.models.User prevents errors on refresh when editing
