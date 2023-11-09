@@ -3,7 +3,7 @@ Welcome to our Quayside MVP. The tech stack for this is the MERN framework (Mong
 ## Setup
 You need to install npm (you can do this by installing [node.js](https://nodejs.org/en/download)). Once that is done, run `npm install` in this directory to install all the requirements.
 
-For accessing the mongo database locally, you will need the following generated database Atlas creds in an `.env.local` file (fyi, these creds are different than your creds to login to Mongo Atlas). In the same file you will also ned your oath creds(for google and github as examples). Here is the forma:
+For accessing the mongo database locally, you will need the following generated database Atlas creds in an `.env.local` file (fyi, these creds are different than your creds to login to Mongo Atlas). In the same file you will also ned your oath creds(for google and github as examples). You will also need your chatGPT key. Here is the forma:
 
 ```
 MONGO_USERNAME=<your username>
@@ -16,6 +16,8 @@ GITHUB_ID=<github ID>
 
 GOOGLE_CLIENT_SECRET=<google secret>
 GOOGLE_CLIENT_ID=<google client ID>
+
+QUAYSIDE_API_KEY=<ChatGPT key>
 ```
 
 ## Usage
