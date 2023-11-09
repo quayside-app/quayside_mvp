@@ -30,7 +30,6 @@ import Image from 'next/image'
 const NewProjectModal = ({ isOpen, handleClose }) => {
   const [errorMessage, setMessage] = useState(null)
   const [formData, setFormData] = useState({
-    apiKey: '',
     prompt: '',
     question1: '',
     question2: '',
@@ -60,7 +59,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.prompt,
-          apiKey: formData.apiKey,
           endDate: formData.question1,
           budget: formData.question2,
           userIDs: ['6521d8581bcf69b7d260608b'] // TODO: change this
@@ -87,8 +85,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       },
       // magically sending formData to route.js where the API call is handled
       body: JSON.stringify({
-        prompt: formData.prompt,
-        apiKey: formData.apiKey
+        prompt: formData.prompt
       })
     }).then(async (response) => {
       console.log('TEST RESPONSE', response)
@@ -124,7 +121,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
           <div className='px-6 py-6 lg:px-8'>
             <h3 className='mb-4 text-xl font-medium text-white'>New Project</h3>
             <form className='space-y-6' onSubmit={submitForm}>
-              <Input name='apiKey' value={formData.apiKey} changeAction={handleInput} label='ChatGPT API Key' placeholder='••••••••' />
               <Input name='prompt' value={formData.prompt} changeAction={handleInput} label='What is your project about?' placeholder='I want to bake a cake!' />
               <Input name='question1' value={formData.question1} changeAction={handleInput} label='When should the project be completed?' placeholder='Feb 30, 2041' />
               <Input name='question2' value={formData.question2} changeAction={handleInput} label='What is the budget allocated for this project?' placeholder='One Billion Dollars and 1 cent' />

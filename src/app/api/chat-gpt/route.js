@@ -6,7 +6,7 @@ export async function POST (request) {
 
   // magically getting the user form data from NewProjectModal form
   const params = await request.json()
-  const userAPIKey = params.apiKey
+  const userAPIKey = process.env.QUAYSIDE_API_KEY
   const userPrompt = params.prompt
 
   if (!userAPIKey) {
@@ -23,8 +23,10 @@ export async function POST (request) {
       {
         // set the tone of the response you get back
         role: 'system',
-        content: 'Given the user prompt, list its subtasks and subtask\'s subtasks, etc... in a tree structure starting from 1, and going deeper with 1.1, 1.1.1, 1.2, 1.2.2, etc.' +
-                 'Ensure every task and subtask has 5 or less children tasks. Keep the subtasks directly related to the user input task.'
+        content: 'You are given as input a project or task that a single person or a team wants to take on.' +
+        'Divide the task into less than 5 subtasks and list them hierarchically in the format where task 1 has subtasks 1.1, 1.2,...' +
+        'and task 2 has subtasks 2.1, 2.2, 2.3,... and so forth' +
+        'Make sure that every task is on one line after the number, don\'t create new paragraphs'
       },
       {
         // here is where the user prompt gets used
