@@ -49,8 +49,9 @@ export default function LeftSidebar ({ className }) {
           <div>
             <ul>
               {body.projects.map((project, index) => (
-                <li key={index} className=' font-light text-sm'> 
-                <Link href={`/${project._id}`}><Button label={project.name}/></Link></li>
+                <li key={index} className=' font-light text-sm'>
+                  <Link href={`/${project._id}`}><Button label={project.name} /></Link>
+                </li>
               ))}
             </ul>
           </div>
