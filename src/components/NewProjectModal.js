@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { useApiResponse } from '@/app/ApiResponseContext'
+import { useSession } from 'next-auth/react'
 
 import cookieCutter from 'cookie-cutter'
 
@@ -29,6 +30,7 @@ import Image from 'next/image'
  */
 const NewProjectModal = ({ isOpen, handleClose }) => {
   const [errorMessage, setMessage] = useState(null)
+  const { data: session } = useSession()
   const [formData, setFormData] = useState({
     prompt: '',
     question1: '',
@@ -61,7 +63,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
           name: formData.prompt,
           endDate: formData.question1,
           budget: formData.question2,
-          userIDs: ['6521d8581bcf69b7d260608b'] // TODO: change this
+          userIDs: [`${session.userId}`]
           // stakeholders: formData.question3,
         })
       })

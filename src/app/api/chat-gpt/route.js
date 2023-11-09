@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server'
+import { options } from '../auth/[...nextauth]/options'
+import { getServerSession } from 'next-auth/next'
+
 import OpenAI from 'openai'
 
 

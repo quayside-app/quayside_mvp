@@ -15,15 +15,17 @@ import { useApiResponse } from '@/app/ApiResponseContext'
  * // Using the component
  * <TreeGraph />
  */
-function TreeGraph () {
+function TreeGraph ({ projectID }) {
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
 
   const containerRef = useRef(null)
-
+  const { apiResponse } = useApiResponse()
+  if (!projectID) {
+    projectID = '65256c7adec443373f9bf10e' // TODO
+  }
 
   useEffect(() => {
-    const projectID = '654ca03ca0cc6f76941fd061' // TODO
     // Fetch Tree data
     fetch(`/api/mongoDB/getTasks?projectID=${projectID}`, {
       method: 'GET'

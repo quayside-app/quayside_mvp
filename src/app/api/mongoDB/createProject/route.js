@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import { options } from '../../auth/[...nextauth]/options'
+import { getServerSession } from 'next-auth/next'
 import { NextResponse } from 'next/server'
 import { Project, User, Task} from '../mongoModels'
 import { URI } from '../mongoData.js'
@@ -10,7 +12,8 @@ import {getData} from '../../chat-gpt/route'
  * @param {Object} request - The request object containing the project details.
  * @returns {Object} - A response object with a status code and a message.
  *
- * @throws Will throw an error if any of the required fields are missing or if there's an issue connecting to the database.
+ * @throws Will throw an error if any of the required fields are missing, if there's an issue connecting to the database,
+ * or if not authenticated.
  *
  * @example
  * fetch(`/api/mongoDB/createProject`, {
@@ -56,6 +59,11 @@ import {getData} from '../../chat-gpt/route'
 
 export async function POST (request) {
   try {
+    const session = await getServerSession(options)
+    if (!session) {
+      return NextResponse.json({ success: false, message: 'authentication failed' }, { status: 401 })
+    }
+
     const params = await request.json()
 
     if (!params.name) {
