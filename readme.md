@@ -7,8 +7,9 @@ You need to install npm (you can do this by installing [Node.js](https://nodejs.
 
 For accessing the mongo database locally, you will need the following generated database Atlas creds in an `.env.local` file (fyi, these creds are different than your creds to login to Mongo Atlas). In the same file you will also ned your oath creds(for Google and GitHub as examples). Here is the forma:
 
-```bash
+For accessing the mongo database locally, you will need the following generated database Atlas creds in an `.env.local` file (fyi, these creds are different than your creds to login to Mongo Atlas). In the same file you will also ned your oath creds(for google and github as examples). You will also need your chatGPT key. Here is the forma:
 
+```bash
 MONGO_USERNAME=<your username>
 MONGO_PASSWORD=<your password>
 
@@ -19,6 +20,8 @@ GITHUB_ID=<github ID>
 
 GOOGLE_CLIENT_SECRET=<google secret>
 GOOGLE_CLIENT_ID=<google client ID>
+
+QUAYSIDE_API_KEY=<ChatGPT key>
 ```
 
 ## Usage
