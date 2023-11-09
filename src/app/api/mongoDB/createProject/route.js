@@ -66,22 +66,17 @@ export async function POST (request) {
     }
 
     // Get ChatGPT tasks
-
-    try {
-      const chatGptAPIResponse = await fetch('/api/chat-gpt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          prompt: formData.prompt
-        })
+    // TODO: url needs to be swapped for production
+    const chatGptAPIResponse = await fetch('http://localhost:3000/api/chat-gpt', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt: params.name
       })
-    } catch (error) {
-      return NextResponse.json({ message: 'Error producing ChatGPT tasks' + error }, { status: 500 })
-    }
-
-
+    })
+  
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
     for (const i in params.userIDs) {
@@ -146,7 +141,7 @@ export async function POST (request) {
 
     return NextResponse.json({ message: 'Project and tasks created successfully' }, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ message: 'Error storing data ' + error }, { status: 500 })
+    return NextResponse.json({ message: 'Error creating projects and tasks:' + error }, { status: 500 })
   }
 
   
