@@ -76,7 +76,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       console.error('Error setting new project.')
       return
     }
-    
+    handleClose();
   }
 
 

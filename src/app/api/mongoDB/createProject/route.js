@@ -69,8 +69,6 @@ export async function POST (request) {
 
     const chatGptResponse = await getData(params.name);
 
-    console.log("----", chatGptResponse);
-
   
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
 
@@ -122,6 +120,7 @@ export async function POST (request) {
         name: task.name,
         projectID: projectId
       })
+      console.log("---",task)
 
       if (task.subtasks) {
         for (let subtask of task.subtasks) {
@@ -130,7 +129,14 @@ export async function POST (request) {
       }
     }
 
-    parseTask(chatGptResponse[0], null, projectId);
+    const rootTaskDocument = await Task.create({
+      parentTaskID: null,
+      name: params.name,
+      projectID: projectId
+    })
+    for (let task of chatGptResponse) {
+      parseTask(task, rootTaskDocument._id, projectId);
+    }
 
 
 
