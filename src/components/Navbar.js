@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
-import { useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react'
 
 /**
  * A Navbar component that fetches a user's name from a specified API and displays a navigation bar with several interactive elements.
@@ -19,9 +19,8 @@ import { useSession } from 'next-auth/react';
  * <Navbar />
  */
 const Navbar = () => {
-  const [name, setName] = useState(null);
-  const { data: session } = useSession();
-
+  const [name, setName] = useState(null)
+  const { data: session } = useSession()
 
   /**
    * Fetches user data from a specified API when the component mounts.

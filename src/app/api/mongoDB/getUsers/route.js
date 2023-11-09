@@ -53,13 +53,13 @@ export async function GET (request) {
 
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
-    let users = null;
+    let users = null
     if (id) {
-      users = await User.find({ _id:id})
-    }else {
-      users = await User.find({ email:email })
+      users = await User.find({ _id: id })
+    } else {
+      users = await User.find({ email })
     }
-    
+
     return NextResponse.json({ users }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: 'Error getting data ' + error }, { status: 500 })

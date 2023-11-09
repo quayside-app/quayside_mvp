@@ -29,8 +29,8 @@ import Image from 'next/image'
  * <NewProjectModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
  */
 const NewProjectModal = ({ isOpen, handleClose }) => {
-  const [errorMessage, setMessage] = useState(null);
-  const { data: session } = useSession();
+  const [errorMessage, setMessage] = useState(null)
+  const { data: session } = useSession()
   const [formData, setFormData] = useState({
     apiKey: '',
     prompt: '',
