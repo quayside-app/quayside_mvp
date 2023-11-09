@@ -2,30 +2,41 @@ import './globals.css'
 import LeftSidebar from '../components/LeftSidebar'
 import Navbar from '../components/Navbar'
 import NewProjectModal from '../components/NewProjectModal'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import { ApiResponseProvider } from './ApiResponseContext'
+import { getServerSession } from 'next-auth/next'
+import { Provider } from './client-provider'
+import { options } from './api/auth/[...nextauth]/options'
 
 export const metadata = {
   title: 'quayside',
   description: 'What is next?'
 }
-export default function RootLayout ({ children }) {
+async function RootLayout ({ children }) {
+  // Allows us to use useSession inside of client components
+  const session = await getServerSession(options)
   return (
-    <html lang='en'>
 
-      <body className={inter.className}>
+    <ApiResponseProvider>
+      <html lang='en'>
 
-        <div className=''>
-          <NewProjectModal />
-          <Navbar />
-          <div className='flex min-h-screen h-screen'>
-            <LeftSidebar className='flex w-1/2 lg:w-1/6 resize-x h-screen' />
-            <div className='flex w-1/2 lg:w-5/6  ml-5'> {children} </div>
-          </div>
-        </div>
-      </body>
+        <body className=''>
 
-    </html>
+          <Provider session={session}>
+
+            <div className=''>
+              <NewProjectModal />
+              <Navbar />
+              <div className='flex h-screen'>
+                <LeftSidebar className='flex w-1/3 md:w-60' />
+                <div className='flex w-2/3 md:w-max  ml-5'> {children} </div>
+              </div>
+            </div>
+          </Provider>
+        </body>
+
+      </html>
+    </ApiResponseProvider>
   )
 }
+
+export default RootLayout

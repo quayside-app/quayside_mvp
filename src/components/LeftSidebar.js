@@ -1,11 +1,13 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
-// import Image from 'next/image' //'Image' is defined but never used. (no-unused-vars)
+import NewProjectButton from '../components/NewProjectButton'
+import ContactUsButton from '../components/ContactUsButton'
 
 import Dropdown from '../components/Dropdown'
-import NewProjectModal from '../components/NewProjectModal'
-import ContactUsModal from '../components/ContactUsModal'
+import Button from '../components/Button'
 
 import plusIcon from '../../public/svg/plus.svg'
 import starIcon from '../../public/svg/star.svg'
@@ -14,53 +16,75 @@ import teamIcon from '../../public/svg/team.svg'
 import targetIcon from '../../public/svg/target.svg'
 
 /**
- * Represents the left sidebar component.
- * @returns {JSX.Element} The rendered component.
+ * A LeftSidebar component that fetches project data associated with a specified user ID and renders a list of project names as buttons.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.className - A string of class names to be applied to the component.
+ *
+ * @returns {React.Element} - The rendered sidebar element containing a list of project names as buttons.
+ *
+ * @example
+ * // Importing the component
+ * import LeftSidebar from './LeftSidebar';
+ *
+ * // Using the component
+ * <LeftSidebar className="custom-class" />
+ *
+ * @property {string} userID - The user ID whose projects are to be retrieved and displayed. Currently hardcoded, to be replaced with dynamic data.
  */
-
 export default function LeftSidebar ({ className }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isContactModalOpen, setContactModalOpen] = useState(false)
+  const [projectsDiv, setProjectsDiv] = useState(<div />)
+  const { data: session } = useSession()
 
-  const handleContactClick = () => {
-    setContactModalOpen(true)
-    console.log('Contact Us clicked')
-  }
+  useEffect(() => {
+    // Fetch project data
+    fetch(`/api/mongoDB/getProjects?userID=${session.userId}`, {
+      method: 'GET'
+    }).then(async (response) => {
+      const body = await response.json()
+      if (!response.ok) {
+        console.error(body.message)
+      } else {
+        setProjectsDiv(
+          <div>
+            <ul>
+              {body.projects.map((project, index) => (
+                <li key={index} className=' font-light text-sm'>
+                  <Link href={`/${project._id}`}><Button label={project.name} /></Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    }).catch(error => {
+      console.error('Left sidebar Project warning:', error)
+    })
+  }, []) // Empty dependency array prevents bajilliion api calls
 
   return (
-    <div className={`${className} flex flex-col h-screen flex-shrink-0 flex-grow-0 w-48`}>
-      <ContactUsModal isOpen={isContactModalOpen} handleClose={() => setContactModalOpen(false)} />
-      <div className='flex-grow flex bg-neutral-800 text-white justify-center py-5 overflow-y-auto'>
+    <div className={className}>
+      <div className='flex flex-wrap bg-neutral-800 text-white justify-center py-5 h-full w-full'>
 
-        {/* New Project Modal */}
-        <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
-        <div className='flex flex-wrap mx-4'>
+        <div className='mx-4 w-full'>
           <ul className='font-medium'>
             <li> <span className='ml-3 flex justify-center py-5'>Directory</span> </li>
-
-            <li> <Dropdown clickAction={() => { setIsOpen(true); console.log('Here') }} label='New Project' imagePath={plusIcon} /> </li>
-            <li> <Dropdown label='Task' imagePath={plusIcon} /> </li>
+            <NewProjectButton />
+            <li> <Button label='Task' imagePath={plusIcon} /> </li>
 
             <li><div className='my-10 space-y-2 font-medium border-t  border-gray-200' /></li>
 
             <li> <Dropdown label='Starred' imagePath={starIcon} /> </li>
             <li> <Dropdown label='Projects' imagePath={tableIcon} /> </li>
+            <li> {projectsDiv}</li>
             <li> <Dropdown label='Team' imagePath={teamIcon} /> </li>
             <li> <Dropdown label='Objectives' imagePath={targetIcon} /> </li>
           </ul>
-
-          <div className='pt-4 my-10 space-y-2 font-medium border-t border-gray-200' />
         </div>
-      </div>
-      {/* Contact Us Button */}
-      <div className='sticky bottom-0 flex-shrink-0 p-2'>
-        <button
-          type='button'
-          className='flex justify-center items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700'
-          onClick={handleContactClick}
-        >
-          <span className='flex my-auto ml-3 text-left whitespace-nowrap text-xs xl:text-lg'>Contact Us</span>
-        </button>
+
+        <div className='mt-auto sticky bottom-0 bg-neutral-700 w-full'>
+          <ContactUsButton />
+        </div>
       </div>
     </div>
   )
