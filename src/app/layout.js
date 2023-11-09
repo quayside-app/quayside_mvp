@@ -2,30 +2,32 @@ import './globals.css'
 import LeftSidebar from '../components/LeftSidebar'
 import Navbar from '../components/Navbar'
 import NewProjectModal from '../components/NewProjectModal'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import { ApiResponseProvider } from './ApiResponseContext'
 
 export const metadata = {
   title: 'quayside',
   description: 'What is next?'
 }
-export default function RootLayout ({ children }) {
+function RootLayout ({ children }) {
   return (
-    <html lang='en'>
+    <ApiResponseProvider>
+      <html lang='en'>
 
-      <body className={inter.className}>
+        <body className=''>
 
-        <div className=''>
-          <NewProjectModal />
-          <Navbar />
-          <div className='flex min-h-screen h-screen'>
-            <LeftSidebar className='flex w-1/2 lg:w-1/6 resize-x h-screen' />
-            <div className='flex w-1/2 lg:w-5/6  ml-5'> {children} </div>
+          <div className=''>
+            <NewProjectModal />
+            <Navbar />
+            <div className='flex h-screen'>
+              <LeftSidebar className='flex w-1/3 md:w-60' />
+              <div className='flex w-2/3 md:w-max  ml-5'> {children} </div>
+            </div>
           </div>
-        </div>
-      </body>
+        </body>
 
-    </html>
+      </html>
+    </ApiResponseProvider>
   )
 }
+
+export default RootLayout
