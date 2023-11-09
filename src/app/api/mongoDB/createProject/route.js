@@ -74,9 +74,6 @@ export async function POST (request) {
       return NextResponse.json({ message: 'Project users required' }, { status: 400 })
     }
 
-
-    const chatGptResponse = await getData(params.name);
-
   
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
 
@@ -120,6 +117,7 @@ export async function POST (request) {
     })
 
     // Parse and create projects
+    const chatGptResponse = await getData(params.name);
     const projectId = projectDocument._id;
     async function parseTask(task, parentId, projectId) {
       //TODO: create new route for this?
@@ -137,13 +135,18 @@ export async function POST (request) {
       }
     }
 
-    const rootTaskDocument = await Task.create({
-      parentTaskID: null,
-      name: params.name,
-      projectID: projectId
-    })
+    let rootId = null;
+    if (chatGptResponse.length != 1) {
+      const rootTaskDocument = await Task.create({
+        parentTaskID: null,
+        name: params.name,
+        projectID: projectId
+      })
+      rootId = rootTaskDocument._id;
+    }
+
     for (let task of chatGptResponse) {
-      parseTask(task, rootTaskDocument._id, projectId);
+      parseTask(task, rootId, projectId);
     }
 
 
