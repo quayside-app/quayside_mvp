@@ -1,5 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react';
+
 import NewProjectButton from '../components/NewProjectButton'
 import ContactUsButton from '../components/ContactUsButton'
 
@@ -30,12 +32,13 @@ import targetIcon from '../../public/svg/target.svg'
  * @property {string} userID - The user ID whose projects are to be retrieved and displayed. Currently hardcoded, to be replaced with dynamic data.
  */
 export default function LeftSidebar ({ className }) {
-  const [projectsDiv, setProjectsDiv] = useState(<div />)
+  const [projectsDiv, setProjectsDiv] = useState(<div />);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    const userID = '6521d8581bcf69b7d260608b' // TODO
+
     // Fetch project data
-    fetch(`/api/mongoDB/getProjects?userID=${userID}`, {
+    fetch(`/api/mongoDB/getProjects?userID=${session.userId}`, {
       method: 'GET'
     }).then(async (response) => {
       const body = await response.json()
