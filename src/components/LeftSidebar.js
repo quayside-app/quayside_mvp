@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
 import NewProjectButton from '../components/NewProjectButton'
@@ -48,7 +49,8 @@ export default function LeftSidebar ({ className }) {
           <div>
             <ul>
               {body.projects.map((project, index) => (
-                <li key={index} className=' font-light text-sm'> <Button label={project.name} /></li>
+                <li key={index} className=' font-light text-sm'> 
+                <Link href={`/${project._id}`}><Button label={project.name}/></Link></li>
               ))}
             </ul>
           </div>
