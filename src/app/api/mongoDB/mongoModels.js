@@ -39,8 +39,8 @@ const projectSchema = new mongoose.Schema({
 export const Project = mongoose.models.Project || mongoose.model('Project', projectSchema, 'Project')
 
 const taskSchema = new mongoose.Schema({
-  parentTaskID: ObjectId,
   name: String,
+  parentTaskID: ObjectId,
   description: String,
   objectives: [String],
   startDate: Date,
