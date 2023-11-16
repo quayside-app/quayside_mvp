@@ -96,13 +96,13 @@ const Navbar = () => {
 
           {/* User Avatar Icon */}
           {session && session.user && (
-          <div>
-            <img
-              src={session.user.image}
-              style={{ width: '40px', height: '40px', borderRadius: '50%' }}
-            />
-          </div>
-        )}
+            <div>
+              <img
+                src={session.user.image}
+                style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+              />
+            </div>
+          )}
           {/* User */}
           <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
 
