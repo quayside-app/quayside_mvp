@@ -3,6 +3,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import mongoose from 'mongoose'
 import { URI } from '../../mongoDB/mongoData.js'
 import { User } from '../../mongoDB/mongoModels.js'
+import {getUsers} from '../../mongoDB/getUsers/getUsers'
 
 export const options = {
   // configure one or more authentication providers
@@ -53,7 +54,7 @@ export const options = {
       // This callback is called whenever a JWT is created. So session.userId is the mongo User _id
       if (user) {
         if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
-        const mongoUser = await User.findOne({ email: user.email }) // TODO maybe store this so don't have to do more queries
+        const mongoUser = (await getUsers(null, user.email))[0];
         token.sub = mongoUser._id
       }
       return token

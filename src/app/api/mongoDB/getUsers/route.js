@@ -2,37 +2,42 @@ import mongoose from 'mongoose'
 import { NextResponse } from 'next/server'
 import { options } from '../../auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-
-import { User } from '../mongoModels'
-import { URI } from '../mongoData.js'
+import {getUsers} from './getUsers'
 
 /**
- * Handles a GET request to retrieve users based on the provided first name and last name.
+ * Handles a GET request to retrieve user data based on provided query parameters. This function first
+ * authenticates the user session. If authenticated, it checks for the presence of either a user ID or
+ * email in the query parameters.
  *
- * @param {Object} request - The request object containing query parameters.
- * @returns {Object} - A response object with a status code and the retrieved users or an error message.
- *
- * @throws Will throw an error if either first name or last name is missing, if there's an issue connecting to the database,
- * or if the user is not authenticated.
+ * @param {Object} request - The incoming request object with query parameters.
+ * @returns {Object} - A response object with a status code and either the user data or an error message.
  *
  * @example
- * // Example usage:
- * fetch(`/api/mongoDB/getUsers?firstName=John&lastName=Doe`, {
- *     method: 'GET',
- *     headers: { 'Content-Type': 'application/json' },
- * }).then(async (response) => {
- *     let body = await response.json();
+ * // Example of a GET request to this endpoint with an ID
+ * fetch(`/api/users?id=12345`)
+ *   .then(async (response) => {
+ *     const body = await response.json();
  *     if (!response.ok) {
- *         console.error(body.message);
+ *         console.error('Error:', body.message);
  *     } else {
- *         console.log(body);
+ *         console.log('User data:', body.users);
  *     }
- * }).catch(error => console.error(error));
+ * }).catch(error => console.error('Error in GET request:', error));
  *
- * @property {string} request.nextUrl.searchParams.firstName - The first name of the user(s) to be retrieved.
- * @property {string} request.nextUrl.searchParams.lastName - The last name of the user(s) to be retrieved.
+ * // Example of a GET request to this endpoint with an email
+ * fetch(`/api/users?email=user@example.com`)
+ *   .then(async (response) => {
+ *     const body = await response.json();
+ *     if (!response.ok) {
+ *         console.error('Error:', body.message);
+ *     } else {
+ *         console.log('User data:', body.users);
+ *     }
+ * }).catch(error => console.error('Error in GET request:', error));
+ *
+ * @property {string} [request.nextUrl.searchParams.get('id')] - The user ID to search for.
+ * @property {string} [request.nextUrl.searchParams.get('email')] - The email address to search for.
  */
-
 export async function GET (request) {
   try {
     // Authenticates user
@@ -51,14 +56,7 @@ export async function GET (request) {
       return NextResponse.json({ message: 'User id or email required.' }, { status: 400 })
     }
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
-
-    let users = null
-    if (id) {
-      users = await User.find({ _id: id })
-    } else {
-      users = await User.find({ email })
-    }
+    const users = await getUsers(id, email);
 
     return NextResponse.json({ users }, { status: 200 })
   } catch (error) {
