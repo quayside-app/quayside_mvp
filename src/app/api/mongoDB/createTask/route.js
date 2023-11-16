@@ -13,7 +13,7 @@ import {createTask} from './createTask'
  * it proceeds to create a new task with the given details.
  *
  * @param {Object} request - The request object containing the task details.
- * @returns {Object} - A response object with a status code,and the task if completed successfully ({task:{<task>}})
+ * @returns {Object} - A response object with a status code,and the task if completed successfully ({message:<message>, task:{<task>}})
  *
  * @throws Will throw an error if any of the required fields are missing, if there's an issue connecting
  * to the database, or if the session is not authenticated.
@@ -77,7 +77,7 @@ export async function POST (request) {
     return NextResponse.json({ message: `Project ${params.projectID[i]} does not exist.` }, { status: 400 })
     }
 
-    const task = createTask(
+    const task = await createTask(
         params.name,  // Required
         params.projectID,  // Required
         params.parentTaskID || null,

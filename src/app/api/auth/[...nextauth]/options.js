@@ -1,9 +1,7 @@
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import mongoose from 'mongoose'
-import { URI } from '../../mongoDB/mongoData.js'
-import { User } from '../../mongoDB/mongoModels.js'
 import {getUsers} from '../../mongoDB/getUsers/getUsers'
+import {createUser} from '../../mongoDB/createUser/createUser'
 
 export const options = {
   // configure one or more authentication providers
@@ -21,8 +19,7 @@ export const options = {
   ],
   callbacks: {
     async signIn ({ user, account, profile }) {
-      if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
-      const existingUser = await User.findOne({ email: user.email })
+      const existingUser = await getUsers(null, user.email);
 
       if (existingUser) {
         return true
@@ -33,13 +30,7 @@ export const options = {
         const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : ''
 
         // Create User
-        const newUser = await User.create({
-          firstName,
-          lastName,
-          email: user.email,
-          username: '',
-          teamIDs: []
-        })
+        const newUser = await createUser(user.email, firstName, lastName);
         return !!newUser // Return true if creation is successful
       }
     },
@@ -53,9 +44,8 @@ export const options = {
     async jwt ({ token, user, account, profile, isNewUser }) {
       // This callback is called whenever a JWT is created. So session.userId is the mongo User _id
       if (user) {
-        if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
-        const mongoUser = (await getUsers(null, user.email))[0];
-        token.sub = mongoUser._id
+        const mongoUsers = await getUsers(null, user.email);
+        token.sub = mongoUsers[0]._id
       }
       return token
     }
