@@ -1,7 +1,7 @@
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import {getUsers} from '../../mongoDB/getUsers/getUsers'
-import {createUser} from '../../mongoDB/createUser/createUser'
+import { getUsers } from '../../mongoDB/getUsers/getUsers'
+import { createUser } from '../../mongoDB/createUser/createUser'
 
 export const options = {
   // configure one or more authentication providers
@@ -19,7 +19,7 @@ export const options = {
   ],
   callbacks: {
     async signIn ({ user, account, profile }) {
-      const existingUser = await getUsers(null, user.email);
+      const existingUser = await getUsers(null, user.email)
 
       if (existingUser) {
         return true
@@ -30,7 +30,7 @@ export const options = {
         const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : ''
 
         // Create User
-        const newUser = await createUser(user.email, firstName, lastName);
+        const newUser = await createUser(user.email, firstName, lastName)
         return !!newUser // Return true if creation is successful
       }
     },
@@ -44,7 +44,7 @@ export const options = {
     async jwt ({ token, user, account, profile, isNewUser }) {
       // This callback is called whenever a JWT is created. So session.userId is the mongo User _id
       if (user) {
-        const mongoUsers = await getUsers(null, user.email);
+        const mongoUsers = await getUsers(null, user.email)
         token.sub = mongoUsers[0]._id
       }
       return token

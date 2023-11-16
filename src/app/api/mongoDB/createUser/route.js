@@ -1,16 +1,16 @@
 import { options } from '../../auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
 import { NextResponse } from 'next/server'
-import {createUser} from './createUser'
+import { createUser } from './createUser'
 
 /**
- * Handles a POST request to create a new user in the system. This function first checks for a valid 
- * user session. If authenticated, it validates the presence of the 'email' parameter in the request 
- * body. Upon successful validation, it proceeds to create a user with the provided details using the 
+ * Handles a POST request to create a new user in the system. This function first checks for a valid
+ * user session. If authenticated, it validates the presence of the 'email' parameter in the request
+ * body. Upon successful validation, it proceeds to create a user with the provided details using the
  * `createUser` function.
  *
  * @param {Object} request - The request object containing the new user's details in JSON format.
- * @returns {Object} - A response object with a status code and a message. On successful creation, 
+ * @returns {Object} - A response object with a status code and a message. On successful creation,
  *                     returns the user object; otherwise, returns an error message.
  *
  * @example
@@ -52,15 +52,15 @@ export async function POST (request) {
     }
 
     const user = await createUser(
-        params.email,  // Required
-        params.firstName,
-        params.lastName,
-        params.username,
-        params.teamIDs,
+      params.email, // Required
+      params.firstName,
+      params.lastName,
+      params.username,
+      params.teamIDs
     )
 
-    return NextResponse.json({user:user}, { status: 200 })
+    return NextResponse.json({ user }, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ message: 'Error creating Task:' + error}, { status: 500 })
+    return NextResponse.json({ message: 'Error creating Task:' + error }, { status: 500 })
   }
 }

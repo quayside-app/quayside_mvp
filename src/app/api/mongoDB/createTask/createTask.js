@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Task} from '../mongoModels'
+import { Task } from '../mongoModels'
 import { URI } from '../mongoData.js'
 
 /**
@@ -22,34 +22,33 @@ import { URI } from '../mongoData.js'
  * @param {string} [completionStatus=null] - The current completion status of the task.
  * @returns {Promise<Object>} - A promise that resolves to the newly created task object.
  * @throws {Error} - Throws an error if the database connection fails or task creation encounters an error.
- * 
+ *
  * @example
  * // Example of using createTask function
  * const task = await createTask('Develop New Feature', 'proj12345');
- * 
+ *
  */
-export async function createTask(name, projectID, parentTaskID=null, description=null, objectives = [], 
-    startDate=null, endDate=null, budget=null, scopesIncluded=[], scopesExcluded=[], contributorIDs=[], 
-    otherProjectDependencies=[], otherProjectTaskDependencies=[], completionStatus=null) {
+export async function createTask (name, projectID, parentTaskID = null, description = null, objectives = [],
+  startDate = null, endDate = null, budget = null, scopesIncluded = [], scopesExcluded = [], contributorIDs = [],
+  otherProjectDependencies = [], otherProjectTaskDependencies = [], completionStatus = null) {
+  if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+  const task = await Task.create({
+    name, // Required
+    projectID, // Required
+    parentTaskID,
+    description,
+    objectives,
+    startDate,
+    endDate,
+    budget,
+    scopesIncluded,
+    scopesExcluded,
+    contributorIDs,
+    otherProjectDependencies,
+    otherProjectTaskDependencies,
+    completionStatus
+  })
 
-    const task = await Task.create({
-        name: name,  // Required
-        projectID: projectID,  // Required
-        parentTaskID: parentTaskID,
-        description: description,
-        objectives: objectives,
-        startDate: startDate,
-        endDate: endDate,
-        budget: budget,
-        scopesIncluded: scopesIncluded,
-        scopesExcluded: scopesExcluded,
-        contributorIDs: contributorIDs,
-        otherProjectDependencies: otherProjectDependencies,
-        otherProjectTaskDependencies: otherProjectTaskDependencies,
-        completionStatus: completionStatus,
-    })
-
-    return task;
+  return task
 }

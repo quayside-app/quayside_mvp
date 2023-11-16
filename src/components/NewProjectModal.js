@@ -1,9 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { useApiResponse } from '@/app/ApiResponseContext'
 import { useSession } from 'next-auth/react'
-
-import cookieCutter from 'cookie-cutter'
 
 import Input from '../components/Input'
 import Alert from '../components/Alert'
@@ -37,8 +34,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     question2: '',
     question3: ''
   })
-
-  const { setApiResponse } = useApiResponse()
 
   // Updates variables every time they are changed
   const handleInput = (e) => {
@@ -78,12 +73,8 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       console.error('Error setting new project.')
       return
     }
-    handleClose();
+    handleClose()
   }
-
-
-  
-  
 
   if (!isOpen) return null
   return (

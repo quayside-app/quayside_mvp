@@ -2,9 +2,9 @@ import mongoose from 'mongoose'
 import { options } from '../../auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
 import { NextResponse } from 'next/server'
-import { Project} from '../mongoModels'
+import { Project } from '../mongoModels'
 import { URI } from '../mongoData.js'
-import {createTask} from './createTask'
+import { createTask } from './createTask'
 
 /**
  * Handles a POST request to create and store a new task in the database. This function
@@ -70,32 +70,32 @@ export async function POST (request) {
       return NextResponse.json({ message: 'Project ID required' }, { status: 400 })
     }
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
-    const projectExists = await Project.exists({ _id: params.projectID})
+    const projectExists = await Project.exists({ _id: params.projectID })
     if (!projectExists) {
-    return NextResponse.json({ message: `Project ${params.projectID[i]} does not exist.` }, { status: 400 })
+      return NextResponse.json({ message: `Project ${params.projectID} does not exist.` }, { status: 400 })
     }
 
     const task = await createTask(
-        params.name,  // Required
-        params.projectID,  // Required
-        params.parentTaskID || null,
-        params.description || null,
-        params.objectives || [],
-        params.startDate || null,
-        params.endDate || null,
-        params.budget || null,
-        params.scopesIncluded || [],
-        params.scopesExcluded || [],
-        params.contributorIDs || [],
-        params.otherProjectDependencies || [],
-        params.otherProjectTaskDependencies || [],
-        params.completionStatus || null,
+      params.name, // Required
+      params.projectID, // Required
+      params.parentTaskID || null,
+      params.description || null,
+      params.objectives || [],
+      params.startDate || null,
+      params.endDate || null,
+      params.budget || null,
+      params.scopesIncluded || [],
+      params.scopesExcluded || [],
+      params.contributorIDs || [],
+      params.otherProjectDependencies || [],
+      params.otherProjectTaskDependencies || [],
+      params.completionStatus || null
     )
 
-    return NextResponse.json({task:task}, { status: 200 })
+    return NextResponse.json({ task }, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ message: 'Error creating Task:' + error}, { status: 500 })
+    return NextResponse.json({ message: 'Error creating Task:' + error }, { status: 500 })
   }
 }

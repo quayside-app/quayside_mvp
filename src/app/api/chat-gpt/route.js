@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { options } from '../auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-import {generateTasks} from './generateTasks'
+import { generateTasks } from './generateTasks'
 
 /**
  * Handles a POST request to generate tasks based on a user prompt using the ChatGPT model. This endpoint first
@@ -29,7 +29,7 @@ import {generateTasks} from './generateTasks'
  *         console.log('Generated tasks:', body.newTasks);
  *     }
  * }).catch(error => console.error('Error in POST request:', error));
- * 
+ *
  * // Expected output structure of each task object:
  * // {
  * //   id: '1',
@@ -50,13 +50,10 @@ export async function POST (request) {
     const params = await request.json()
     const userPrompt = params.prompt
 
-    const newTasks = generateTasks(userPrompt);
+    const newTasks = generateTasks(userPrompt)
 
-    return NextResponse.json({newTasks}, { status: 500 })
+    return NextResponse.json({ newTasks }, { status: 500 })
   } catch (error) {
     return NextResponse.json({ message: 'Error calling ChatGPT:' + error }, { status: 500 })
   }
-
 }
-
-

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
-import { User} from '../mongoModels'
+import { User } from '../mongoModels'
 import { URI } from '../mongoData.js'
-
 
 /**
  * Asynchronously creates a new user in the database. This function can be used server side.
@@ -21,17 +20,16 @@ import { URI } from '../mongoData.js'
  *   .catch(error => console.error('Error in creating user:', error));
  */
 
-export async function createUser(email, firstName=null, lastName=null, username=null, teamIDs=[]) {
+export async function createUser (email, firstName = null, lastName = null, username = null, teamIDs = []) {
+  if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+  const user = await User.create({
+    email,
+    firstName,
+    lastName,
+    username,
+    teamIDs
+  })
 
-    const user = await User.create({
-        email: email, 
-        firstName:firstName, 
-        lastName: lastName, 
-        username: username, 
-        teamIDs: teamIDs
-    })
-
-    return user;
+  return user
 }

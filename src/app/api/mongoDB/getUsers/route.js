@@ -1,8 +1,7 @@
-import mongoose from 'mongoose'
 import { NextResponse } from 'next/server'
 import { options } from '../../auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
-import {getUsers} from './getUsers'
+import { getUsers } from './getUsers'
 
 /**
  * Handles a GET request to retrieve user data based on provided query parameters. This function first
@@ -56,7 +55,7 @@ export async function GET (request) {
       return NextResponse.json({ message: 'User id or email required.' }, { status: 400 })
     }
 
-    const users = await getUsers(id, email);
+    const users = await getUsers(id, email)
 
     return NextResponse.json({ users }, { status: 200 })
   } catch (error) {
