@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
-import { useSession } from 'next-auth/react'
-import { signOut } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
+
 /**
  * A Navbar component that fetches a user's name from a specified API and displays a navigation bar with several interactive elements.
  *
@@ -89,17 +89,16 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/*Sign Out*/}
+          {/* Sign Out */}
           <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'>
-            <button className="signout-button" onClick={() => signOut()}>Sign Out</button>
+            <button onClick={() => signOut()}>Sign Out</button>
           </div>
 
           {/* User Avatar Icon */}
           {session && session.user && (
-          <div className="avatar-container">
+          <div>
             <img
               src={session.user.image}
-              alt="User Avatar"
               style={{ width: '40px', height: '40px', borderRadius: '50%' }}
             />
           </div>
