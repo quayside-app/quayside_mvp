@@ -68,9 +68,8 @@ export default function LeftSidebar ({ className }) {
     <div className={className}>
       <div className='flex flex-wrap'>
 
-        <div className='flex flex-wrap bg-neutral-800 px-4 w-full min-h-screen  text-white justify-center'>
+        <div className='max-w-[200px] bg-neutral-800 px-4 pt-10 min-h-screen  text-white justify-center'>
           <ul className='font-medium'>
-            <li> <span className=' flex justify-center py-5'>Directory</span> </li>
             <NewProjectButton />
             <li> <Button label='Task' imagePath={plusIcon} /> </li>
 
