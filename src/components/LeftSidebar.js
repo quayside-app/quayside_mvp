@@ -39,7 +39,7 @@ export default function LeftSidebar ({ className }) {
   useEffect(() => {
     // Fetch project data
     fetch(`/api/mongoDB/getProjects?userID=${session.userId}`, {
-      method: 'GET'
+      method: 'GET',
     }).then(async (response) => {
       const body = await response.json()
       if (!response.ok) {
