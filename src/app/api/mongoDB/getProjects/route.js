@@ -45,7 +45,7 @@ export async function GET (request) {
       return NextResponse.json({ message: 'User ID required.' }, { status: 400 })
     }
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
     const projects = await Project.find({ userIDs: userID })
     return NextResponse.json({ projects }, { status: 200 })
