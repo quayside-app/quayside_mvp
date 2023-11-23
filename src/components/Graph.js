@@ -14,7 +14,7 @@ import cytoscape from 'cytoscape'
  * // Using the component
  * <TreeGraph />
  */
-function TreeGraph ({ projectID }) {
+function TreeGraph ({ className, projectID }) {
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
 
@@ -103,8 +103,8 @@ function TreeGraph ({ projectID }) {
   }, [tasks])
 
   return (
-    <div style={{ width: '800px', height: '800px' }}>
-      <div ref={containerRef} style={{ width: '100%', height: '800px' }} />
+    <div className={className} >
+      <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
     </div>
   )
 }
