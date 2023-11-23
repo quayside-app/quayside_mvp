@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation';
 
 import NewProjectButton from '../components/NewProjectButton'
 import ContactUsButton from '../components/ContactUsButton'
@@ -33,8 +34,9 @@ import targetIcon from '../../public/svg/target.svg'
  * @property {string} userID - The user ID whose projects are to be retrieved and displayed. Currently hardcoded, to be replaced with dynamic data.
  */
 export default function LeftSidebar ({ className }) {
-  const [projectsDiv, setProjectsDiv] = useState(<div />)
-  const { data: session } = useSession()
+  const [projectsDiv, setProjectsDiv] = useState(<div />);
+  const { data: session } = useSession();
+  const pathname = usePathname()
 
   useEffect(() => {
     // Fetch project data
@@ -60,7 +62,7 @@ export default function LeftSidebar ({ className }) {
     }).catch(error => {
       console.error('Left sidebar Project warning:', error)
     })
-  }, []) // Empty dependency array prevents bajilliion api calls
+  }, [pathname]) // Changes when path changes
 
   return (
     <div className={className}>
