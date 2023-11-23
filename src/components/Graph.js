@@ -103,7 +103,7 @@ function TreeGraph ({ className, projectID }) {
   }, [tasks])
 
   return (
-    <div className={className} >
+    <div className={className}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
     </div>
   )
