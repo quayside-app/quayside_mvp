@@ -30,6 +30,7 @@ import { URI } from '../mongoData.js'
  * }).catch(error => console.error(error));
  *
  * @property {string} request.nextUrl.searchParams.userID - The user ID whose projects are to be retrieved.
+ * @property {string} request.nextUrl.searchParams.projectID - The project ID of the project to be retrieved
  */
 export async function GET (request) {
   try {
@@ -38,16 +39,22 @@ export async function GET (request) {
       return NextResponse.json({ success: false, message: 'authentication failed' }, { status: 401 })
     }
     const params = await request.nextUrl.searchParams
-    const userID = params.get('userID')
+    const userID = params.get('userID');
+    const projectID = params.get('projectID');
 
     // Require userID
-    if (!userID) {
-      return NextResponse.json({ message: 'User ID required.' }, { status: 400 })
+    if (!userID && !projectID) {
+      return NextResponse.json({ message: 'User ID  or Project ID required.' }, { status: 400 })
     }
 
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
-    const projects = await Project.find({ userIDs: userID })
+    if (userID) {
+      const projects = await Project.find({ userIDs: userID });
+    } else {
+      const projects = await Project.findOne({ _id: projectID });
+    }
+    
     return NextResponse.json({ projects }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: 'Error getting data ' + error }, { status: 500 })
