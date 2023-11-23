@@ -6,7 +6,8 @@ import Input from '../components/Input'
 import Alert from '../components/Alert'
 import xIcon from '../../public/svg/x.svg'
 
-import Image from 'next/image'
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 /**
  * A modal component for creating a new project. It provides a form to collect details about the project such as the ChatGPT API Key, project description, completion date, budget, and stakeholders.
@@ -26,8 +27,9 @@ import Image from 'next/image'
  * <NewProjectModal isOpen={isModalOpen} handleClose={() => setIsModalOpen(false)} />
  */
 const NewProjectModal = ({ isOpen, handleClose }) => {
-  const [errorMessage, setMessage] = useState(null)
-  const { data: session } = useSession()
+  const router = useRouter();
+  const [errorMessage, setMessage] = useState(null);
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     prompt: '',
     question1: '',
@@ -69,11 +71,14 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
         setMessage(body.message)
         return
       }
+      const projectID = body.project._id;
+      handleClose();
+      router.push(`/${projectID}`);  // Routes to the document just created
     } catch (error) {
-      console.error('Error setting new project.')
+      console.error('Error creating new project.')
       return
     }
-    handleClose()
+
   }
 
   if (!isOpen) return null

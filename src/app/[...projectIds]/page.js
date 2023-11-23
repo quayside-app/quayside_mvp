@@ -19,7 +19,6 @@ export default function page ({ params }) {
       method: 'DELETE'
     }).catch(error => console.error('Error:', error));
     router.push('/');
-    //router.push('/'), router.refresh()
   }
   return (
     <div className='p-4 text-xl flex w-full flex-wrap'>

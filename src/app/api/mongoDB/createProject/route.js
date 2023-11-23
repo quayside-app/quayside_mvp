@@ -12,7 +12,7 @@ import { createTask } from '../createTask/createTask'
  *
  *
  * @param {Object} request - The request object containing the project details.
- * @returns {Object} - A response object with a status code and a message.
+ * @returns {Object} - A response object with a status code, a message, and the created Project Document.
  *
  * @example
  * fetch(`/api/mongoDB/createProject`, {
@@ -137,7 +137,7 @@ export async function POST (request) {
       parseTask(task, rootId, projectId)
     }
 
-    return NextResponse.json({ message: 'Project and tasks created successfully' }, { status: 200 })
+    return NextResponse.json({ message: 'Project and tasks created successfully',  project: projectDocument}, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: 'Error creating projects and tasks:' + error }, { status: 500 })
   }
