@@ -12,14 +12,14 @@ import Button from '../../components/Button'
  */
 export default function page ({ params }) {
   return (
-    <div className="p-4 text-xl flex w-full flex-wrap">
+    <div className='p-4 text-xl flex w-full flex-wrap'>
 
       <div className='flex w-full'>
         <div className='flex w-11/12'> Project: {params.projectIds} </div>
-        <div className='flex w-1/12 justify-end'><Button label={"Delete Project"}/></div>
+        <div className='flex w-1/12 justify-end'><Button label='Delete Project' /></div>
       </div>
-      
-      <TreeGraph projectID={params.projectIds} className="flex w-full"/>
+
+      <TreeGraph projectID={params.projectIds} className='flex w-full' />
     </div>
   )
 }
