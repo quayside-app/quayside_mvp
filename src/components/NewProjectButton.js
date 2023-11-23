@@ -24,7 +24,7 @@ export default function NewProjectButton () {
   return (
     <div>
       <NewProjectModal handleClose={() => setIsOpen(false)} isOpen={isOpen} />
-      <li> <Button clickAction={() => { setIsOpen(true); console.log('Here') }} label='New Project' imagePath={plusIcon} /> </li>
+      <li> <Button clickAction={() => { setIsOpen(true) }} label='New Project' imagePath={plusIcon} /> </li>
     </div>
   )
 }

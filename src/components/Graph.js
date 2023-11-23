@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
-import { useApiResponse } from '@/app/ApiResponseContext'
 
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
@@ -15,15 +14,11 @@ import { useApiResponse } from '@/app/ApiResponseContext'
  * // Using the component
  * <TreeGraph />
  */
-function TreeGraph ({ projectID }) {
+function TreeGraph ({ className, projectID }) {
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
 
   const containerRef = useRef(null)
-  const { apiResponse } = useApiResponse()
-  if (!projectID) {
-    projectID = '65256c7adec443373f9bf10e' // TODO
-  }
 
   useEffect(() => {
     // Fetch Tree data
@@ -39,14 +34,7 @@ function TreeGraph ({ projectID }) {
     }).catch(error => {
       console.error('Error getting Tree Task data:', error)
     })
-
-    if (!apiResponse) return
-    if (apiResponse) {
-      console.log('help')
-      console.log(apiResponse[0].message.content)
-    }
-  }, [apiResponse])
-  // Convert the apiResponse into tasks or use it as needed.
+  }, [])
 
   useEffect(() => {
     if (!tasks) return // Ensure tasks is not null before proceeding
@@ -115,8 +103,8 @@ function TreeGraph ({ projectID }) {
   }, [tasks])
 
   return (
-    <div style={{ width: '800px', height: '800px' }}>
-      <div ref={containerRef} style={{ width: '100%', height: '800px' }} />
+    <div className={className}>
+      <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
     </div>
   )
 }

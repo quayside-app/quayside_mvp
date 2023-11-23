@@ -1,9 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { useApiResponse } from '@/app/ApiResponseContext'
 import { useSession } from 'next-auth/react'
-
-import cookieCutter from 'cookie-cutter'
 
 import Input from '../components/Input'
 import Alert from '../components/Alert'
@@ -32,14 +29,11 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
   const [errorMessage, setMessage] = useState(null)
   const { data: session } = useSession()
   const [formData, setFormData] = useState({
-    apiKey: '',
     prompt: '',
     question1: '',
     question2: '',
     question3: ''
   })
-
-  const { setApiResponse } = useApiResponse()
 
   // Updates variables every time they are changed
   const handleInput = (e) => {
@@ -79,36 +73,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
       console.error('Error setting new project.')
       return
     }
-
-    // Get ChatGPT input
-    fetch('/api/chat-gpt', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      // magically sending formData to route.js where the API call is handled
-      body: JSON.stringify({
-        prompt: formData.prompt,
-        apiKey: formData.apiKey
-      })
-    }).then(async (response) => {
-      console.log('TEST RESPONSE', response)
-      const body = await response.json()
-      if (!response.ok) {
-        setMessage(body.message)
-        return
-      }
-      setApiResponse(body.choices)
-      handleClose()
-    }).catch(error => {
-      throw new Error('Error sending ChatGPT model POST: ' + error)
-    })
-
-    // Print out form data in console
-    Object.entries(formData).forEach(([key, value]) => {
-      cookieCutter.set(key, value)
-      console.log(key, value)
-    })
+    handleClose()
   }
 
   if (!isOpen) return null
@@ -125,7 +90,6 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
           <div className='px-6 py-6 lg:px-8'>
             <h3 className='mb-4 text-xl font-medium text-white'>New Project</h3>
             <form className='space-y-6' onSubmit={submitForm}>
-              <Input name='apiKey' value={formData.apiKey} changeAction={handleInput} label='ChatGPT API Key' placeholder='••••••••' />
               <Input name='prompt' value={formData.prompt} changeAction={handleInput} label='What is your project about?' placeholder='I want to bake a cake!' />
               <Input name='question1' value={formData.question1} changeAction={handleInput} label='When should the project be completed?' placeholder='Feb 30, 2041' />
               <Input name='question2' value={formData.question2} changeAction={handleInput} label='What is the budget allocated for this project?' placeholder='One Billion Dollars and 1 cent' />
