@@ -15,16 +15,11 @@ export async function DELETE (request) {
       }
 
       const params = await request.nextUrl.searchParams
-      const projectID = params.get('projectID')
-
-      console.log("HERE", projectID);
+      const projectID = params.get('projectID');
 
       if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
       await Task.deleteMany({ projectID: projectID });
-
       await Project.deleteOne({ _id: projectID });
-
-      console.log("DELETED everything!")
 
       return NextResponse.json({message: 'Project deleted successfully'}, { status: 200 })
     } catch (error) {

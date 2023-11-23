@@ -36,7 +36,7 @@ import targetIcon from '../../public/svg/target.svg'
 export default function LeftSidebar ({ className }) {
   const [projectsDiv, setProjectsDiv] = useState(<div />);
   const { data: session } = useSession();
-  const pathname = usePathname()
+  let pathname = usePathname()
 
   useEffect(() => {
     // Fetch project data
@@ -62,7 +62,7 @@ export default function LeftSidebar ({ className }) {
     }).catch(error => {
       console.error('Left sidebar Project warning:', error)
     })
-  }, [pathname]) // Changes when path changes
+  }, [pathname]) // Changes when path changes or on load
 
   return (
     <div className={className}>

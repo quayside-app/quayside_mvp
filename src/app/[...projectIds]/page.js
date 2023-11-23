@@ -14,10 +14,12 @@ import { useRouter } from 'next/navigation';
  */
 export default function page ({ params }) {
   const router = useRouter();
-  function deleteProject(projectID) {
-    fetch(`/api/mongoDB/deleteProject?projectID=${projectID}`, {
+  async function deleteProject(projectID, router) {
+    await fetch(`/api/mongoDB/deleteProject?projectID=${projectID}`, {
       method: 'DELETE'
     }).catch(error => console.error('Error:', error));
+    router.push('/');
+    //router.push('/'), router.refresh()
   }
   return (
     <div className='p-4 text-xl flex w-full flex-wrap'>
@@ -26,7 +28,7 @@ export default function page ({ params }) {
         <div className='flex w-11/12'> Project: {params.projectIds} </div>
         <div className='flex w-1/12 justify-end'>
           {/* On click, delete project, return to home page, and refresh */}
-          <Button label='Delete Project' clickAction={() => {deleteProject(params.projectIds), router.replace('/'), router.refresh()}} />
+          <Button label='Delete Project' clickAction={() => {deleteProject(params.projectIds, router)}} />
         </div>
       </div>
 
