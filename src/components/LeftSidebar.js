@@ -52,7 +52,7 @@ export default function LeftSidebar ({ className }) {
             <ul>
               {body.projects.map((project, index) => (
                 <li key={index} className=' font-light text-sm'>
-                  <Link href={`/${project._id}`}><Button label={project.name} /></Link>
+                  <Link href={`/${project._id}`}><Button label={project.name}/></Link>
                 </li>
               ))}
             </ul>

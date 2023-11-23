@@ -27,7 +27,7 @@ export default function page ({ params }) {
         <div className='flex w-11/12'> Project: {params.projectIds} </div>
         <div className='flex w-1/12 justify-end'>
           {/* On click, delete project, return to home page, and refresh */}
-          <Button label='Delete Project' clickAction={() => {deleteProject(params.projectIds, router)}} />
+          <Button label='Delete Project' clickAction={() => {deleteProject(params.projectIds, router)}} className="bg-red-800 " isCentered="true"/>
         </div>
       </div>
 
