@@ -66,11 +66,11 @@ export default function LeftSidebar ({ className }) {
 
   return (
     <div className={className}>
-      <div className='flex flex-wrap bg-neutral-800 text-white justify-center py-5 h-full w-full'>
+      <div className='flex flex-wrap'>
 
-        <div className='mx-4 w-full'>
+        <div className='flex flex-wrap bg-neutral-800 px-4 w-full min-h-screen  text-white justify-center'>
           <ul className='font-medium'>
-            <li> <span className='ml-3 flex justify-center py-5'>Directory</span> </li>
+            <li> <span className=' flex justify-center py-5'>Directory</span> </li>
             <NewProjectButton />
             <li> <Button label='Task' imagePath={plusIcon} /> </li>
 
