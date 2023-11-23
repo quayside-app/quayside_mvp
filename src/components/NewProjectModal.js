@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import Input from '../components/Input'
 import Alert from '../components/Alert'
 import xIcon from '../../public/svg/x.svg'
+import loadIcon from '../../public/svg/load.svg'
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -30,6 +31,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
   const router = useRouter();
   const [errorMessage, setMessage] = useState(null);
   const { data: session } = useSession();
+  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     prompt: '',
     question1: '',
@@ -49,7 +51,8 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
   }
 
   async function submitForm (e) {
-    e.preventDefault() // Prevents page from refreshing
+    e.preventDefault(); // Prevents page from refreshing
+    setLoading(true);
 
     // Send data to DB
     try {
@@ -72,12 +75,14 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
         return
       }
       const projectID = body.project._id;
+      setLoading(false);
       handleClose();
       router.push(`/${projectID}`);  // Routes to the document just created
     } catch (error) {
       console.error('Error creating new project.')
       return
     }
+    
 
   }
 
@@ -100,8 +105,13 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
               <Input name='question2' value={formData.question2} changeAction={handleInput} label='What is the budget allocated for this project?' placeholder='One Billion Dollars and 1 cent' />
               <Input name='question3' value={formData.question3} changeAction={handleInput} label='Who are the key stakeholders involved in this project?' placeholder='my boss' />
 
-              <button type='submit' className='w-full text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
-                Create
+              {/* Disable the button and show loading symbol while isLoading */}
+              <button type='submit' disabled={isLoading} className={`w-full text-white bg-gray-700 ${!isLoading && 'hover:bg-blue-800'} focus:ring-4  font-medium rounded-lg text-md px-5 py-2.5 text-center`}>
+              {isLoading ? <div className='flex flex-wrap items-center justify-center'>
+                <Image src={loadIcon} alt='loading' width='25' height='25' className='animate-spin'/>
+                <div className="text-md font-medium mx-3 ">Loading...</div>
+              </div> :'Create'}
+
               </button>
             </form>
           </div>
