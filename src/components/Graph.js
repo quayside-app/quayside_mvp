@@ -42,8 +42,6 @@ function TreeGraph ({ className, projectID }) {
     const elements = []
 
     tasks.forEach(task => {
-      console.log(task._id)
-      console.log(task.parentTaskID)
       // Assume task has id, name, and parent fields
       elements.push({
         data: { id: task._id, label: task.name }
@@ -56,8 +54,6 @@ function TreeGraph ({ className, projectID }) {
         })
       }
     })
-
-    // console.log(elements);
 
     // Tailwind's bg-gray-200 #E5E7EB
     cytoscape({
