@@ -44,7 +44,7 @@ export default function page ({ params }) {
     <div className='p-4 text-xl flex w-full flex-wrap'>
 
       <div className='flex w-full'>
-        <div className='flex w-10/12'> Project: {project && project.name} </div>
+        <div className='flex w-10/12 flex-wrap'> Project: {project && project.name} </div>
         <div className='flex w-2/12 justify-end'>
           {/* On click, delete project, return to home page, and refresh */}
           <Button label='Delete Project' clickAction={() => {deleteProject(params.projectIds, router)}} className="bg-red-800 " isCentered="true"/>
