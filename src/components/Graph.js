@@ -23,7 +23,7 @@ function TreeGraph ({ className, projectID }) {
   useEffect(() => {
     // Fetch Tree data
     fetch(`/api/mongoDB/getTasks?projectID=${projectID}`, {
-      method: 'GET',
+      method: 'GET'
     }).then(async (response) => {
       const body = await response.json()
       if (!response.ok) {
@@ -54,7 +54,6 @@ function TreeGraph ({ className, projectID }) {
         })
       }
     })
-
 
     // Tailwind's bg-gray-200 #E5E7EB
     cytoscape({

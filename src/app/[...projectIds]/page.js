@@ -1,7 +1,7 @@
 'use client'
 import TreeGraph from '../../components/Graph'
 import Button from '../../components/Button'
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 /**
@@ -14,31 +14,29 @@ import { useEffect, useState } from 'react'
  *                         the project IDs and a TreeGraph component for the project.
  */
 export default function page ({ params }) {
-  const [project, setProject] = useState(null);
-  const router = useRouter();
-  async function deleteProject(projectID, router) {
+  const [project, setProject] = useState(null)
+  const router = useRouter()
+  async function deleteProject (projectID, router) {
     await fetch(`/api/mongoDB/deleteProject?projectID=${projectID}`, {
       method: 'DELETE'
-    }).catch(error => console.error('Error:', error));
-    router.push('/');
+    }).catch(error => console.error('Error:', error))
+    router.push('/')
   }
 
   useEffect(() => {
     // Fetch project data
     fetch(`/api/mongoDB/getProjects?projectID=${params.projectIds}`, {
-      method: 'GET',
+      method: 'GET'
     }).then(async (response) => {
       const body = await response.json()
       if (!response.ok) {
         console.error(body.message)
-      } 
+      }
       setProject(body.projects)
-
-  
     }).catch(error => {
       console.error('Error querying project data:', error)
     })
-  }, []) 
+  }, [])
 
   return (
     <div className='p-4 text-xl flex w-full flex-wrap'>
@@ -47,7 +45,7 @@ export default function page ({ params }) {
         <div className='flex w-10/12 flex-wrap'> Project: {project && project.name} </div>
         <div className='flex w-2/12 justify-end'>
           {/* On click, delete project, return to home page, and refresh */}
-          <Button label='Delete Project' clickAction={() => {deleteProject(params.projectIds, router)}} className="bg-red-800 " isCentered="true"/>
+          <Button label='Delete Project' clickAction={() => { deleteProject(params.projectIds, router) }} className='bg-red-800 ' isCentered='true' />
         </div>
       </div>
 

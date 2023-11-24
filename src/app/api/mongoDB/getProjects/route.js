@@ -39,21 +39,21 @@ export async function GET (request) {
       return NextResponse.json({ success: false, message: 'authentication failed' }, { status: 401 })
     }
     const params = await request.nextUrl.searchParams
-    const userID = params.get('userID');
-    const projectID = params.get('projectID');
+    const userID = params.get('userID')
+    const projectID = params.get('projectID')
 
     // Require userID
     if (!userID && !projectID) {
       return NextResponse.json({ message: 'User ID  or Project ID required.' }, { status: 400 })
     }
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
-    let projects;
+    let projects
     if (userID) {
-      projects = await Project.find({ userIDs: userID });
+      projects = await Project.find({ userIDs: userID })
     } else {
-      projects = await Project.findOne({ _id: projectID });
+      projects = await Project.findOne({ _id: projectID })
     }
     return NextResponse.json({ projects }, { status: 200 })
   } catch (error) {

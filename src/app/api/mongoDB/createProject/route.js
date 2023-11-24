@@ -137,7 +137,7 @@ export async function POST (request) {
       parseTask(task, rootId, projectId)
     }
 
-    return NextResponse.json({ message: 'Project and tasks created successfully',  project: projectDocument}, { status: 200 })
+    return NextResponse.json({ message: 'Project and tasks created successfully', project: projectDocument }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: 'Error creating projects and tasks:' + error }, { status: 500 })
   }
