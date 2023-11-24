@@ -49,10 +49,11 @@ export async function GET (request) {
 
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
 
+    let projects;
     if (userID) {
-      const projects = await Project.find({ userIDs: userID });
+      projects = await Project.find({ userIDs: userID });
     } else {
-      const projects = await Project.findOne({ _id: projectID });
+      projects = await Project.findOne({ _id: projectID });
     }
     
     return NextResponse.json({ projects }, { status: 200 })

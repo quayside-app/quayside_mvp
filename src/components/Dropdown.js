@@ -28,9 +28,9 @@ const Dropdown = ({ label, clickAction, imagePath }) => {
       <div className='flex w-full'>
         <div className='flex w-11/12'>
           <Image priority src={imagePath} alt={label} height='20' width='20' />
-          <span className='flex my-auto ml-3 text-left whitespace-nowrap text-xs xl:text-lg'>{label}</span>
+          <span className='flex my-auto ml-3 text-left whitespace-nowrap'>{label}</span>
         </div>
-        <div className='flex 1-1/12 justify-end'>
+        <div className='flex 1-1/12 justify-end '>
           <Image priority src={dropdownIcon} alt='Dropdown Icon' height='20' width='20' />
         </div>
       </div>

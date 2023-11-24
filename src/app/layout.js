@@ -27,8 +27,8 @@ async function RootLayout ({ children }) {
               <NewProjectModal />
               <Navbar />
               <div className='flex h-screen'>
-                <LeftSidebar className='flex w-1/3 md:w-60' />
-                <div className='flex w-2/3 md:w-max  ml-5'> {children} </div>
+                <LeftSidebar className=' w-48' />
+                <div className='w-max ml-5'> {children} </div>
               </div>
             </div>
           </Provider>
