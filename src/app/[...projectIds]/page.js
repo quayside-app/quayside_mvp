@@ -2,7 +2,7 @@
 import TreeGraph from '../../components/Graph'
 import Button from '../../components/Button'
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * Renders a page component that displays the tree graph with a dynamic route
@@ -32,13 +32,13 @@ export default function page ({ params }) {
       if (!response.ok) {
         console.error(body.message)
       } 
-      setProject(body.project)
-      console.log(project)
+      setProject(body.projects)
+
   
     }).catch(error => {
       console.error('Error querying project data:', error)
     })
-  }, []) // Changes when path changes or on load
+  }, []) 
 
   return (
     <div className='p-4 text-xl flex w-full flex-wrap'>

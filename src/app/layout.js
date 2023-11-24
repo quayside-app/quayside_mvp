@@ -28,7 +28,7 @@ async function RootLayout ({ children }) {
               <Navbar />
               <div className='flex h-screen'>
                 <LeftSidebar className=' w-48' />
-                <div className='w-max ml-5'> {children} </div>
+                <div className='flex w-max ml-5'> {children} </div>
               </div>
             </div>
           </Provider>

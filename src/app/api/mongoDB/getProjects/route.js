@@ -47,7 +47,7 @@ export async function GET (request) {
       return NextResponse.json({ message: 'User ID  or Project ID required.' }, { status: 400 })
     }
 
-    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
+    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
 
     let projects;
     if (userID) {
@@ -55,7 +55,6 @@ export async function GET (request) {
     } else {
       projects = await Project.findOne({ _id: projectID });
     }
-    
     return NextResponse.json({ projects }, { status: 200 })
   } catch (error) {
     return NextResponse.json({ message: 'Error getting data ' + error }, { status: 500 })
