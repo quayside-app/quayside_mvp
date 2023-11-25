@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
+import cxtmenu from 'cytoscape-cxtmenu'
 
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
@@ -56,7 +57,7 @@ function TreeGraph ({ className, projectID }) {
     })
 
     // Tailwind's bg-gray-200 #E5E7EB
-    cytoscape({
+    const cy = cytoscape({
 
       container: containerRef.current,
       elements,
@@ -70,8 +71,8 @@ function TreeGraph ({ className, projectID }) {
             'text-valign': 'center',
             label: 'data(label)',
             'text-wrap': 'wrap',
-            'text-max-width': 500,
-            padding: '30px',
+            'text-max-width': 900,
+            padding: '50px',
             color: 'white', // Tailwind's text-gray-900
             'font-size': 100,
             'border-width': 10,
@@ -96,6 +97,19 @@ function TreeGraph ({ className, projectID }) {
         directed: true
       }
     })
+
+    // Calculate and set node dimensions based on label text
+    cy.nodes().forEach(node => {
+    const label = node.data('label');
+    const labelWidth = 1000; // Adjust the factor based on your font and styling
+    const labelHeight = label.height * 10; // Set a fixed height or adjust based on your design
+
+    node.style({
+      width: labelWidth + 'px',
+      height: labelHeight + 'px',
+    });
+  });
+
   }, [tasks])
 
   return (
