@@ -83,7 +83,7 @@ export default function ContactUsModal ({ isOpen, handleClose }) {
           <Input name='email' label='Your Email' placeholder='frodo.baggins@example.com' changeAction={handleInput} value={formData.email} />
           <Input name='subject' label='Subject' placeholder='Subject' changeAction={handleInput} value={formData.subject} />
           <Input name='message' label='Message' placeholder='Your message here...' changeAction={handleInput} value={formData.message} />
-          <button type='submit' className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
+          <button type='submit' className='w-full text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center'>
             Send
           </button>
         </form>
@@ -92,9 +92,9 @@ export default function ContactUsModal ({ isOpen, handleClose }) {
   }
 
   return (
-    <div className='fixed inset-0 bg-gray-500 bg-opacity-75'>
+    <div className='fixed inset-0 bg-gray-500 bg-opacity-75 z-50'>
       <div className='fixed w-full p-4'>
-        <div className='relative rounded-lg shadow bg-gray-900'>
+        <div className='relative rounded-lg shadow bg-black'>
           <button type='button' onClick={handleClose} className='absolute top-3 right-3 rounded-lg  w-8 h-8 inline-flex justify-center items-center hover:bg-gray-600'>
             <Image src={xIcon} alt='exit' width='10' height='10' />
           </button>
