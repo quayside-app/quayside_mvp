@@ -21,7 +21,7 @@ export const options = {
     async signIn ({ user, account, profile }) {
       const existingUser = await getUsers(null, user.email)
 
-      if (existingUser) {
+      if (existingUser && existingUser.length > 0) {
         return true
       } else {
         // Get first and last name
@@ -30,15 +30,9 @@ export const options = {
         const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : ''
 
         // Create User
-        const newUser = await createUser(user.email, firstName, lastName)
-        return !!newUser // Return true if creation is successful
+        const createdUser = await createUser(user.email, firstName, lastName)
+        return !!createdUser // Return true if creation is successful
       }
-    },
-
-    async session ({ session, user, token }) {
-      // Assign the user ID to the session to make it available on the client side
-      session.userId = token.sub // 'sub' is typically the field where the user ID from the provider is stored
-      return session
     },
 
     async jwt ({ token, user, account, profile, isNewUser }) {
@@ -48,7 +42,13 @@ export const options = {
         token.sub = mongoUsers[0]._id
       }
       return token
-    }
+    },
+
+    async session ({ session, user, token }) {
+      // Assign the user ID to the session to make it available on the client side
+      session.userId = token.sub // 'sub' is typically the field where the user ID from the provider is stored
+      return session
+    },
   }
 
   /*
