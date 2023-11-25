@@ -2,16 +2,13 @@
 import React from 'react'
 import Image from 'next/image'
 
-const Button = ({ label, clickAction, imagePath }) => {
+const Button = ({ label, clickAction, imagePath, isCentered, className }) => {
   return (
 
-    <button type='button' onClick={clickAction} className='flex items-center w-full p-2 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700' aria-controls='dropdown-example' data-collapse-toggle='dropdown-example'>
-      <div className='flex w-full'>
-        <div className='flex w-11/12'>
-
-          {imagePath && <Image priority src={imagePath} alt={label} height='20' width='20' />}
-          <span className='flex my-auto ml-3 text-left whitespace-nowrap text-xs xl:text-lg'>{label}</span>
-        </div>
+    <button type='button' onClick={clickAction} className={`flex p-1 text-base text-white transition duration-75 rounded-lg group hover:bg-gray-700 ${className}`} aria-controls='dropdown-example' data-collapse-toggle='dropdown-example'>
+      <div className={`flex w-full ${isCentered && 'justify-center'}`}>
+        {imagePath && <Image priority src={imagePath} alt={label} height='20' width='20' className='mr-3' />}
+        <span className='flex my-auto truncate'>{label}</span>
       </div>
     </button>
 

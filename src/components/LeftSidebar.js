@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
 import NewProjectButton from '../components/NewProjectButton'
 import ContactUsButton from '../components/ContactUsButton'
@@ -35,6 +36,7 @@ import targetIcon from '../../public/svg/target.svg'
 export default function LeftSidebar ({ className }) {
   const [projectsDiv, setProjectsDiv] = useState(<div />)
   const { data: session } = useSession()
+  const pathname = usePathname()
 
   useEffect(() => {
     // Fetch project data
@@ -49,8 +51,8 @@ export default function LeftSidebar ({ className }) {
           <div>
             <ul>
               {body.projects.map((project, index) => (
-                <li key={index} className=' font-light text-sm'>
-                  <Link href={`/${project._id}`}><Button label={project.name} /></Link>
+                <li key={index} className=' font-light '>
+                  <Link href={`/${project._id}`}><Button label={project.name} className='w-32' /></Link>
                 </li>
               ))}
             </ul>
@@ -60,15 +62,14 @@ export default function LeftSidebar ({ className }) {
     }).catch(error => {
       console.error('Left sidebar Project warning:', error)
     })
-  }, []) // Empty dependency array prevents bajilliion api calls
+  }, [pathname]) // Changes when path changes or on load
 
   return (
     <div className={className}>
-      <div className='flex flex-wrap bg-neutral-800 text-white justify-center py-5 h-full w-full'>
+      <div className='flex w-full flex-wrap  bg-neutral-800'>
 
-        <div className='mx-4 w-full'>
+        <div className='flex w-full bg-neutral-800 px-4 pt-10 min-h-screen  text-white justify-center'>
           <ul className='font-medium'>
-            <li> <span className='ml-3 flex justify-center py-5'>Directory</span> </li>
             <NewProjectButton />
             <li> <Button label='Task' imagePath={plusIcon} /> </li>
 
@@ -82,7 +83,7 @@ export default function LeftSidebar ({ className }) {
           </ul>
         </div>
 
-        <div className='mt-auto sticky bottom-0 bg-neutral-700 w-full'>
+        <div className='mt-auto sticky bottom-0 bg-neutral-700 w-full '>
           <ContactUsButton />
         </div>
       </div>
