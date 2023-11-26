@@ -5,6 +5,8 @@ import Image from 'next/image'
 import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
 import { useSession, signOut } from 'next-auth/react'
+import Button from '../components/Button'
+import Link from 'next/link'
 
 /**
  * A Navbar component that fetches a user's name from a specified API and displays a navigation bar with several interactive elements.
@@ -49,23 +51,28 @@ const Navbar = () => {
 
         <div className='flex w-full'>
 
-          <div className='flex w-2/12  justify-start mx-1'>
+          <div className='flex w-6/12  justify-start mx-1'>
             {/* Hamburger */}
-            <div className='flex'>
+            {/* <div className='flex'>
               <div className=''>
                 <button className='text-white text-3xl md:text-4xl font-bold opacity-70 hover:opacity-100 align-super'> &#9776; </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Logo */}
             <div className='flex mx-2'>
               <div className='my-auto'>
-                <Image src={logo} alt='quayside logo' height={30} width={30} className='' />
+                <Image src={logo} alt='quayside logo' height={35} width={35} className='' />
               </div>
+
             </div>
+
+            <Link href='/' className='my-auto mx-3 text-xl font-bold'> quayside.app</Link>
+
           </div>
 
           {/* Current Directory */}
+          {/*
           <div className='flex w-4/12 justify-start mx-1'>
             <div className='flex bg-neutral-600 px-4 rounded-3xl overflow-hidden'>
               <input
@@ -74,13 +81,14 @@ const Navbar = () => {
               />
             </div>
           </div>
+          */}
 
           {/* Search Bar */}
           <div className='flex w-4/12 lg:w-5/12 justify-end px-1'>
             <div className='flex overflow-hidden  bg-neutral-600 rounded-3xl'>
               <input
                 type='search'
-                placeholder='Search...'
+                placeholder='Search... coming soon'
                 className='flex  px-3 text-xs  bg-neutral-600 text-white md:text-base'
               />
               <button className='px-4 items-center justify-center '>
@@ -91,21 +99,22 @@ const Navbar = () => {
 
           {/* Sign Out */}
           <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'>
-            <button onClick={() => signOut()}>Sign Out</button>
+
+            <Button label='Sign Out' clickAction={() => signOut()} isCentered='true' />
           </div>
 
-          {/* User Avatar Icon */}
-          {session && session.user && (
-            <div>
-              <img
-                src={session.user.image}
-                style={{ width: '40px', height: '40px', borderRadius: '50%' }}
-              />
-            </div>
-          )}
           {/* User */}
           <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
 
+          {/* User Avatar Icon */}
+          {session && session.user && (
+            <div className='my-auto mx-4'>
+              <img
+                src={session.user.image}
+                style={{ width: '35px', height: '35px', borderRadius: '50%' }}
+              />
+            </div>
+          )}
         </div>
       </nav>
     </div>

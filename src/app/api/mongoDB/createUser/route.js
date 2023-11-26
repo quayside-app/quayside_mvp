@@ -1,5 +1,3 @@
-import { options } from '../../auth/[...nextauth]/options'
-import { getServerSession } from 'next-auth/next'
 import { NextResponse } from 'next/server'
 import { createUser } from './createUser'
 
@@ -40,11 +38,6 @@ import { createUser } from './createUser'
  */
 export async function POST (request) {
   try {
-    const session = await getServerSession(options)
-    if (!session) {
-      return NextResponse.json({ success: false, message: 'authentication failed' }, { status: 401 })
-    }
-
     const params = await request.json()
 
     if (!params.email) {
