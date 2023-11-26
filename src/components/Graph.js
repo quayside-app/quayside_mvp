@@ -7,18 +7,18 @@ cytoscape.use(cxtmenu)
 cytoscape.use(cydagre)
 
 const Modal = ({ show, onClose, onSubmit, children }) => {
-  if (!show) return null;
+  if (!show) return null
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal-content">
+    <div className='modal-backdrop'>
+      <div className='modal-content'>
         {children}
         <button onClick={onSubmit}>Submit</button>
         <button onClick={onClose}>Cancel</button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
@@ -37,9 +37,9 @@ function TreeGraph ({ className, projectID }) {
   const [tasks, setTasks] = useState(null)
   const containerRef = useRef(null)
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editLabel, setEditLabel] = useState('');
-  const [editNode, setEditNode] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editLabel, setEditLabel] = useState('')
+  const [editNode, setEditNode] = useState(null)
 
   const updateTextInMongoDB = async (taskId, newText) => {
     try {
@@ -68,26 +68,25 @@ function TreeGraph ({ className, projectID }) {
 
   // Function to handle the edit command
   const handleEdit = (node) => {
-    setEditNode(node);
-    setEditLabel(node.data('label'));
-    setModalOpen(true);
-  };
+    setEditNode(node)
+    setEditLabel(node.data('label'))
+    setModalOpen(true)
+  }
 
   // Function to close the modal
   const handleCloseModal = () => {
-    setModalOpen(false);
-  };
+    setModalOpen(false)
+  }
 
   // Function to submit the new label
   const handleSubmitModal = () => {
-    setModalOpen(false);
-    const nodeId = editNode.id();
-    const newText = editLabel;
-    updateTextInMongoDB(nodeId, newText);
-    editNode.data('label', newText);
-    setEditNode(null);
-  };
-  
+    setModalOpen(false)
+    const nodeId = editNode.id()
+    const newText = editLabel
+    updateTextInMongoDB(nodeId, newText)
+    editNode.data('label', newText)
+    setEditNode(null)
+  }
 
   useEffect(() => {
     // Fetch Tree data
@@ -217,7 +216,7 @@ function TreeGraph ({ className, projectID }) {
     <div className={className}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
-        <input type="text" value={editLabel} onChange={(e) => setEditLabel(e.target.value)} />
+        <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} />
       </Modal>
     </div>
   )
