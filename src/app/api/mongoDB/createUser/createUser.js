@@ -21,8 +21,7 @@ import { URI } from '../mongoData.js'
  */
 
 export async function createUser (email, firstName = null, lastName = null, username = null, teamIDs = []) {
-
-  if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
+  if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
   const user = await User.create({
     email,
     firstName,

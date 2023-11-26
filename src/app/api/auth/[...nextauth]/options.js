@@ -48,7 +48,7 @@ export const options = {
       // Assign the user ID to the session to make it available on the client side
       session.userId = token.sub // 'sub' is typically the field where the user ID from the provider is stored
       return session
-    },
+    }
   }
 
   /*

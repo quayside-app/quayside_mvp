@@ -1,5 +1,3 @@
-import { options } from '../../auth/[...nextauth]/options'
-import { getServerSession } from 'next-auth/next'
 import { NextResponse } from 'next/server'
 import { createUser } from './createUser'
 

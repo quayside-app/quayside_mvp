@@ -64,14 +64,12 @@ const Navbar = () => {
               <div className='my-auto'>
                 <Image src={logo} alt='quayside logo' height={35} width={35} className='' />
               </div>
-              
+
             </div>
 
-            <Link href={`/`}className='my-auto mx-3 text-xl font-bold'> quayside.app</Link>
-
+            <Link href='/' className='my-auto mx-3 text-xl font-bold'> quayside.app</Link>
 
           </div>
-
 
           {/* Current Directory */}
           {/*
@@ -104,7 +102,6 @@ const Navbar = () => {
 
             <Button label='Sign Out' clickAction={() => signOut()} isCentered='true' />
           </div>
-          
 
           {/* User */}
           <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>

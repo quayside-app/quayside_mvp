@@ -10,7 +10,6 @@ import ContactUsButton from '../components/ContactUsButton'
 import Dropdown from '../components/Dropdown'
 import Button from '../components/Button'
 
-import plusIcon from '../../public/svg/plus.svg'
 import starIcon from '../../public/svg/star.svg'
 import tableIcon from '../../public/svg/table.svg'
 import teamIcon from '../../public/svg/team.svg'
@@ -73,12 +72,12 @@ export default function LeftSidebar ({ className }) {
             <NewProjectButton />
 
             {/* To be implemented */}
-            {/*<li> <Button label='Task' imagePath={plusIcon} /> </li> */}
+            {/* <li> <Button label='Task' imagePath={plusIcon} /> </li> */}
 
             <li><div className='my-10 space-y-2 font-medium border-t  border-gray-200' /></li>
 
             <li> <Dropdown label='Starred' imagePath={starIcon} /> </li>
-            <li> <Dropdown label='Projects' imagePath={tableIcon} dropdownComponents={projectsDiv}/> </li>
+            <li> <Dropdown label='Projects' imagePath={tableIcon} dropdownComponents={projectsDiv} /> </li>
             <li> <Dropdown label='Team' imagePath={teamIcon} /> </li>
             <li> <Dropdown label='Objectives' imagePath={targetIcon} /> </li>
           </ul>
