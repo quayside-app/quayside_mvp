@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
-cytoscape.use( cxtmenu )
+cytoscape.use(cxtmenu);
 
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
@@ -98,6 +98,44 @@ function TreeGraph ({ className, projectID }) {
         directed: true
       }
     })
+
+    //creates context radial menu around each node
+    cy.cxtmenu({
+      //adjust radius menu
+      menuRadius: function(ele){ return 70; },
+      selector: 'node',
+      commands: [
+        {
+          content: 'Add Child',
+          select: function(ele){
+            console.log('Add Child clicked for node ' + ele.id());
+            // Add logic to handle adding a child node
+          }
+        },
+        {
+          content: 'Edit',
+          select: function(ele){
+            console.log('Edit clicked for node ' + ele.id());
+            // Add logic to handle editing the node
+          }
+        },
+        {
+          content: 'Delete',
+          select: function(ele){
+            console.log('Delete clicked for node ' + ele.id());
+            // Add logic to handle deleting the node
+          }
+        },
+        {
+          content: 'Expand',
+          select: function(ele){
+            console.log('Delete clicked for node ' + ele.id());
+            // Add logic to handle expanding node
+          }
+        }
+        // ... [more commands as needed]
+      ]
+    });
 
     // Calculate and set node dimensions based on label text
     cy.nodes().forEach(node => {
