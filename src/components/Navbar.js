@@ -6,6 +6,7 @@ import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
 import { useSession, signOut } from 'next-auth/react'
 import Button from '../components/Button'
+import Link from 'next/link'
 
 /**
  * A Navbar component that fetches a user's name from a specified API and displays a navigation bar with several interactive elements.
@@ -52,18 +53,23 @@ const Navbar = () => {
 
           <div className='flex w-6/12  justify-start mx-1'>
             {/* Hamburger */}
-            <div className='flex'>
+            {/* <div className='flex'>
               <div className=''>
                 <button className='text-white text-3xl md:text-4xl font-bold opacity-70 hover:opacity-100 align-super'> &#9776; </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Logo */}
             <div className='flex mx-2'>
               <div className='my-auto'>
                 <Image src={logo} alt='quayside logo' height={35} width={35} className='' />
               </div>
+              
             </div>
+
+            <Link href={`/`}className='my-auto mx-3 text-xl font-bold'> quayside.app</Link>
+
+
           </div>
 
 
