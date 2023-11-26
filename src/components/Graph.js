@@ -9,12 +9,38 @@ cytoscape.use(cydagre)
 const Modal = ({ show, onClose, onSubmit, children }) => {
   if (!show) return null
 
+  const modalContentStyle = {
+    width: '30%', // Adjust the width of the modal as per your requirement
+    minWidth: '300px', // Minimum width to ensure responsiveness
+    marginTop: '20px', // Margin from the top to push the modal down a bit
+    backgroundColor: 'grey', // Background color of the modal
+    padding: '20px', // Padding inside the modal
+    borderRadius: '5px', // Rounded corners of the modal
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Box shadow for a subtle depth effect
+    display: 'flex', // Use flex layout
+    flexDirection: 'column', // Stack children vertically
+    alignItems: 'center' // Center-align children horizontally
+  }
+
+  const modalBackdropStyle = {
+    position: 'fixed', // Fixes the backdrop in relation to the viewport
+    top: 0, // Aligns the top edge of the backdrop with the top of the viewport
+    left: 0, // Aligns the left edge of the backdrop with the left of the viewport
+    right: 0, // Aligns the right edge of the backdrop with the right of the viewport
+    bottom: 0, // Aligns the bottom edge of the backdrop with the bottom of the viewport
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+    display: 'flex', // Uses flexbox layout
+    justifyContent: 'center', // Centers children horizontally
+    alignItems: 'flex-start', // Aligns children to the start of the cross axis, i.e., top
+    paddingTop: '50px' // Adds padding at the top
+  }
+
   return (
-    <div className='modal-backdrop'>
-      <div className='modal-content'>
+    <div className='modal-backdrop' style={modalBackdropStyle}>
+      <div className='modal-content' style={modalContentStyle}>
         {children}
-        <button onClick={onSubmit}>Submit</button>
-        <button onClick={onClose}>Cancel</button>
+        <button onClick={onSubmit} style={{ padding: '10px', marginRight: '5px' }}>Submit</button>
+        <button onClick={onClose} style={{ padding: '10px', marginRight: '5px' }}>Cancel</button>
       </div>
     </div>
   )
@@ -212,11 +238,19 @@ function TreeGraph ({ className, projectID }) {
     })
   }, [tasks])
 
+  const inputStyle = {
+    color: 'black', // Set font color to black
+    padding: '10px', // Optional: Add padding for better appearance
+    margin: '5px 0', // Optional: Add some margin for spacing
+    width: '100%' // Optional: Set width to fill the modal
+    // Add any other styles you need for the input
+  }
+
   return (
     <div className={className}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
-        <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} />
+        <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} style={inputStyle} />
       </Modal>
     </div>
   )
