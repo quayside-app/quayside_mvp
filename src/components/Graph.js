@@ -106,7 +106,7 @@ function TreeGraph ({ className, projectID }) {
 
       },
       minZoom: 0.03, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
-      maxZoom: 1,   // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
+      maxZoom: 0.5,   // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
     })
 
     // Calculate and set node dimensions based on label text
