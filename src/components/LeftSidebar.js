@@ -71,7 +71,9 @@ export default function LeftSidebar ({ className }) {
         <div className='flex w-full bg-neutral-800 px-4 pt-10 min-h-screen  text-white justify-center'>
           <ul className='font-medium'>
             <NewProjectButton />
-            <li> <Button label='Task' imagePath={plusIcon} /> </li>
+
+            {/* To be implemented */}
+            {/*<li> <Button label='Task' imagePath={plusIcon} /> </li> */}
 
             <li><div className='my-10 space-y-2 font-medium border-t  border-gray-200' /></li>
 

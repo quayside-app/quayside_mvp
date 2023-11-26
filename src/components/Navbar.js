@@ -49,7 +49,7 @@ const Navbar = () => {
 
         <div className='flex w-full'>
 
-          <div className='flex w-2/12  justify-start mx-1'>
+          <div className='flex w-6/12  justify-start mx-1'>
             {/* Hamburger */}
             <div className='flex'>
               <div className=''>
@@ -65,7 +65,9 @@ const Navbar = () => {
             </div>
           </div>
 
+
           {/* Current Directory */}
+          {/*
           <div className='flex w-4/12 justify-start mx-1'>
             <div className='flex bg-neutral-600 px-4 rounded-3xl overflow-hidden'>
               <input
@@ -74,13 +76,14 @@ const Navbar = () => {
               />
             </div>
           </div>
+          */}
 
           {/* Search Bar */}
           <div className='flex w-4/12 lg:w-5/12 justify-end px-1'>
             <div className='flex overflow-hidden  bg-neutral-600 rounded-3xl'>
               <input
                 type='search'
-                placeholder='Search...'
+                placeholder='Search... coming soon'
                 className='flex  px-3 text-xs  bg-neutral-600 text-white md:text-base'
               />
               <button className='px-4 items-center justify-center '>
@@ -103,9 +106,9 @@ const Navbar = () => {
               />
             </div>
           )}
+          
           {/* User */}
           <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
-
         </div>
       </nav>
     </div>
