@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
+import { useRouter } from 'next/navigation'
 cytoscape.use(cxtmenu);
 
 /**
@@ -19,6 +20,7 @@ cytoscape.use(cxtmenu);
 function TreeGraph ({ className, projectID }) {
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
+  const router = useRouter()
 
   const containerRef = useRef(null)
 
@@ -116,7 +118,10 @@ function TreeGraph ({ className, projectID }) {
           content: 'Edit',
           select: function(ele){
             console.log('Edit clicked for node ' + ele.id());
-            // Add logic to handle editing the node
+            
+            const newText = prompt('Enter new text for the node:', ele.data('label'));
+            ele.data('label', newText); // Update the label data of the clicked node
+            updateTextInMongoDB(ele.id(), newText); // Update in database
           }
         },
         {
@@ -129,7 +134,7 @@ function TreeGraph ({ className, projectID }) {
         {
           content: 'Expand',
           select: function(ele){
-            console.log('Delete clicked for node ' + ele.id());
+            console.log('Expand clicked for node ' + ele.id());
             // Add logic to handle expanding node
           }
         }
@@ -150,23 +155,23 @@ function TreeGraph ({ className, projectID }) {
     });
 
 
-    // Click event handler for node
-    cy.on('click', 'node', function(event) {
-      const clickedNode = event.target;
-      const nodeId = clickedNode.id();
-      console.log('Clicked node ID:', nodeId);
+    // // Click event handler for node
+    // cy.on('click', 'node', function(event) {
+    //   const clickedNode = event.target;
+    //   const nodeId = clickedNode.id();
+    //   console.log('Clicked node ID:', nodeId);
       
-      // Prompt the user for new text (you can replace this with your own logic)
-      const newText = prompt('Enter new text for the node:', clickedNode.data('label'));
+    //   // Prompt the user for new text (you can replace this with your own logic)
+    //   const newText = prompt('Enter new text for the node:', clickedNode.data('label'));
   
-      // Update the label data of the clicked node
-      clickedNode.data('label', newText);
+    //   // Update the label data of the clicked node
+    //   clickedNode.data('label', newText);
 
-      // now newText needs to be in the database, id is clickedNode.id()
-      //below code doesn't work yet
-      updateTextInMongoDB(nodeId, newText);
+    //   // now newText needs to be in the database, id is clickedNode.id()
+    //   //below code doesn't work yet
+    //   updateTextInMongoDB(nodeId, newText);
 
-    });
+    // });
 
     const updateTextInMongoDB = async (taskId, newText) => {
       try {
