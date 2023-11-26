@@ -2,9 +2,23 @@
 import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
-import cydagre from 'cytoscape-dagre';
-cytoscape.use(cxtmenu);
-cytoscape.use(cydagre);
+import cydagre from 'cytoscape-dagre'
+cytoscape.use(cxtmenu)
+cytoscape.use(cydagre)
+
+const Modal = ({ show, onClose, onSubmit, children }) => {
+  if (!show) return null;
+
+  return (
+    <div className="modal-backdrop">
+      <div className="modal-content">
+        {children}
+        <button onClick={onSubmit}>Submit</button>
+        <button onClick={onClose}>Cancel</button>
+      </div>
+    </div>
+  );
+};
 
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
@@ -21,8 +35,59 @@ cytoscape.use(cydagre);
 function TreeGraph ({ className, projectID }) {
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
-
   const containerRef = useRef(null)
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editLabel, setEditLabel] = useState('');
+  const [editNode, setEditNode] = useState(null);
+
+  const updateTextInMongoDB = async (taskId, newText) => {
+    try {
+      const response = await fetch('/api/mongoDB/editTask', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ taskId, newName: newText })
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        console.error('Failed to update:', result.message)
+        // Handle error feedback to user
+      } else {
+        console.log('Text updated successfully in MongoDB.')
+        // Handle success feedback to user
+      }
+    } catch (error) {
+      console.error('Error updating text in MongoDB:', error)
+      // Handle error feedback to user
+    }
+  }
+
+  // Function to handle the edit command
+  const handleEdit = (node) => {
+    setEditNode(node);
+    setEditLabel(node.data('label'));
+    setModalOpen(true);
+  };
+
+  // Function to close the modal
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  // Function to submit the new label
+  const handleSubmitModal = () => {
+    setModalOpen(false);
+    const nodeId = editNode.id();
+    const newText = editLabel;
+    updateTextInMongoDB(nodeId, newText);
+    editNode.data('label', newText);
+    setEditNode(null);
+  };
+  
 
   useEffect(() => {
     // Fetch Tree data
@@ -67,17 +132,17 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'node',
           style: {
-            'shape': 'roundrectangle',
-            'width': 1500,  
-            'height': 'label',  // Use the 'label' keyword to dynamically size the width based on the label
+            shape: 'roundrectangle',
+            width: 1500,
+            height: 'label', // Use the 'label' keyword to dynamically size the width based on the label
             'background-color': 'black',
             'text-valign': 'center',
-            'label': 'data(label)',
+            label: 'data(label)',
             'text-wrap': 'wrap',
-            'text-max-width': 1500,  
-            'padding': 75,
-            'color': 'white',
-            'font-size': 50,    // Adjust font size as needed
+            'text-max-width': 1500,
+            padding: 75,
+            color: 'white',
+            'font-size': 50, // Adjust font size as needed
             'border-width': 10,
             'border-color': '#FFFFFF'
           }
@@ -89,12 +154,12 @@ function TreeGraph ({ className, projectID }) {
             // 'control-point-distances': 100, // Sharpness of the bend
             // 'control-point-weights': 0.5, // Position of the control point along the edge (0.5 is halfway)
             'line-color': 'white',
-            'width': 10,
-            'targetArrowShape': 'triangle',
+            width: 10,
+            targetArrowShape: 'triangle',
             'target-arrow-color': 'white' // Tailwind's border-gray-300
           }
         }
-      ],     
+      ],
       layout: {
         name: 'dagre',
         spacingFactor: 1.5,
@@ -107,83 +172,53 @@ function TreeGraph ({ className, projectID }) {
         rankSep: 150
       },
       minZoom: 0.15, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
-      maxZoom: 0.5,   // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
+      maxZoom: 0.5 // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
     })
 
-
-    //creates context radial menu around each node
+    // creates context radial menu around each node
     cy.cxtmenu({
-      //adjust radius menu
-      menuRadius: function(ele){ return 70; },
+      // adjust radius menu
+      menuRadius: function (ele) { return 70 },
       selector: 'node',
       commands: [
         {
           content: 'Add Child',
-          select: function(ele){
-            console.log('Add Child clicked for node ' + ele.id());
+          select: function (ele) {
+            console.log('Add Child clicked for node ' + ele.id())
             // Add logic to handle adding a child node
           }
         },
         {
           content: 'Edit',
-          select: function(ele){
-            console.log('Edit clicked for node ' + ele.id());
-            
-            const newText = prompt('Enter new text for the node:', ele.data('label'));
-            ele.data('label', newText); // Update the label data of the clicked node
-            updateTextInMongoDB(ele.id(), newText); // Update in database
+          select: function (ele) {
+            handleEdit(ele)
           }
         },
         {
           content: 'Delete',
-          select: function(ele){
-            console.log('Delete clicked for node ' + ele.id());
+          select: function (ele) {
+            console.log('Delete clicked for node ' + ele.id())
             // Add logic to handle deleting the node
           }
         },
         {
           content: 'Expand',
-          select: function(ele){
-            console.log('Expand clicked for node ' + ele.id());
+          select: function (ele) {
+            console.log('Expand clicked for node ' + ele.id())
             // Add logic to handle expanding node
           }
         }
         // ... [more commands as needed]
       ]
-    });
-
-    const updateTextInMongoDB = async (taskId, newText) => {
-      try {
-        const response = await fetch(`/api/mongoDB/editTask`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ taskId: taskId, newName: newText }),
-        });
-    
-        const result = await response.json();
-    
-        if (!response.ok) {
-          console.error('Failed to update:', result.message);
-          // Handle error feedback to user
-        } else {
-          console.log('Text updated successfully in MongoDB.');
-          // Handle success feedback to user
-        }
-      } 
-      
-      catch (error) {
-        console.error('Error updating text in MongoDB:', error);
-        // Handle error feedback to user
-      }
-    };
-
+    })
   }, [tasks])
 
   return (
     <div className={className}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+      <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
+        <input type="text" value={editLabel} onChange={(e) => setEditLabel(e.target.value)} />
+      </Modal>
     </div>
   )
 }

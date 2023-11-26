@@ -2,7 +2,6 @@ import mongoose from 'mongoose'
 import { options } from '../../auth/[...nextauth]/options'
 import { getServerSession } from 'next-auth/next'
 import { NextResponse } from 'next/server'
-import { Project } from '../mongoModels'
 import { URI } from '../mongoData.js'
 import { editTask } from './editTask'
 
@@ -40,33 +39,31 @@ import { editTask } from './editTask'
  * @property {string} request.body.name - The name of the task. (Required)
  */
 
-export async function PUT(request) {
-    try {
-      const session = await getServerSession(options);
-      if (!session) {
-        return NextResponse.json({ success: false, message: 'Authentication failed' }, { status: 401 });
-      }
-  
-      const params = await request.json();
-  
-      if (!params.taskId || !params.newName) {
-        return NextResponse.json({ message: 'Task ID and new text are required.' }, { status: 400 });
-      }
-  
-      if (mongoose.connection.readyState !== 1) await mongoose.connect(URI);
-  
+export async function PUT (request) {
+  try {
+    const session = await getServerSession(options)
+    if (!session) {
+      return NextResponse.json({ success: false, message: 'Authentication failed' }, { status: 401 })
+    }
+
+    const params = await request.json()
+
+    if (!params.taskId || !params.newName) {
+      return NextResponse.json({ message: 'Task ID and new text are required.' }, { status: 400 })
+    }
+
+    if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
+
     //   const projectExists = await Project.exists({ _id: params.projectID });
     //   if (!projectExists) {
     //     return NextResponse.json({ message: `Project ${params.projectID} does not exist.` }, { status: 400 });
     //   }
-  
-      const updatedTask = await editTask(params.taskId, params.newName);
-  
-      return NextResponse.json({ task: updatedTask }, { status: 200 });
-    } catch (error) {
-      console.error('Error updating task:', error);
-      return NextResponse.json({ message: 'Error updating Task: ' + error }, { status: 500 });
-    }
+
+    const updatedTask = await editTask(params.taskId, params.newName)
+
+    return NextResponse.json({ task: updatedTask }, { status: 200 })
+  } catch (error) {
+    console.error('Error updating task:', error)
+    return NextResponse.json({ message: 'Error updating Task: ' + error }, { status: 500 })
   }
-
-
+}
