@@ -2,8 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
+import cydagre from 'cytoscape-dagre';
 import { useRouter } from 'next/navigation'
 cytoscape.use(cxtmenu);
+cytoscape.use(cydagre);
 
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
@@ -68,15 +70,16 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'node',
           style: {
-            width: '1000', // Adjusts width based on label
-            height: '800', // Set a fixed height
+            'shape': 'roundrectangle',
+            'width': '1000', // Adjusts width based on label
+            'height': '800', // Set a fixed height
             'background-color': 'black',
             'text-valign': 'center',
-            label: 'data(label)',
+            'label': 'data(label)',
             'text-wrap': 'wrap',
             'text-max-width': 900,
-            padding: '50px',
-            color: 'white', // Tailwind's text-gray-900
+            'padding': '50px',
+            'color': 'white', // Tailwind's text-gray-900
             'font-size': 100,
             'border-width': 10,
             'border-color': '#FFFFFF'
@@ -85,21 +88,38 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'edge',
           style: {
-            curveStyle: 'bezier',
+            'curveStyle': 'segments',
             'line-color': 'white', // Tailwind's border-gray-300 #D1D5DB
-            width: 10,
-            targetArrowShape: 'triangle',
+            'width': 10,
+            'targetArrowShape': 'triangle',
             'target-arrow-color': 'white' // Tailwind's border-gray-300
           }
         }
       ],
       layout: {
-        name: 'breadthfirst',
-        spacingFactor: 1.3,
-        padding: 4,
-        directed: true
-      }
+        name: 'dagre',
+        spacingFactor: 1.5,
+        padding: 10,
+        directed: true,
+        avoidOverlap: true,
+        levelSpacing: 4
+
+      },
+      minZoom: 0.03, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
+      maxZoom: 1,   // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
     })
+
+    // Calculate and set node dimensions based on label text
+    cy.nodes().forEach(node => {
+      const label = node.data('label');
+      const labelWidth = 1000; // Adjust the factor based on your font and styling
+      const labelHeight = label.height * 10; // Set a fixed height or adjust based on your design
+  
+      node.style({
+        width: labelWidth + 'px',
+        height: labelHeight + 'px',
+      });
+    });
 
     //creates context radial menu around each node
     cy.cxtmenu({
@@ -140,18 +160,6 @@ function TreeGraph ({ className, projectID }) {
         }
         // ... [more commands as needed]
       ]
-    });
-
-    // Calculate and set node dimensions based on label text
-    cy.nodes().forEach(node => {
-      const label = node.data('label');
-      const labelWidth = 1000; // Adjust the factor based on your font and styling
-      const labelHeight = label.height * 10; // Set a fixed height or adjust based on your design
-  
-      node.style({
-        width: labelWidth + 'px',
-        height: labelHeight + 'px',
-      });
     });
 
     const updateTextInMongoDB = async (taskId, newText) => {
