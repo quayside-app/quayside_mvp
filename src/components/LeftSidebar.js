@@ -76,8 +76,7 @@ export default function LeftSidebar ({ className }) {
             <li><div className='my-10 space-y-2 font-medium border-t  border-gray-200' /></li>
 
             <li> <Dropdown label='Starred' imagePath={starIcon} /> </li>
-            <li> <Dropdown label='Projects' imagePath={tableIcon} /> </li>
-            <li> {projectsDiv}</li>
+            <li> <Dropdown label='Projects' imagePath={tableIcon} dropdownComponents={projectsDiv}/> </li>
             <li> <Dropdown label='Team' imagePath={teamIcon} /> </li>
             <li> <Dropdown label='Objectives' imagePath={targetIcon} /> </li>
           </ul>
