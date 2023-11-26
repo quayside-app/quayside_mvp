@@ -5,6 +5,7 @@ import Image from 'next/image'
 import searchIcon from '../../public/svg/search.svg'
 import logo from '../../public/quaysideLogo.png'
 import { useSession, signOut } from 'next-auth/react'
+import Button from '../components/Button'
 
 /**
  * A Navbar component that fetches a user's name from a specified API and displays a navigation bar with several interactive elements.
@@ -60,7 +61,7 @@ const Navbar = () => {
             {/* Logo */}
             <div className='flex mx-2'>
               <div className='my-auto'>
-                <Image src={logo} alt='quayside logo' height={30} width={30} className='' />
+                <Image src={logo} alt='quayside logo' height={35} width={35} className='' />
               </div>
             </div>
           </div>
@@ -94,21 +95,23 @@ const Navbar = () => {
 
           {/* Sign Out */}
           <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'>
-            <button onClick={() => signOut()}>Sign Out</button>
+
+            <Button label='Sign Out' clickAction={() => signOut()} isCentered='true' />
           </div>
+          
+
+          {/* User */}
+          <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
 
           {/* User Avatar Icon */}
           {session && session.user && (
-            <div>
+            <div className='my-auto mx-4'>
               <img
                 src={session.user.image}
-                style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+                style={{ width: '35px', height: '35px', borderRadius: '50%' }}
               />
             </div>
           )}
-          
-          {/* User */}
-          <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
         </div>
       </nav>
     </div>
