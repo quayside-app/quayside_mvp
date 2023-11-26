@@ -101,7 +101,7 @@ function TreeGraph ({ className, projectID }) {
     //creates context radial menu around each node
     cy.cxtmenu({
       //adjust radius menu
-      menuRadius: function(ele){ return 100; },
+      menuRadius: function(ele){ return 70; },
       selector: 'node',
       commands: [
         {
