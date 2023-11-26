@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
 import cydagre from 'cytoscape-dagre';
-import { useRouter } from 'next/navigation'
 cytoscape.use(cxtmenu);
 cytoscape.use(cydagre);
 
@@ -22,7 +21,6 @@ cytoscape.use(cydagre);
 function TreeGraph ({ className, projectID }) {
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
-  const router = useRouter()
 
   const containerRef = useRef(null)
 
@@ -63,7 +61,6 @@ function TreeGraph ({ className, projectID }) {
 
     // Tailwind's bg-gray-200 #E5E7EB
     const cy = cytoscape({
-
       container: containerRef.current,
       elements,
       style: [
@@ -71,16 +68,16 @@ function TreeGraph ({ className, projectID }) {
           selector: 'node',
           style: {
             'shape': 'roundrectangle',
-            'width': '1000', // Adjusts width based on label
-            'height': '800', // Set a fixed height
+            'width': 1500,  
+            'height': 'label',  // Use the 'label' keyword to dynamically size the width based on the label
             'background-color': 'black',
             'text-valign': 'center',
             'label': 'data(label)',
             'text-wrap': 'wrap',
-            'text-max-width': 900,
-            'padding': '50px',
-            'color': 'white', // Tailwind's text-gray-900
-            'font-size': 100,
+            'text-max-width': 1500,  
+            'padding': 75,
+            'color': 'white',
+            'font-size': 50,    // Adjust font size as needed
             'border-width': 10,
             'border-color': '#FFFFFF'
           }
@@ -88,38 +85,31 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'edge',
           style: {
-            'curveStyle': 'segments',
-            'line-color': 'white', // Tailwind's border-gray-300 #D1D5DB
+            // 'curve-style': 'unbundled-bezier',
+            // 'control-point-distances': 100, // Sharpness of the bend
+            // 'control-point-weights': 0.5, // Position of the control point along the edge (0.5 is halfway)
+            'line-color': 'white',
             'width': 10,
             'targetArrowShape': 'triangle',
             'target-arrow-color': 'white' // Tailwind's border-gray-300
           }
         }
-      ],
+      ],     
       layout: {
         name: 'dagre',
         spacingFactor: 1.5,
         padding: 10,
         directed: true,
         avoidOverlap: true,
-        levelSpacing: 4
-
+        levelSpacing: 50,
+        rankDir: 'LR',
+        nodeSep: 50,
+        rankSep: 150
       },
-      minZoom: 0.03, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
+      minZoom: 0.15, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
       maxZoom: 0.5,   // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
     })
 
-    // Calculate and set node dimensions based on label text
-    cy.nodes().forEach(node => {
-      const label = node.data('label');
-      const labelWidth = 1000; // Adjust the factor based on your font and styling
-      const labelHeight = label.height * 10; // Set a fixed height or adjust based on your design
-  
-      node.style({
-        width: labelWidth + 'px',
-        height: labelHeight + 'px',
-      });
-    });
 
     //creates context radial menu around each node
     cy.cxtmenu({
