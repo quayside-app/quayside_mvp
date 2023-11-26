@@ -100,7 +100,8 @@ function TreeGraph ({ className, projectID }) {
 
     //creates context radial menu around each node
     cy.cxtmenu({
-      menuRadius: function(ele){ return 40; },
+      //adjust radius menu
+      menuRadius: function(ele){ return 100; },
       selector: 'node',
       commands: [
         {
@@ -122,6 +123,13 @@ function TreeGraph ({ className, projectID }) {
           select: function(ele){
             console.log('Delete clicked for node ' + ele.id());
             // Add logic to handle deleting the node
+          }
+        },
+        {
+          content: 'Expand',
+          select: function(ele){
+            console.log('Delete clicked for node ' + ele.id());
+            // Add logic to handle expanding node
           }
         }
         // ... [more commands as needed]
