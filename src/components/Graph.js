@@ -154,25 +154,6 @@ function TreeGraph ({ className, projectID }) {
       });
     });
 
-
-    // // Click event handler for node
-    // cy.on('click', 'node', function(event) {
-    //   const clickedNode = event.target;
-    //   const nodeId = clickedNode.id();
-    //   console.log('Clicked node ID:', nodeId);
-      
-    //   // Prompt the user for new text (you can replace this with your own logic)
-    //   const newText = prompt('Enter new text for the node:', clickedNode.data('label'));
-  
-    //   // Update the label data of the clicked node
-    //   clickedNode.data('label', newText);
-
-    //   // now newText needs to be in the database, id is clickedNode.id()
-    //   //below code doesn't work yet
-    //   updateTextInMongoDB(nodeId, newText);
-
-    // });
-
     const updateTextInMongoDB = async (taskId, newText) => {
       try {
         const response = await fetch(`/api/mongoDB/editTask`, {
