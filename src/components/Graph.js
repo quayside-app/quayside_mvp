@@ -46,6 +46,7 @@ const Modal = ({ show, onClose, onSubmit, children }) => {
   )
 }
 
+
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
  *
@@ -148,7 +149,6 @@ function TreeGraph ({ className, projectID }) {
         })
       }
     })
-
     // Tailwind's bg-gray-200 #E5E7EB
     const cy = cytoscape({
       container: containerRef.current,
@@ -157,37 +157,33 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'node',
           style: {
-            shape: 'roundrectangle',
-            width: 1500,
-            height: 'label', // Use the 'label' keyword to dynamically size the width based on the label
+            "shape": "round-rectangle",
+            "width": 1500,
             'background-color': 'black',
             'text-valign': 'center',
-            label: 'data(label)',
+            "label": 'data(label)',
             'text-wrap': 'wrap',
             'text-max-width': 1500,
-            padding: 75,
-            color: 'white',
-            'font-size': 50, // Adjust font size as needed
-            'border-width': 10,
-            'border-color': '#FFFFFF'
+            "padding": 75,
+            "color": 'black',
+            'font-size': 80, // Adjust font size as needed
+            
           }
         },
         {
           selector: 'edge',
           style: {
-            // 'curve-style': 'unbundled-bezier',
-            // 'control-point-distances': 100, // Sharpness of the bend
-            // 'control-point-weights': 0.5, // Position of the control point along the edge (0.5 is halfway)
+            "curve-style": 'taxi',
             'line-color': 'white',
-            width: 10,
-            targetArrowShape: 'triangle',
-            'target-arrow-color': 'white' // Tailwind's border-gray-300
+            'taxi-turn-min-distance': "50px",
+            "taxi-turn": "1000px",
+            'width': 10
           }
         }
       ],
       layout: {
         name: 'dagre',
-        spacingFactor: 1.5,
+        spacingFactor: 1.4,
         padding: 10,
         directed: true,
         avoidOverlap: true,
@@ -195,9 +191,11 @@ function TreeGraph ({ className, projectID }) {
         rankDir: 'LR',
         nodeSep: 50,
         rankSep: 150
+
       },
       minZoom: 0.08, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
-      maxZoom: 1 // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
+      maxZoom: 1, // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
+      wheelSensitivity: 0.1,
     })
 
     // creates context radial menu around each node
@@ -235,7 +233,37 @@ function TreeGraph ({ className, projectID }) {
         }
         // ... [more commands as needed]
       ]
+    });
+    function assignDepth(rootId) {
+      let queue = [{ id: rootId, depth: 0 }];
+  
+      while (queue.length > 0) {
+          let { id, depth } = queue.shift();
+          let node = cy.getElementById(id);
+  
+          // Set custom data
+          node.data('depth', depth);
+  
+          // Get connected nodes and add them to the queue
+          let connectedNodes = node.connectedEdges().targets().filter(n => n.data('depth') === undefined);
+          connectedNodes.forEach(n => queue.push({ id: n.id(), depth: depth + 1 }));
+      }
+    }
+    let first = cy.nodes().first().id();
+    assignDepth(first);
+    function getColorForDepth(depth) {
+      // Simple example: increasing shades of blue
+      let colors = ['grey', 'grey', 'grey', 'grey', 'grey'];
+      return colors[depth % colors.length];
+    }
+
+    cy.style().selector('node').style({
+      'background-color':function(node){
+        return getColorForDepth(node.data('depth'));
+      }
     })
+    
+    cy.autolock(true);
   }, [tasks])
 
   const inputStyle = {
@@ -246,9 +274,12 @@ function TreeGraph ({ className, projectID }) {
     // Add any other styles you need for the input
   }
 
+
+
   return (
     <div className={className}>
-      <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+  <div ref={containerRef} style={{ width: '100%', height: '100%', backgroundImage: "url('/background.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
         <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} style={inputStyle} />
       </Modal>

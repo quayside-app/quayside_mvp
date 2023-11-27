@@ -39,17 +39,18 @@ export default function page ({ params }) {
   }, [])
 
   return (
-    <div className='p-4 text-xl flex w-full flex-wrap'>
+    <>
 
       <div className='flex w-full'>
-        <div className='flex w-10/12 flex-wrap'> Project: {project && project.name} </div>
-        <div className='flex w-2/12 justify-end'>
+        <div className='flex w-10/12 flex-wrap' > Project: {project && project.name} </div>
+        <div className='flex w-2/12 justify-end pt-2 mr-5'>
           {/* On click, delete project, return to home page, and refresh */}
           <Button label='Delete Project' clickAction={() => { deleteProject(params.projectIds, router) }} className='bg-red-800 ' isCentered='true' />
         </div>
       </div>
-
-      <TreeGraph projectID={params.projectIds} className='flex w-full' />
-    </div>
+      <TreeGraph projectID={params.projectIds} className='flex w-full h-full' />
+      
+    </>
+    
   )
 }
