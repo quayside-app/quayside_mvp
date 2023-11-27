@@ -196,8 +196,8 @@ function TreeGraph ({ className, projectID }) {
         nodeSep: 50,
         rankSep: 150
       },
-      minZoom: 0.15, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
-      maxZoom: 0.5 // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
+      minZoom: 0.08, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
+      maxZoom: 1 // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
     })
 
     // creates context radial menu around each node
