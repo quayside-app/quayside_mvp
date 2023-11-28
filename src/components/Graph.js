@@ -278,7 +278,7 @@ function TreeGraph ({ className, projectID }) {
 
   return (
     <div className={className}>
-  <div ref={containerRef} style={{ width: '100%', height: '100%', backgroundImage: "url('/background.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+  <div ref={containerRef} style={{ width: '100%', height: '100%'}} />
 
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
         <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} style={inputStyle} />

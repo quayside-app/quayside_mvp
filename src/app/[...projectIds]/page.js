@@ -43,12 +43,12 @@ export default function page ({ params }) {
 
       <div className='flex w-full'>
         <div className='flex w-10/12 flex-wrap' > Project: {project && project.name} </div>
-        <div className='flex w-2/12 justify-end pt-2 mr-5'>
+        <div className='flex w-2/12 justify-end pt-2'>
           {/* On click, delete project, return to home page, and refresh */}
           <Button label='Delete Project' clickAction={() => { deleteProject(params.projectIds, router) }} className='bg-red-800 ' isCentered='true' />
         </div>
       </div>
-      <TreeGraph projectID={params.projectIds} className='flex w-full h-full' />
+      <TreeGraph projectID={params.projectIds} className=' w-full h-full' />
       
     </>
     

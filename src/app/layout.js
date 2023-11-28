@@ -28,7 +28,7 @@ async function RootLayout ({ children }) {
               <Navbar />
               <div className='flex h-screen'>
                 <LeftSidebar className='w-96 lg:w-56' />
-                <div className='flex-1 h-full w-max ml-5'> {children} </div>
+                <div className='flex-1 h-full w-max pl-5' style={{backgroundImage: "url('/background.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}> {children} </div>
               </div>
             </div>
           </Provider>
