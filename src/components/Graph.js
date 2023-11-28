@@ -159,6 +159,7 @@ function TreeGraph ({ className, projectID }) {
           style: {
             "shape": "round-rectangle",
             "width": 1500,
+            'height': 'label',
             'background-color': 'black',
             'text-valign': 'center',
             "label": 'data(label)',
@@ -173,7 +174,7 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'edge',
           style: {
-            "curve-style": 'taxi',
+            "curve-style": 'haystack',
             'line-color': 'white',
             'taxi-turn-min-distance': "50px",
             "taxi-turn": "1000px",
