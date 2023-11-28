@@ -51,7 +51,7 @@ export default function LeftSidebar ({ className }) {
             <ul>
               {body.projects.map((project, index) => (
                 <li key={index} className=' font-light '>
-                  <Link href={`/${project._id}`}><Button label={project.name} className='w-32' /></Link>
+                  <Link href={`/${project._id}`}><Button label={project.name} className='w-32 mx-4' /></Link>
                 </li>
               ))}
             </ul>
@@ -67,7 +67,7 @@ export default function LeftSidebar ({ className }) {
     <div className={className}>
       <div className='flex w-full flex-wrap  bg-neutral-800'>
 
-        <div className='flex w-full bg-neutral-800 px-4 pt-10 min-h-screen  text-white justify-center'>
+        <div className='flex w-full bg-neutral-800 px-2 pt-10 min-h-screen  text-white justify-center'>
           <ul className='font-medium'>
             <NewProjectButton />
 

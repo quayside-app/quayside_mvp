@@ -88,7 +88,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
     <div className='fixed inset-0 bg-gray-500 bg-opacity-75 z-50'>
       {errorMessage && <Alert heading='Error' content={errorMessage} />}
 
-      <div id='authentication-modal' tabIndex='-1' className='fixed w-full p-4 '>
+      <div id='authentication-modal' tabIndex='-1' className='fixed w-full pt-28 px-4'>
 
         <div className='relative rounded-lg shadow bg-black'>
           <button type='button' onClick={handleClose} className='absolute top-3 right-3 rounded-lg  w-8 h-8 inline-flex justify-center items-center hover:bg-gray-600'>
