@@ -11,7 +11,7 @@ export default function Home () {
       </div>
       <div className='flex justify-center w-full text-sm md:text-xl  mt-10     '>
         <div className='bg-neutral-700 rounded-lg px-2 py-1'>
-        Create or select a project to get started...
+          Create or select a project to get started...
         </div>
       </div>
 

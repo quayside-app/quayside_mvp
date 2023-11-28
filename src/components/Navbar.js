@@ -20,7 +20,7 @@ import Link from 'next/link'
  * // Using the component
  * <Navbar />
  */
-const Navbar = ({className}) => {
+const Navbar = ({ className }) => {
   const [name, setName] = useState(null)
   const { data: session } = useSession()
 

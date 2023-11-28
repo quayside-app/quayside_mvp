@@ -3,34 +3,32 @@ import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
 import cydagre from 'cytoscape-dagre'
-cytoscape.use(cxtmenu)
-cytoscape.use(cydagre)
 import xIcon from '../../public/svg/x.svg'
 import Image from 'next/image'
+cytoscape.use(cxtmenu)
+cytoscape.use(cydagre)
 
 const Modal = ({ show, onClose, onSubmit, children }) => {
   if (!show) return null
 
-
   return (
-    <div className='fixed inset-0 z-40 bg-gray-500 bg-opacity-75' >
+    <div className='fixed inset-0 z-40 bg-gray-500 bg-opacity-75'>
       <div className='relative rounded-lg shadow bg-black m-64 p-4'>
-      <button type='button' onClick={onClose} className='absolute top-3 right-3 rounded-lg w-8 h-8 inline-flex justify-center items-center hover:bg-gray-600'>
-        <Image src={xIcon} alt='exit' width='10' height='10' />
-      </button>
+        <button type='button' onClick={onClose} className='absolute top-3 right-3 rounded-lg w-8 h-8 inline-flex justify-center items-center hover:bg-gray-600'>
+          <Image src={xIcon} alt='exit' width='10' height='10' />
+        </button>
         <div className='p-2 text-xl font-bold '>Edit Task</div>
         <div className='p-2'>
-        
-        {children}
+
+          {children}
         </div>
         <div className='flex w-full my-3 justify-center'>
-          <button onClick={onSubmit} className="mx-2 px-10 py-2 text-white bg-gray-700 hover:bg-blue-800 rounded-lg text-md  text-center">Submit</button>
+          <button onClick={onSubmit} className='mx-2 px-10 py-2 text-white bg-gray-700 hover:bg-blue-800 rounded-lg text-md  text-center'>Submit</button>
         </div>
       </div>
     </div>
   )
 }
-
 
 /**
  * A component that fetches task data and renders it as a tree graph using the Cytoscape.js library.
@@ -142,30 +140,30 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'node',
           style: {
-            "shape": "round-rectangle",
-            "width": 1500,
-            'height': 'label',
+            shape: 'round-rectangle',
+            width: 1500,
+            height: 'label',
             'background-color': '#262626',
             'text-valign': 'center',
-            "label": 'data(label)',
+            label: 'data(label)',
             'text-wrap': 'wrap',
             'text-max-width': 1500,
-            "padding": 75,
-            "color": 'white',
+            padding: 75,
+            color: 'white',
             'font-size': 80, // Adjust font size as needed
-            "border-color": 'white',
-            "border-width": '10px'
-         
+            'border-color': 'white',
+            'border-width': '10px'
+
           }
         },
         {
           selector: 'edge',
           style: {
-            "curve-style": 'haystack',
+            'curve-style': 'haystack',
             'line-color': 'white',
-            'taxi-turn-min-distance': "50px",
-            "taxi-turn": "1000px",
-            'width': 10
+            'taxi-turn-min-distance': '50px',
+            'taxi-turn': '1000px',
+            width: 10
           }
         }
       ],
@@ -183,7 +181,7 @@ function TreeGraph ({ className, projectID }) {
       },
       minZoom: 0.08, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
       maxZoom: 1, // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
-      wheelSensitivity: 0.1,
+      wheelSensitivity: 0.1
     })
 
     // creates context radial menu around each node
@@ -221,47 +219,45 @@ function TreeGraph ({ className, projectID }) {
         }
         // ... [more commands as needed]
       ]
-    });
-    function assignDepth(rootId) {
-      let queue = [{ id: rootId, depth: 0 }];
-  
+    })
+    function assignDepth (rootId) {
+      const queue = [{ id: rootId, depth: 0 }]
+
       while (queue.length > 0) {
-          let { id, depth } = queue.shift();
-          let node = cy.getElementById(id);
-  
-          // Set custom data
-          node.data('depth', depth);
-  
-          // Get connected nodes and add them to the queue
-          let connectedNodes = node.connectedEdges().targets().filter(n => n.data('depth') === undefined);
-          connectedNodes.forEach(n => queue.push({ id: n.id(), depth: depth + 1 }));
+        const { id, depth } = queue.shift()
+        const node = cy.getElementById(id)
+
+        // Set custom data
+        node.data('depth', depth)
+
+        // Get connected nodes and add them to the queue
+        const connectedNodes = node.connectedEdges().targets().filter(n => n.data('depth') === undefined)
+        connectedNodes.forEach(n => queue.push({ id: n.id(), depth: depth + 1 }))
       }
     }
-    let first = cy.nodes().first().id();
-    assignDepth(first);
-    function getColorForDepth(depth) {
+    const first = cy.nodes().first().id()
+    assignDepth(first)
+    function getColorForDepth (depth) {
       // Simple example: increasing shades of blue
-      let colors = ['#262626', '#262626', '#262626', '#262626', '#262626'];
-      return colors[depth % colors.length];
+      const colors = ['#262626', '#262626', '#262626', '#262626', '#262626']
+      return colors[depth % colors.length]
     }
 
     cy.style().selector('node').style({
-      'background-color':function(node){
-        return getColorForDepth(node.data('depth'));
+      'background-color': function (node) {
+        return getColorForDepth(node.data('depth'))
       }
     })
-    
-    cy.autolock(true);
+
+    cy.autolock(true)
   }, [tasks])
-
-
 
   return (
     <div className={className}>
-  <div ref={containerRef} style={{ width: '100%', height: '100%'}} />
+      <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
 
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
-        <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} className="rounded-lg w-full text-black p-4" />
+        <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} className='rounded-lg w-full text-black p-4' />
       </Modal>
 
     </div>
