@@ -25,9 +25,9 @@ async function RootLayout ({ children }) {
 
             <div className=''>
               <NewProjectModal />
-              <Navbar className='fixed inset-x-0'/>
+              <Navbar className='fixed inset-x-0 z-30'/>
 
-                <LeftSidebar className='fixed mt-12 w-44 inset-y-0 overflow-x-hidden overflow-y-auto z-30' />
+                <LeftSidebar className='fixed mt-12 w-44 inset-y-0 z-20' />
                 <div className='fixed w-full mt-12 pl-44'>
                   <div className='h-screen' style={{backgroundImage: "url('/background.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}> {children} </div>
                 </div>

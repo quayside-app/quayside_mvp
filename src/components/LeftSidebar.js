@@ -83,7 +83,7 @@ export default function LeftSidebar ({ className }) {
           </ul>
         </div>
 
-        <div className='mt-auto sticky bottom-0 bg-neutral-700 w-full z-50'>
+        <div className='mt-auto sticky bottom-0 bg-neutral-700 w-full'>
           <ContactUsButton />
         </div>
       </div>
