@@ -20,7 +20,7 @@ import Link from 'next/link'
  * // Using the component
  * <Navbar />
  */
-const Navbar = () => {
+const Navbar = ({ className }) => {
   const [name, setName] = useState(null)
   const { data: session } = useSession()
 
@@ -46,77 +46,79 @@ const Navbar = () => {
   })
   return (
 
-    <div className='drop-shadow-2xl'>
-      <nav className=' bg-neutral-800 p-2 text-white w-full drop-shadow-2xl'>
+    <div className={className}>
+      <div className='drop-shadow-2xl'>
+        <nav className=' bg-neutral-800 p-2 text-white w-full drop-shadow-2xl'>
 
-        <div className='flex w-full'>
+          <div className='flex w-full'>
 
-          <div className='flex w-6/12  justify-start mx-1'>
-            {/* Hamburger */}
-            {/* <div className='flex'>
-              <div className=''>
-                <button className='text-white text-3xl md:text-4xl font-bold opacity-70 hover:opacity-100 align-super'> &#9776; </button>
+            <div className='flex w-6/12  justify-start mx-1'>
+              {/* Hamburger */}
+              {/* <div className='flex'>
+                <div className=''>
+                  <button className='text-white text-3xl md:text-4xl font-bold opacity-70 hover:opacity-100 align-super'> &#9776; </button>
+                </div>
+              </div> */}
+
+              {/* Logo */}
+              <div className='flex mx-2'>
+                <div className='my-auto'>
+                  <Image src={logo} alt='quayside logo' height={35} width={35} className='' />
+                </div>
+
               </div>
-            </div> */}
 
-            {/* Logo */}
-            <div className='flex mx-2'>
-              <div className='my-auto'>
-                <Image src={logo} alt='quayside logo' height={35} width={35} className='' />
+              <Link href='/' className='my-auto mx-3 text-xl font-bold'> quayside.app</Link>
+
+            </div>
+
+            {/* Current Directory */}
+            {/*
+            <div className='flex w-4/12 justify-start mx-1'>
+              <div className='flex bg-neutral-600 px-4 rounded-3xl overflow-hidden'>
+                <input
+                  type='text' className='bg-neutral-600  text-xs'
+                  defaultValue='/quayside/Your-App'
+                />
               </div>
+            </div>
+            */}
 
+            {/* Search Bar */}
+            <div className='flex w-4/12 xl:w-5/12 justify-end px-1'>
+              <div className='flex overflow-hidden  bg-neutral-600 rounded-3xl'>
+                <input
+                  type='search'
+                  placeholder='Search... coming soon'
+                  className='flex  px-3 text-xs  bg-neutral-600 text-white md:text-base'
+                />
+                <button className='px-4 items-center justify-center '>
+                  <Image priority src={searchIcon} alt='Search' height='15' width='15' className='md:h-15 md:w-15' />
+                </button>
+              </div>
             </div>
 
-            <Link href='/' className='my-auto mx-3 text-xl font-bold'> quayside.app</Link>
+            {/* Sign Out */}
+            <div className='flex w-2/12  xl:w-1/12 justify-end  my-auto text-right px-2'>
 
-          </div>
-
-          {/* Current Directory */}
-          {/*
-          <div className='flex w-4/12 justify-start mx-1'>
-            <div className='flex bg-neutral-600 px-4 rounded-3xl overflow-hidden'>
-              <input
-                type='text' className='bg-neutral-600  text-xs'
-                defaultValue='/quayside/Your-App'
-              />
+              <Button label='Sign Out' clickAction={() => signOut()} isCentered='true' />
             </div>
+
+            {/* User */}
+            <div className='flex w-2/12  xl:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
+
+            {/* User Avatar Icon */}
+            {session && session.user && (
+              <div className='my-auto mx-4'>
+                <img
+                  src={session.user.image}
+                  style={{ width: '35px', height: '35px', borderRadius: '50%' }}
+                />
+              </div>
+            )}
           </div>
-          */}
-
-          {/* Search Bar */}
-          <div className='flex w-4/12 lg:w-5/12 justify-end px-1'>
-            <div className='flex overflow-hidden  bg-neutral-600 rounded-3xl'>
-              <input
-                type='search'
-                placeholder='Search... coming soon'
-                className='flex  px-3 text-xs  bg-neutral-600 text-white md:text-base'
-              />
-              <button className='px-4 items-center justify-center '>
-                <Image priority src={searchIcon} alt='Search' height='15' width='15' className='md:h-15 md:w-15' />
-              </button>
-            </div>
-          </div>
-
-          {/* Sign Out */}
-          <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'>
-
-            <Button label='Sign Out' clickAction={() => signOut()} isCentered='true' />
-          </div>
-
-          {/* User */}
-          <div className='flex w-2/12  lg:w-1/12 justify-end  my-auto text-right px-2'> {name} </div>
-
-          {/* User Avatar Icon */}
-          {session && session.user && (
-            <div className='my-auto mx-4'>
-              <img
-                src={session.user.image}
-                style={{ width: '35px', height: '35px', borderRadius: '50%' }}
-              />
-            </div>
-          )}
-        </div>
-      </nav>
+        </nav>
+      </div>
     </div>
 
   )

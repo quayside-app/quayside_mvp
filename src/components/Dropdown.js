@@ -38,7 +38,7 @@ const Dropdown = ({ label, imagePath, dropdownComponents }) => {
 
         </div>
       </button>
-      <div className={dropdownHidden && 'hidden'}>
+      <div className={dropdownHidden ? 'hidden' : undefined}>
         {dropdownComponents}
       </div>
     </div>
