@@ -19,16 +19,17 @@ async function RootLayout ({ children }) {
     <ApiResponseProvider>
       <html lang='en'>
 
-        <body className=''>
+        <body>
 
           <Provider session={session}>
 
             <div className=''>
               <NewProjectModal />
-              <Navbar />
-              <div className='flex h-screen'>
-                <LeftSidebar className='w-96 lg:w-56' />
-                <div className='flex w-max ml-5'> {children} </div>
+              <Navbar className='fixed inset-x-0 z-30' />
+
+              <LeftSidebar className='fixed mt-12 w-44 inset-y-0 z-20' />
+              <div className='fixed w-full mt-12 pl-44'>
+                <div className='h-screen' style={{ backgroundImage: "url('/background.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}> {children} </div>
               </div>
             </div>
           </Provider>

@@ -3,44 +3,28 @@ import React, { useEffect, useRef, useState } from 'react'
 import cytoscape from 'cytoscape'
 import cxtmenu from 'cytoscape-cxtmenu'
 import cydagre from 'cytoscape-dagre'
+import xIcon from '../../public/svg/x.svg'
+import Image from 'next/image'
 cytoscape.use(cxtmenu)
 cytoscape.use(cydagre)
 
 const Modal = ({ show, onClose, onSubmit, children }) => {
   if (!show) return null
 
-  const modalContentStyle = {
-    width: '30%', // Adjust the width of the modal as per your requirement
-    minWidth: '300px', // Minimum width to ensure responsiveness
-    marginTop: '20px', // Margin from the top to push the modal down a bit
-    backgroundColor: 'grey', // Background color of the modal
-    padding: '20px', // Padding inside the modal
-    borderRadius: '5px', // Rounded corners of the modal
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Box shadow for a subtle depth effect
-    display: 'flex', // Use flex layout
-    flexDirection: 'column', // Stack children vertically
-    alignItems: 'center' // Center-align children horizontally
-  }
-
-  const modalBackdropStyle = {
-    position: 'fixed', // Fixes the backdrop in relation to the viewport
-    top: 0, // Aligns the top edge of the backdrop with the top of the viewport
-    left: 0, // Aligns the left edge of the backdrop with the left of the viewport
-    right: 0, // Aligns the right edge of the backdrop with the right of the viewport
-    bottom: 0, // Aligns the bottom edge of the backdrop with the bottom of the viewport
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
-    display: 'flex', // Uses flexbox layout
-    justifyContent: 'center', // Centers children horizontally
-    alignItems: 'flex-start', // Aligns children to the start of the cross axis, i.e., top
-    paddingTop: '50px' // Adds padding at the top
-  }
-
   return (
-    <div className='modal-backdrop' style={modalBackdropStyle}>
-      <div className='modal-content' style={modalContentStyle}>
-        {children}
-        <button onClick={onSubmit} style={{ padding: '10px', marginRight: '5px' }}>Submit</button>
-        <button onClick={onClose} style={{ padding: '10px', marginRight: '5px' }}>Cancel</button>
+    <div className='fixed inset-0 z-40 bg-gray-500 bg-opacity-75'>
+      <div className='relative rounded-lg shadow bg-black m-64 p-4'>
+        <button type='button' onClick={onClose} className='absolute top-3 right-3 rounded-lg w-8 h-8 inline-flex justify-center items-center hover:bg-gray-600'>
+          <Image src={xIcon} alt='exit' width='10' height='10' />
+        </button>
+        <div className='p-2 text-xl font-bold '>Edit Task</div>
+        <div className='p-2'>
+
+          {children}
+        </div>
+        <div className='flex w-full my-3 justify-center'>
+          <button onClick={onSubmit} className='mx-2 px-10 py-2 text-white bg-gray-700 hover:bg-blue-800 rounded-lg text-md  text-center'>Submit</button>
+        </div>
       </div>
     </div>
   )
@@ -148,7 +132,6 @@ function TreeGraph ({ className, projectID }) {
         })
       }
     })
-
     // Tailwind's bg-gray-200 #E5E7EB
     const cy = cytoscape({
       container: containerRef.current,
@@ -157,37 +140,36 @@ function TreeGraph ({ className, projectID }) {
         {
           selector: 'node',
           style: {
-            shape: 'roundrectangle',
+            shape: 'round-rectangle',
             width: 1500,
-            height: 'label', // Use the 'label' keyword to dynamically size the width based on the label
-            'background-color': 'black',
+            height: 'label',
+            'background-color': '#262626',
             'text-valign': 'center',
             label: 'data(label)',
             'text-wrap': 'wrap',
             'text-max-width': 1500,
             padding: 75,
             color: 'white',
-            'font-size': 50, // Adjust font size as needed
-            'border-width': 10,
-            'border-color': '#FFFFFF'
+            'font-size': 80, // Adjust font size as needed
+            'border-color': 'white',
+            'border-width': '10px'
+
           }
         },
         {
           selector: 'edge',
           style: {
-            // 'curve-style': 'unbundled-bezier',
-            // 'control-point-distances': 100, // Sharpness of the bend
-            // 'control-point-weights': 0.5, // Position of the control point along the edge (0.5 is halfway)
+            'curve-style': 'haystack',
             'line-color': 'white',
-            width: 10,
-            targetArrowShape: 'triangle',
-            'target-arrow-color': 'white' // Tailwind's border-gray-300
+            'taxi-turn-min-distance': '50px',
+            'taxi-turn': '1000px',
+            width: 10
           }
         }
       ],
       layout: {
         name: 'dagre',
-        spacingFactor: 1.5,
+        spacingFactor: 1.4,
         padding: 10,
         directed: true,
         avoidOverlap: true,
@@ -195,9 +177,11 @@ function TreeGraph ({ className, projectID }) {
         rankDir: 'LR',
         nodeSep: 50,
         rankSep: 150
+
       },
       minZoom: 0.08, // Minimum zoom level (e.g., 0.5 means the graph can be zoomed out to half its original size)
-      maxZoom: 1 // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
+      maxZoom: 1, // Maximum zoom level (e.g., 2 means the graph can be zoomed in to twice its original size)
+      wheelSensitivity: 0.1
     })
 
     // creates context radial menu around each node
@@ -236,22 +220,46 @@ function TreeGraph ({ className, projectID }) {
         // ... [more commands as needed]
       ]
     })
-  }, [tasks])
+    function assignDepth (rootId) {
+      const queue = [{ id: rootId, depth: 0 }]
 
-  const inputStyle = {
-    color: 'black', // Set font color to black
-    padding: '10px', // Optional: Add padding for better appearance
-    margin: '5px 0', // Optional: Add some margin for spacing
-    width: '100%' // Optional: Set width to fill the modal
-    // Add any other styles you need for the input
-  }
+      while (queue.length > 0) {
+        const { id, depth } = queue.shift()
+        const node = cy.getElementById(id)
+
+        // Set custom data
+        node.data('depth', depth)
+
+        // Get connected nodes and add them to the queue
+        const connectedNodes = node.connectedEdges().targets().filter(n => n.data('depth') === undefined)
+        connectedNodes.forEach(n => queue.push({ id: n.id(), depth: depth + 1 }))
+      }
+    }
+    const first = cy.nodes().first().id()
+    assignDepth(first)
+    function getColorForDepth (depth) {
+      // Simple example: increasing shades of blue
+      const colors = ['#262626', '#262626', '#262626', '#262626', '#262626']
+      return colors[depth % colors.length]
+    }
+
+    cy.style().selector('node').style({
+      'background-color': function (node) {
+        return getColorForDepth(node.data('depth'))
+      }
+    })
+
+    cy.autolock(true)
+  }, [tasks])
 
   return (
     <div className={className}>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
-        <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} style={inputStyle} />
+        <input type='text' value={editLabel} onChange={(e) => setEditLabel(e.target.value)} className='rounded-lg w-full text-black p-4' />
       </Modal>
+
     </div>
   )
 }
