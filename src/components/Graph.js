@@ -145,15 +145,17 @@ function TreeGraph ({ className, projectID }) {
             "shape": "round-rectangle",
             "width": 1500,
             'height': 'label',
-            'background-color': 'black',
+            'background-color': '#262626',
             'text-valign': 'center',
             "label": 'data(label)',
             'text-wrap': 'wrap',
             'text-max-width': 1500,
             "padding": 75,
-            "color": 'black',
+            "color": 'white',
             'font-size': 80, // Adjust font size as needed
-            
+            "border-color": 'white',
+            "border-width": '10px'
+         
           }
         },
         {
@@ -239,7 +241,7 @@ function TreeGraph ({ className, projectID }) {
     assignDepth(first);
     function getColorForDepth(depth) {
       // Simple example: increasing shades of blue
-      let colors = ['grey', 'grey', 'grey', 'grey', 'grey'];
+      let colors = ['#262626', '#262626', '#262626', '#262626', '#262626'];
       return colors[depth % colors.length];
     }
 
@@ -251,14 +253,6 @@ function TreeGraph ({ className, projectID }) {
     
     cy.autolock(true);
   }, [tasks])
-
-  const inputStyle = {
-    color: 'black', // Set font color to black
-    padding: '10px', // Optional: Add padding for better appearance
-    margin: '5px 0', // Optional: Add some margin for spacing
-    width: '100%' // Optional: Set width to fill the modal
-    // Add any other styles you need for the input
-  }
 
 
 
