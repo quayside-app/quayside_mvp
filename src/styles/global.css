@@ -1,0 +1,15 @@
+.modal-background {
+    @apply fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4;
+  }
+  
+  .modal-content {
+    @apply bg-white rounded-lg shadow-xl p-6 w-full max-w-md;
+  }
+  
+  .modal-title {
+    @apply text-xl font-semibold text-gray-900 mb-4;
+  }
+  
+  .modal-button {
+    @apply w-full text-white bg-gray-700 hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center;
+  }

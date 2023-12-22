@@ -90,7 +90,7 @@ const NewProjectModal = ({ isOpen, handleClose }) => {
 
       <div id='authentication-modal' tabIndex='-1' className='fixed w-full pt-28 px-4'>
 
-        <div className='relative rounded-lg shadow bg-black'>
+        <div className='relative rounded-lg shadow bg-neutral-800'>
           <button type='button' onClick={handleClose} className='absolute top-3 right-3 rounded-lg  w-8 h-8 inline-flex justify-center items-center hover:bg-gray-600'>
             <Image src={xIcon} alt='exit' width='10' height='10' />
           </button>
