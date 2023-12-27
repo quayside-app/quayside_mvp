@@ -90,14 +90,21 @@ export default function TaskModal({isOpen, handleClose}) {
 
               <form className='space-y-6' onSubmit={submitForm}>
                 <h3 className='mb-4 text-xl font-medium text-white'> 
-                    <Input name='name' value={formData.name} changeAction={handleInput}  />
+                    <Input variant='clear' name='name' value={formData.name} changeAction={handleInput}  />
                 </h3>
 
-                <Input name='description' label='Description'  value={formData.description} changeAction={handleInput}  />
-                <Input name='startDate' label='Start Date' value={formData.startDate} changeAction={handleInput}  />
-                <Input name='endDate' label='End Date' value={formData.endDate} changeAction={handleInput} />
-                <Input name='contributors' label='Contributors' value={formData.contributors} changeAction={handleInput} />
+                <div className='flex'>
+                  <div className='w-2/3'>
+                    <Input variant='multiline' name='description' label='Description'  value={formData.description} changeAction={handleInput}  />
+                  </div>
 
+                  <div className='w-1/3 ml-10 bg-neutral-600 rounded-lg p-3'>
+                    
+                    <Input variant='inline' name='startDate' label='Start Date' value={formData.startDate} changeAction={handleInput}  />
+                    <Input variant='inline' name='endDate' label='End Date' value={formData.endDate} changeAction={handleInput} />
+                    <Input variant='inline' name='contributors' label='Contributors' value={formData.contributors} changeAction={handleInput} />
+                    </div>
+                </div>
                 <button type='submit'  className={`w-full text-white bg-gray-700  hover:bg-blue-800 focus:ring-4  font-medium rounded-lg text-md px-5 py-2.5 text-center`}>
                     Save
                 </button>

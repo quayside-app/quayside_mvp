@@ -18,15 +18,43 @@ import React from 'react'
  *
  * @returns {React.Element} The rendered input and label elements.
  */
-const Input = ({ name, value, changeAction, label, placeholder }) => {
+
+const Input = ({label, variant, changeAction, ...props}) => {
+
+  if (variant === 'multiline') {
+    return(
+      <div className='rounded-lg  bg-neutral-600 '>
+        <label className='block mb-2 text-sm font-medium text-white px-3 pt-3'>{label} </label>
+        <textarea {...props} type='text' onChange={changeAction} className=' text-white  text-sm rounded-lg  bg-neutral-600 outline-none block w-full p-3  '/>
+      </div>
+    )
+  } 
+
+  if (variant === 'clear') {
+    return(
+      <div>
+        <label className='block mb-2 text-sm font-medium text-white'>{label} </label>
+        <input {...props} type='text' onChange={changeAction} className=' text-white  text-md rounded-lg bg-transparent outline-none block w-full ' />
+      </div>
+    )
+  } 
+
+  if (variant === 'inline') {
+    return(
+      <div className='flex mb-2'>
+        <label className='my-auto text-sm font-medium text-white '>{label} </label>
+        <input {...props} type='text' onChange={changeAction} className='ml-5 flex-auto text-white  text-sm rounded-lg  bg-neutral-600 outline-none block p-2.5  ' />
+      </div>
+    )
+  } 
+  
   return (
-
     <div>
-      <label className='block mb-2 text-sm font-medium text-white'>{label} </label>
-      <input name={name} value={value} onChange={changeAction} placeholder={placeholder} type='text' className=' text-white  text-sm rounded-lg  bg-neutral-600 outline-none block w-full p-2.5  ' />
+      <label className='block mb-2 text-sm font-medium text-white '>{label} </label>
+      <input {...props} type='text' onChange={changeAction} className=' text-white  text-sm rounded-lg  bg-neutral-600 outline-none block w-full p-2.5  ' />
     </div>
-
   )
+  
 }
 
 export default Input
