@@ -36,7 +36,14 @@ import { editTask } from './editTask'
  *     }
  * }).catch(error => console.error('Error in creating task:', error));
  *
- * @property {string} request.body.name - The name of the task. (Required)
+ * @property {string} request.body.taskId - The ObjectID of the task. Required.
+ * @property {string} request.body.name - The name of the task.
+ * @property {string} request.body.description - The description of the task.
+ * @property {string} request.body.startDate - The startDate of the task.
+ * @property {string} request.body.endDate - The endDate of the task.
+ * @ppropertyaram {[string]} contributorIDs - The contributor IDs of the task.
+ * @property {[string]} contributorEmails - The contributor emails of the task. NOTE: you can not have
+ *  these AND contributorIDs.
  */
 
 export async function PUT (request) {
@@ -48,8 +55,8 @@ export async function PUT (request) {
 
     const params = await request.json()
 
-    if (!params.taskId || !params.newName) {
-      return NextResponse.json({ message: 'Task ID and new text are required.' }, { status: 400 })
+    if (!params.taskId ) {
+      return NextResponse.json({ message: 'Task ID  required.' }, { status: 400 })
     }
 
     if (mongoose.connection.readyState !== 1) await mongoose.connect(URI)
@@ -59,7 +66,7 @@ export async function PUT (request) {
     //     return NextResponse.json({ message: `Project ${params.projectID} does not exist.` }, { status: 400 });
     //   }
 
-    const updatedTask = await editTask(params.taskId, params.newName)
+    const updatedTask = await editTask(params.taskId, params.name, params.description, params.startDate, params.endDate)
 
     return NextResponse.json({ task: updatedTask }, { status: 200 })
   } catch (error) {

@@ -5,6 +5,8 @@ import cxtmenu from 'cytoscape-cxtmenu'
 import cydagre from 'cytoscape-dagre'
 import xIcon from '../../public/svg/x.svg'
 import Image from 'next/image'
+import TaskModal from './TaskModal'
+
 cytoscape.use(cxtmenu)
 cytoscape.use(cydagre)
 
@@ -253,7 +255,9 @@ function TreeGraph ({ className, projectID }) {
   }, [tasks])
 
   return (
+  
     <div className={className}>
+      <TaskModal isOpen='true'/>
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
 
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>
