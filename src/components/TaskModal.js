@@ -4,7 +4,9 @@ import Image from 'next/image';
 import xIcon from '../../public/svg/x.svg';
 import Input from '../components/Input';
 
-export default function TaskModal({taskId, handleClose}) {
+
+export default function TaskModal({taskId, handleClose, onTaskSave}) {
+
 
 
     const [formData, setFormData] = useState({
@@ -25,17 +27,17 @@ export default function TaskModal({taskId, handleClose}) {
         console.error(body.message)
         } else {
             setFormData({
-                name: body.tasks[0].name || [],
-                description: body.tasks[0].description || [],
-                startDate: body.tasks[0].startDate || [],
-                endDate: body.tasks[0].endDate || [],
-                contributors: body.tasks[0].contributors || [],
+                name: body.tasks[0].name || "",
+                description: body.tasks[0].description || "",
+                startDate: body.tasks[0].startDate || "",
+                endDate: body.tasks[0].endDate || "",
+                contributors: body.tasks[0].contributors || "",
             })
         }
     }).catch(error => {
         console.error('Error getting  Task data:', error)
     })
-    }, [])
+    }, []) 
 
     const handleInput = (e) => {
         const fieldName = e.target.name
@@ -65,6 +67,7 @@ export default function TaskModal({taskId, handleClose}) {
             })
           })
           const body = await response.json()
+          onTaskSave();
           if (!response.ok) {
             // Not a 2xx response, handle error
             console.error(body.message)
@@ -73,6 +76,7 @@ export default function TaskModal({taskId, handleClose}) {
         } catch (error) {
           console.error('Error creating new project.')
         }
+        
       }
 
     

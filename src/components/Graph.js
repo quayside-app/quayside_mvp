@@ -48,6 +48,8 @@ const Modal = ({ show, onClose, onSubmit, children }) => {
 function TreeGraph ({ className, projectID }) {
   const router =  useRouter();
   const searchParams = useSearchParams();
+  const [refreshTasks, setRefreshTasks] = useState(false);
+
   const pathname = usePathname();
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
@@ -118,7 +120,7 @@ function TreeGraph ({ className, projectID }) {
     }).catch(error => {
       console.error('Error getting Tree Task data:', error)
     })
-  }, [])
+  }, [refreshTasks]) // Update when modal changes
 
   useEffect(() => {
     if (!tasks) return // Ensure tasks is not null before proceeding
@@ -268,7 +270,11 @@ function TreeGraph ({ className, projectID }) {
   return (
   
     <div className={className}>
-      {searchParams.get('task') && <TaskModal isOpen='true' taskId={searchParams.get('task')}/> }
+      {searchParams.get('task') && 
+      <TaskModal taskId={searchParams.get('task')} 
+        handleClose={() => router.push(`${pathname}`)} 
+        onTaskSave={() => {setRefreshTasks(prev => !prev)}}
+      /> }
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
 
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>

@@ -66,7 +66,13 @@ export async function PUT (request) {
     //     return NextResponse.json({ message: `Project ${params.projectID} does not exist.` }, { status: 400 });
     //   }
 
-    const updatedTask = await editTask(params.taskId, params.name, params.description, params.startDate, params.endDate)
+    const updatedTask = await editTask(
+      params.taskId, 
+      params.name, 
+      params.description, 
+      params.startDate, 
+      params.endDate
+    )
 
     return NextResponse.json({ task: updatedTask }, { status: 200 })
   } catch (error) {

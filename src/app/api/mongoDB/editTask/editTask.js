@@ -24,7 +24,7 @@ export async function editTask (taskId, name, description, startDate, endDate) {
     // Find the task by its ObjectId and update its name
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
-      { name: name ,
+      { name: name,
         description: description,
         startDate: startDate,
         endDate: endDate
