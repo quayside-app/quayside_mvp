@@ -6,6 +6,7 @@ import cydagre from 'cytoscape-dagre'
 import xIcon from '../../public/svg/x.svg'
 import Image from 'next/image'
 import TaskModal from './TaskModal'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 
 cytoscape.use(cxtmenu)
 cytoscape.use(cydagre)
@@ -45,6 +46,9 @@ const Modal = ({ show, onClose, onSubmit, children }) => {
  * <TreeGraph />
  */
 function TreeGraph ({ className, projectID }) {
+  const router =  useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   // Fetch Tree data
   const [tasks, setTasks] = useState(null)
   const containerRef = useRef(null)
@@ -252,12 +256,19 @@ function TreeGraph ({ className, projectID }) {
     })
 
     cy.autolock(true)
+
+    cy.on('click', 'node', function(evt){
+      var node = evt.target;
+      router.push(`${pathname}?task=${node.id()}`);
+    });
+    
   }, [tasks])
+
 
   return (
   
     <div className={className}>
-      <TaskModal isOpen='true'/>
+      {searchParams.get('task') && <TaskModal isOpen='true' taskId={searchParams.get('task')}/> }
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
 
       <Modal show={modalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal}>

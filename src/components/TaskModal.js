@@ -4,8 +4,8 @@ import Image from 'next/image';
 import xIcon from '../../public/svg/x.svg';
 import Input from '../components/Input';
 
-export default function TaskModal({isOpen, handleClose}) {
-    if (!isOpen) return null;
+export default function TaskModal({taskId, handleClose}) {
+
 
     const [formData, setFormData] = useState({
         name: '',
@@ -17,7 +17,7 @@ export default function TaskModal({isOpen, handleClose}) {
 
     useEffect(() => {
     // Fetch Task data
-    fetch(`/api/mongoDB/getTasks?taskID=${'65530c573f9666ab932b59e4'}`, {
+    fetch(`/api/mongoDB/getTasks?taskID=${taskId}`, {
         method: 'GET'
     }).then(async (response) => {
         const body = await response.json()
@@ -57,7 +57,7 @@ export default function TaskModal({isOpen, handleClose}) {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              taskId: '65530c573f9666ab932b59e4',
+              taskId: taskId,
               name: formData.name,
               description: formData.description,
               startDate: formData.startDate,
