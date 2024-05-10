@@ -1,5 +1,7 @@
 ### Quayside
 
+This Repo has been ARCHIVED and is out of date if you are here. Please go to the new repo: [https://github.com/quayside-app/quayside](https://github.com/quayside-app/quayside)
+
 Welcome to our Quayside MVP. The tech stack for this is the MERN framework (Mongo DB, Express.js, React Next.js, and Node.js). This will be hosted on Google Cloud Services.
 
 ## Setup
